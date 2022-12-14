@@ -1,9 +1,5 @@
 package pt.ipleiria.estg.dei.ei.dae.daeproject.entities;
 
-
-import pt.ipleiria.estg.dei.ei.dae.academics.entities.Course;
-import pt.ipleiria.estg.dei.ei.dae.academics.entities.User;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -16,10 +12,21 @@ import java.io.Serializable;
 })
 public class Customer extends User implements Serializable {
 
+    private int numeroFiscal;
+
     public Customer() {
     }
 
-    public Customer(String username, String password, String name, String email, Course course) {
-        super(username, password, name, email);
+    public Customer(int id, String name, String email, String password, int numeroFiscal) {
+        super(id, name, password, email);
+        this.numeroFiscal = numeroFiscal;
+    }
+
+    public int getNumeroFiscal() {
+        return numeroFiscal;
+    }
+
+    public void setNumeroFiscal(int numeroFiscal) {
+        this.numeroFiscal = numeroFiscal;
     }
 }

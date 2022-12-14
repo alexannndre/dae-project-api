@@ -1,8 +1,5 @@
 package pt.ipleiria.estg.dei.ei.dae.daeproject.entities;
 
-import pt.ipleiria.estg.dei.ei.dae.academics.entities.Subject;
-import pt.ipleiria.estg.dei.ei.dae.academics.entities.User;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.LinkedList;
@@ -20,8 +17,8 @@ public class Expert extends User implements Serializable {
     public Expert() {
     }
 
-    public Expert(String username, String password, String name, String email, String office) {
-        super(username, password, name, email);
+    public Expert(int id, String name, String email, String password) {
+        super(id, password, name, email);
     }
 
 }

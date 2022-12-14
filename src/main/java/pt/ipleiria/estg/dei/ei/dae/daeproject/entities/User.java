@@ -9,12 +9,14 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class User extends Versionable implements Serializable {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class User extends Versionable implements Serializable {
     @Id
-    private String username;
+    private int id;
+
+    private String name;
     @NotNull
-    private String password, name;
+    private String password;
     @Email
     @NotNull
     private String email;
@@ -22,19 +24,19 @@ public class User extends Versionable implements Serializable {
     public User() {
     }
 
-    public User(String username, String password, String name, String email) {
-        this.username = username;
+    public User(int id, String name, String email, String password) {
+        this.id = id;
         this.password = password;
         this.name = name;
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public int getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getPassword() {
