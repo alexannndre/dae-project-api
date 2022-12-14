@@ -3,32 +3,25 @@ package pt.ipleiria.estg.dei.ei.dae.daeproject.dtos;
 import java.io.Serializable;
 
 public class ExpertDTO implements Serializable {
-    private String username, password, name, email;
+    private int id;
+    private String name, password, email;
 
     public ExpertDTO() {
     }
 
-    public ExpertDTO(String username, String password, String name, String email) {
-        this.username = username;
-        this.password = password;
+    public ExpertDTO(int id, String name, String password, String email) {
+        this.id = id;
         this.name = name;
+        this.password = password;
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public int getId() {
+        return id;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,6 +30,14 @@ public class ExpertDTO implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getEmail() {
