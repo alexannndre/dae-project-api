@@ -3,16 +3,29 @@ package pt.ipleiria.estg.dei.ei.dae.daeproject.dtos;
 import java.io.Serializable;
 
 public class CustomerDTO implements Serializable {
-    private String username, password, name, email;
+    private int id;
+    private String username;
+    private String password;
+    private String email;
+    private String taxNumber;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String username, String password, String name, String email) {
+    public CustomerDTO(int id, String username, String password, String email, String taxNumber) {
+        this.id = id;
         this.username = username;
         this.password = password;
-        this.name = name;
         this.email = email;
+        this.taxNumber = taxNumber;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -31,19 +44,19 @@ public class CustomerDTO implements Serializable {
         this.password = password;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getEmail() {
         return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getTaxNumber() {
+        return taxNumber;
+    }
+
+    public void setTaxNumber(String taxNumber) {
+        this.taxNumber = taxNumber;
     }
 }

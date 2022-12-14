@@ -11,22 +11,21 @@ import java.io.Serializable;
         )
 })
 public class Customer extends User implements Serializable {
-
-    private int numeroFiscal;
+    private int taxNumber;
 
     public Customer() {
     }
 
-    public Customer(int id, String name, String email, String password, int numeroFiscal) {
+    public Customer(int id, String name, String email, String password, int taxNumber) {
         super(id, name, password, email);
-        this.numeroFiscal = numeroFiscal;
+        this.taxNumber = taxNumber;
     }
 
-    public int getNumeroFiscal() {
-        return numeroFiscal;
+    public int getTaxNumber() {
+        return taxNumber;
     }
 
-    public void setNumeroFiscal(int numeroFiscal) {
-        this.numeroFiscal = numeroFiscal;
+    public void setTaxNumber(int taxNumber) {
+        this.taxNumber = taxNumber;
     }
 }
