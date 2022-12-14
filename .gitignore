@@ -14,6 +14,7 @@ target/
 *.iml
 *.ipr
 
+
 ### Eclipse ###
 .apt_generated
 .classpath
@@ -38,3 +39,12 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+
+.idea/artifacts/dae_project_api_war.xml
+.idea/artifacts/dae_project_api_war_exploded.xml
+.idea/discord.xml
+.idea/misc.xml
+.idea/vcs.xml
+.idea/workspace.xml
+.idea/workspace.xml
