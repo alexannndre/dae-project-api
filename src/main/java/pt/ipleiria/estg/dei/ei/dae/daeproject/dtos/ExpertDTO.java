@@ -1,9 +1,12 @@
 package pt.ipleiria.estg.dei.ei.dae.daeproject.dtos;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class ExpertDTO implements Serializable {
+    @NotNull
     private int id;
+    @NotNull
     private String name, password, email;
 
     public ExpertDTO() {

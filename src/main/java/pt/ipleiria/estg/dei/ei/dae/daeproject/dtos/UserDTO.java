@@ -10,24 +10,26 @@ import java.util.stream.Collectors;
 
 public class UserDTO implements Serializable {
     @NotNull
-    private String username;
-
+    private int id;
     @NotNull
-    private String name;
-
-    @NotNull
-    private String email;
-
-    @NotNull
-    private String role;
+    private String username, name, email, role;
 
     public UserDTO() {}
 
-    public UserDTO(String username, String name, String email, String role) {
+    public UserDTO(int id, String username, String name, String email, String role) {
+        this.id = id;
         this.username = username;
         this.name = name;
         this.email = email;
         this.role = role;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -60,18 +62,5 @@ public class UserDTO implements Serializable {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public static UserDTO from(User user) {
-        return new UserDTO(
-                user.getUsername(),
-                user.getName(),
-                user.getEmail(),
-                Hibernate.getClass(user).getSimpleName()
-        );
-    }
-
-    public static List<UserDTO> from(List<User> users) {
-        return users.stream().map(UserDTO::from).collect(Collectors.toList());
     }
 }

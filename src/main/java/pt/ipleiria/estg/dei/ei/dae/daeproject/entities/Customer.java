@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeproject.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
@@ -11,6 +12,7 @@ import java.io.Serializable;
         )
 })
 public class Customer extends User implements Serializable {
+    @NotNull
     private int taxNumber;
 
     public Customer() {

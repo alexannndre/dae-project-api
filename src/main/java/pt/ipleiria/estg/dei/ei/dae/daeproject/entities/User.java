@@ -13,10 +13,8 @@ import java.io.Serializable;
 public abstract class User extends Versionable implements Serializable {
     @Id
     private int id;
-
-    private String name;
     @NotNull
-    private String password;
+    private String name, password;
     @Email
     @NotNull
     private String email;

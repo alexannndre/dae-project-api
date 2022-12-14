@@ -1,13 +1,13 @@
 package pt.ipleiria.estg.dei.ei.dae.daeproject.dtos;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 public class CustomerDTO implements Serializable {
+    @NotNull
     private int id;
-    private String name;
-    private String password;
-    private String email;
-    private String taxNumber;
+    @NotNull
+    private String name, password, email, taxNumber;
 
     public CustomerDTO() {
     }
