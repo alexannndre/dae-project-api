@@ -1,4 +1,4 @@
-# if problems with elytron, use version  24.0.0.Final
+# if problems with elytron, use version 24.0.0.Final
 FROM quay.io/wildfly/wildfly:26.1.2.Final
 
 ENV WILDFLY_HOME=/opt/jboss/wildfly
