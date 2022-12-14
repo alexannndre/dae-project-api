@@ -2,7 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.academics.security;
 
 import io.jsonwebtoken.Jwts;
 import org.hibernate.Hibernate;
-import pt.ipleiria.estg.dei.ei.dae.academics.dtos.ejbs.UserBean;
+import pt.ipleiria.estg.dei.ei.dae.academics.ejbs.UserBean;
 import pt.ipleiria.estg.dei.ei.dae.academics.entities.User;
 import pt.ipleiria.estg.dei.ei.dae.academics.exceptions.MyEntityNotFoundException;
 

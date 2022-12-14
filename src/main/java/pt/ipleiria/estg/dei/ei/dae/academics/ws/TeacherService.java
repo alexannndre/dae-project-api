@@ -2,7 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.academics.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.academics.dtos.SubjectDTO;
 import pt.ipleiria.estg.dei.ei.dae.academics.dtos.TeacherDTO;
-import pt.ipleiria.estg.dei.ei.dae.academics.dtos.ejbs.TeacherBean;
+import pt.ipleiria.estg.dei.ei.dae.academics.ejbs.TeacherBean;
 import pt.ipleiria.estg.dei.ei.dae.academics.entities.Subject;
 import pt.ipleiria.estg.dei.ei.dae.academics.entities.Teacher;
 import pt.ipleiria.estg.dei.ei.dae.academics.exceptions.MyEntityNotFoundException;

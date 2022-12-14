@@ -11,6 +11,7 @@ import java.io.Serializable;
                 query = "SELECT c FROM Customer c ORDER BY c.name" // JPQL
         )
 })
+@Table(name = "customers")
 public class Customer extends User implements Serializable {
     @NotNull
     private int taxNumber;

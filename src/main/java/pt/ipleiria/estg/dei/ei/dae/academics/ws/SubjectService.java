@@ -3,7 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.academics.ws;
 import pt.ipleiria.estg.dei.ei.dae.academics.dtos.StudentDTO;
 import pt.ipleiria.estg.dei.ei.dae.academics.dtos.SubjectDTO;
 import pt.ipleiria.estg.dei.ei.dae.academics.dtos.TeacherDTO;
-import pt.ipleiria.estg.dei.ei.dae.academics.dtos.ejbs.SubjectBean;
+import pt.ipleiria.estg.dei.ei.dae.academics.ejbs.SubjectBean;
 import pt.ipleiria.estg.dei.ei.dae.academics.entities.Student;
 import pt.ipleiria.estg.dei.ei.dae.academics.entities.Subject;
 import pt.ipleiria.estg.dei.ei.dae.academics.entities.Teacher;

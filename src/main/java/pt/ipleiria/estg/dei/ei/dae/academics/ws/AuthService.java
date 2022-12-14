@@ -2,7 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.academics.ws;
 
 import pt.ipleiria.estg.dei.ei.dae.academics.dtos.Auth;
 import pt.ipleiria.estg.dei.ei.dae.academics.dtos.UserDTO;
-import pt.ipleiria.estg.dei.ei.dae.academics.dtos.ejbs.UserBean;
+import pt.ipleiria.estg.dei.ei.dae.academics.ejbs.UserBean;
 import pt.ipleiria.estg.dei.ei.dae.academics.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.academics.security.Authenticated;
 import pt.ipleiria.estg.dei.ei.dae.academics.security.TokenIssuer;

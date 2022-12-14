@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ei.dae.academics.dtos.ejbs;
+package pt.ipleiria.estg.dei.ei.dae.academics.ejbs;
 
 import pt.ipleiria.estg.dei.ei.dae.academics.entities.Administrator;
 import pt.ipleiria.estg.dei.ei.dae.academics.security.Hasher;

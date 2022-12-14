@@ -12,6 +12,7 @@ import java.util.List;
                 query = "SELECT e FROM Expert e ORDER BY e.name" // JPQL
         )
 })
+@Table(name = "experts")
 public class Expert extends User implements Serializable {
 
     public Expert() {

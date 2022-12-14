@@ -1,4 +1,4 @@
-package pt.ipleiria.estg.dei.ei.dae.daeproject.dtos.ejbs;
+package pt.ipleiria.estg.dei.ei.dae.daeproject.ejbs;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
