@@ -1,19 +1,14 @@
 package pt.ipleiria.estg.dei.ei.dae.daeproject.dtos;
 
-import pt.ipleiria.estg.dei.ei.dae.academics.dtos.DocumentDTO;
-import pt.ipleiria.estg.dei.ei.dae.academics.dtos.SubjectDTO;
-
 import java.io.Serializable;
-import java.util.LinkedList;
-import java.util.List;
 
-public class ClientDTO implements Serializable {
-    private String username, password, name, email, courseName;
+public class CustomerDTO implements Serializable {
+    private String username, password, name, email;
 
-    public ClientDTO() {
+    public CustomerDTO() {
     }
 
-    public ClientDTO(String username, String password, String name, String email) {
+    public CustomerDTO(String username, String password, String name, String email) {
         this.username = username;
         this.password = password;
         this.name = name;
