@@ -8,14 +8,13 @@ import java.io.Serializable;
 @Entity
 @Table(name = "users")
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public class User extends Versionable implements Serializable {
-    @Id
+public abstract class User extends Versionable implements Serializable {
     private int id;
+    @Id
+    @Email
+    private String email;
     @NotNull
     private String name, password;
-    @Email
-    @NotNull
-    private String email;
 
     public User() {
     }
