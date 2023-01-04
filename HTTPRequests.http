@@ -1,0 +1,37 @@
+#### Occurrences
+
+### Get All Occurrences
+GET http://localhost:8080/daeproject/api/occurrences
+Accept: application/json
+
+### Get Occurrence by ID
+GET http://localhost:8080/daeproject/api/occurrences/1
+Accept: application/json
+
+###
+POST http://localhost:8080/academics/api/students
+Content-Type: application/json
+
+{
+  "username": "john2",
+  "password": "jd",
+  "name": "John Doe",
+  "email": "johndoe@mail.com",
+  "courseCode": 1234
+}
+
+###
+PUT http://localhost:8080/academics/api/students/joao
+Content-Type: application/json
+
+{
+  "username": "joao",
+  "password": "joaojoao",
+  "name": "Joao 2",
+  "email": "teste@teste.com",
+  "courseCode": 1234
+}
+
+###
+DELETE http://localhost:8080/academics/api/students/maria
+Accept: application/json

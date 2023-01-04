@@ -3,16 +3,16 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class IncidentDTO implements Serializable {
+public class OccurrenceDTO implements Serializable {
     @NotNull
     private int id;
     @NotNull
     private String description, status;
 
-    public IncidentDTO() {
+    public OccurrenceDTO() {
     }
 
-    public IncidentDTO(int id, String description, String status) {
+    public OccurrenceDTO(int id, String description, String status) {
         this.id = id;
         this.description = description;
         this.status = status;

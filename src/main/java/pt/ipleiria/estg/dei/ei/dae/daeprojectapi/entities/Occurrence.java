@@ -7,21 +7,21 @@ import java.io.Serializable;
 @Entity
 @NamedQueries(value = {
         @NamedQuery(
-                name = "getAllIncidents",
-                query = "SELECT i FROM Incident i" // JPQL
+                name = "getAllOccurrences",
+                query = "SELECT o FROM Occurrence o" // JPQL
         )
 })
-@Table(name = "incidents")
-public class Incident extends Versionable implements Serializable {
+@Table(name = "occurrences")
+public class Occurrence extends Versionable implements Serializable {
     @Id
     private int id;
     @NotNull
     private String description, status;
 
-    public Incident() {
+    public Occurrence() {
     }
 
-    public Incident(int id, String description, String status) {
+    public Occurrence(int id, String description, String status) {
         this.id = id;
         this.description = description;
         this.status = status;
