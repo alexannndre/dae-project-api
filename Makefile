@@ -3,7 +3,7 @@
 ifneq (,$(wildcard ./.env))
     include .env
     export
-    APPLICATION_NAME ?= dae-project
+    APPLICATION_NAME ?= daeproject
 endif
 
 up:

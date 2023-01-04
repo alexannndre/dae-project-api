@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>pt.ipleiria.estg.dei.ei.dae</groupId>
-    <artifactId>dae-project</artifactId>
+    <artifactId>dae-project-api</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>dae-project</name>
+    <name>dae-project-api</name>
     <packaging>war</packaging>
 
     <properties>
@@ -61,7 +61,7 @@
                 <version>3.3.2</version>
                 <configuration>
                     <outputDirectory>target</outputDirectory>
-                    <warName>dae-project</warName>
+                    <warName>daeproject</warName>
                 </configuration>
             </plugin>
         </plugins>
