@@ -8,7 +8,7 @@ Accept: application/json
 GET http://localhost:8080/daeproject/api/occurrences/1
 Accept: application/json
 
-### Get All Occurrences of a Specific User By NIF
+### Get All Occurrences of a Specific Customer By NIF
 GET http://localhost:8080/daeproject/api/customers/289910325/occurrences
 Accept: application/json
 
