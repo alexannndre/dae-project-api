@@ -13,9 +13,15 @@ public class CustomerBean {
     private EntityManager em;
 
     public Customer find(String nif) {
-        Customer customer = em.find(Customer.class, nif);
+        var customer = em.find(Customer.class, nif);
 //        if (customer == null)
 //            throw new MyEntityNotFoundException("Customer with nif " + nif + " not found.");
+        return customer;
+    }
+
+    public Customer findOrFail(String nif) {
+        var customer = em.getReference(Customer.class, nif);
+        Hibernate.initialize(customer);
         return customer;
     }
 

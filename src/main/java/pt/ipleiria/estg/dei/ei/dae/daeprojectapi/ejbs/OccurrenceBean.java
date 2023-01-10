@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -13,10 +14,15 @@ public class OccurrenceBean {
     @PersistenceContext
     private EntityManager em;
 
-    public Occurrence create(String description, String status, Customer customer) {
+    @EJB
+    CustomerBean customerBean = new CustomerBean();
+
+    public void create(String description, String status, String customerNif) {
+        var customer = customerBean.findOrFail(customerNif);
         var occurrence = new Occurrence(description, status, customer);
+
         em.persist(occurrence);
-        return occurrence;
+        customer.addOccurrence(occurrence);
     }
 
     public Occurrence find(int id) {

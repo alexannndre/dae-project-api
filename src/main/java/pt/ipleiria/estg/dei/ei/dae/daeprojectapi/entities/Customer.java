@@ -36,4 +36,9 @@ public class Customer extends User implements Serializable {
     public void setOccurrences(List<Occurrence> occurrences) {
         this.occurrences = occurrences;
     }
+
+    public void addOccurrence(Occurrence occurrence) {
+        if (!this.occurrences.contains(occurrence))
+            this.occurrences.add(occurrence);
+    }
 }
