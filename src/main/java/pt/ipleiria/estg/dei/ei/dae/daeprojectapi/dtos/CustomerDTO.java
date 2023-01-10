@@ -1,15 +1,16 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
+
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomerDTO implements Serializable {
     private String nif, name, password, email;
-    private List<OccurrenceDTO> occurrences;
 
     public CustomerDTO() {
-        this.occurrences = new LinkedList<>();
     }
 
     public CustomerDTO(String nif, String name, String password, String email) {
@@ -17,7 +18,6 @@ public class CustomerDTO implements Serializable {
         this.name = name;
         this.password = password;
         this.email = email;
-        this.occurrences = new LinkedList<>();
     }
 
     public String getNif() {
@@ -52,11 +52,16 @@ public class CustomerDTO implements Serializable {
         this.email = email;
     }
 
-    public List<OccurrenceDTO> getOccurrences() {
-        return occurrences;
+    public static CustomerDTO from(Customer customer) {
+        return new CustomerDTO(
+                customer.getNif(),
+                customer.getName(),
+                customer.getPassword(),
+                customer.getEmail()
+        );
     }
 
-    public void setOccurrences(List<OccurrenceDTO> occurrences) {
-        this.occurrences = occurrences;
+    public static List<CustomerDTO> from(List<Customer> customers) {
+        return customers.stream().map(CustomerDTO::from).collect(Collectors.toList());
     }
 }

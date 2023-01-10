@@ -2,19 +2,26 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.exceptions.MyConstraintViolationException;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.exceptions.MyEntityExistsException;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.exceptions.MyEntityNotFoundException;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Hasher;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.validation.ConstraintViolationException;
+import java.util.List;
 
 @Stateless
 public class CustomerBean {
     @PersistenceContext
     private EntityManager em;
+
+    @Inject
+    private Hasher hasher;
 
     public Customer find(String nif) throws MyEntityNotFoundException {
         var customer = em.find(Customer.class, nif);
@@ -30,7 +37,7 @@ public class CustomerBean {
     }
 
     public Customer findWithOccurrences(String nif) throws MyEntityNotFoundException {
-        Customer customer = em.find(Customer.class, nif);
+        var customer = em.find(Customer.class, nif);
         if (customer == null)
             throw new MyEntityNotFoundException("Customer with nif " + nif + " not found.");
         Hibernate.initialize(customer.getOccurrences());
@@ -43,14 +50,31 @@ public class CustomerBean {
         return (Long) query.getSingleResult() > 0;
     }
 
+    public List<Customer> getAll(int offset, int limit) {
+        return em.createNamedQuery("getAllCustomers", Customer.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public Long count() {
+        return em.createQuery("SELECT COUNT (*) FROM " + Customer.class.getSimpleName(), Long.class).getSingleResult();
+    }
+
     public void create(String nif, String name, String email, String password) throws MyEntityExistsException, MyConstraintViolationException {
         if (exists(nif))
             throw new MyEntityExistsException("Customer with nif " + nif + " already exists.");
         try {
-            Customer customer = new Customer(nif, name, email, password);
+            Customer customer = new Customer(nif, name, email, hasher.hash(password));
             em.persist(customer);
         } catch (ConstraintViolationException e) {
             throw new MyConstraintViolationException(e);
         }
+    }
+
+    public List<Occurrence> getOccurrences(String nif) throws MyEntityNotFoundException {
+        var occurrences = findOrFail(nif).getOccurrences();
+        Hibernate.initialize(occurrences);
+        return occurrences;
     }
 }

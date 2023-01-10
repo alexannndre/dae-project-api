@@ -1,28 +1,32 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class OccurrenceDTO implements Serializable {
     @NotNull
-    private int id;
+    private Long id;
     @NotNull
     private String description, status;
 
     public OccurrenceDTO() {
     }
 
-    public OccurrenceDTO(int id, String description, String status) {
+    public OccurrenceDTO(Long id, String description, String status) {
         this.id = id;
         this.description = description;
         this.status = status;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -40,5 +44,17 @@ public class OccurrenceDTO implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public static OccurrenceDTO from(Occurrence occurrence) {
+        return new OccurrenceDTO(
+                occurrence.getId(),
+                occurrence.getDescription(),
+                occurrence.getStatus()
+        );
+    }
+
+    public static List<OccurrenceDTO> from(List<Occurrence> occurrences) {
+        return occurrences.stream().map(OccurrenceDTO::from).collect(Collectors.toList());
     }
 }

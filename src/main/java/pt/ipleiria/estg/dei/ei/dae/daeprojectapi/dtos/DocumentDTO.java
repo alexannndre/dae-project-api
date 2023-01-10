@@ -10,12 +10,12 @@ public class DocumentDTO implements Serializable {
     private Long id;
     private String filename;
     private String filepath;
-    private int occurrenceId;
+    private Long occurrenceId;
 
     public DocumentDTO() {
     }
 
-    public DocumentDTO(Long id, String filename, String filepath, int occurrenceId) {
+    public DocumentDTO(Long id, String filename, String filepath, Long occurrenceId) {
         this.id = id;
         this.filename = filename;
         this.filepath = filepath;
@@ -46,11 +46,11 @@ public class DocumentDTO implements Serializable {
         this.filepath = filepath;
     }
 
-    public int getOccurrenceId() {
+    public Long getOccurrenceId() {
         return occurrenceId;
     }
 
-    public void setOccurrenceId(int occurrenceId) {
+    public void setOccurrenceId(Long occurrenceId) {
         this.occurrenceId = occurrenceId;
     }
 
