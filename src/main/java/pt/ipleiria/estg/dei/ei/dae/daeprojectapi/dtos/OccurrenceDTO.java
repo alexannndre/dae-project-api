@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Status;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -11,12 +12,15 @@ public class OccurrenceDTO implements Serializable {
     @NotNull
     private Long id;
     @NotNull
-    private String description, status;
+    private String description;
+
+    @NotNull
+    private Status status;
 
     public OccurrenceDTO() {
     }
 
-    public OccurrenceDTO(Long id, String description, String status) {
+    public OccurrenceDTO(Long id, String description, Status status) {
         this.id = id;
         this.description = description;
         this.status = status;
@@ -38,11 +42,11 @@ public class OccurrenceDTO implements Serializable {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

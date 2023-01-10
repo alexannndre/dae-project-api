@@ -24,7 +24,12 @@ public class Occurrence extends Versionable implements Serializable {
     private Long id;
 
     @NotNull
-    private String description, status;
+    private String description;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private Status status;
+
 
     @ManyToOne
     private Customer customer;
@@ -36,7 +41,7 @@ public class Occurrence extends Versionable implements Serializable {
         this.documents = new LinkedList<>();
     }
 
-    public Occurrence(String description, String status, Customer customer) {
+    public Occurrence(String description, Status status, Customer customer) {
         this.description = description;
         this.status = status;
         this.customer = customer;
@@ -59,11 +64,11 @@ public class Occurrence extends Versionable implements Serializable {
         this.description = description;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

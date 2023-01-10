@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Status;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -17,7 +18,7 @@ public class OccurrenceBean {
     @EJB
     CustomerBean customerBean = new CustomerBean();
 
-    public void create(String description, String status, String customerNif) {
+    public void create(String description, Status status, String customerNif) {
         var customer = customerBean.findOrFail(customerNif);
         var occurrence = new Occurrence(description, status, customer);
 
