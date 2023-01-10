@@ -28,17 +28,17 @@ public class ConfigBean {
             customerBean.create("289910325", "Pedro", "pedro@email.com", "123456");
 
             // Occurrences
-            occurrenceBean.create("Occurrence 1", "Open", "289910323");
-            occurrenceBean.create("Occurrence 2", "Open", "289910323");
-            occurrenceBean.create("Occurrence 3", "Pending", "289910323");
+            occurrenceBean.create("Occurrence 1", "pending", "289910323");
+            occurrenceBean.create("Occurrence 2", "approved", "289910323");
+            occurrenceBean.create("Occurrence 3", "rejected", "289910323");
 
-            occurrenceBean.create("Occurrence 4", "Pending", "289910324");
-            occurrenceBean.create("Occurrence 5", "Pending", "289910324");
-            occurrenceBean.create("Occurrence 6", "Pending", "289910324");
+            occurrenceBean.create("Occurrence 4", "solved", "289910324");
+            occurrenceBean.create("Occurrence 5", "pending", "289910324");
+            occurrenceBean.create("Occurrence 6", "pending", "289910324");
 
-            occurrenceBean.create("Occurrence 7", "Open", "289910325");
-            occurrenceBean.create("Occurrence 8", "Denied", "289910325");
-            occurrenceBean.create("Occurrence 9", "Open", "289910325");
+            occurrenceBean.create("Occurrence 7", "approved", "289910325");
+            occurrenceBean.create("Occurrence 8", "rejected", "289910325");
+            occurrenceBean.create("Occurrence 9", "approved", "289910325");
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }
