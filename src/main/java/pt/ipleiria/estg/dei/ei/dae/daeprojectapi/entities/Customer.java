@@ -15,7 +15,6 @@ import java.util.List;
                 query = "SELECT c FROM Customer c ORDER BY c.name" // JPQL
         )
 })
-//@Table(name = "customers")
 public class Customer extends User implements Serializable {
     @OneToMany(mappedBy = "customer")
     private List<Occurrence> occurrences;
