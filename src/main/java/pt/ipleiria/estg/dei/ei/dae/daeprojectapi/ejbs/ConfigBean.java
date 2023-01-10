@@ -10,17 +10,23 @@ import java.util.logging.Logger;
 @Startup
 public class ConfigBean {
     @EJB
+    CustomerBean customerBean = new CustomerBean();
+
+    @EJB
     OccurrenceBean occurrenceBean = new OccurrenceBean();
 
-    private static final Logger LOGGER = Logger.getLogger("ejbs.ConfigBean");
+//    private static final Logger LOGGER = Logger.getLogger("ejbs.ConfigBean");
 
     @PostConstruct
     public void PopulateDB() {
         System.out.println("Hello Java EE!");
 
-        occurrenceBean.create(1, "Occurrence 1", "Open");
-        occurrenceBean.create(2, "Occurrence 2", "Open");
-        occurrenceBean.create(3, "Occurrence 3", "Open");
-        occurrenceBean.create(4, "Occurrence 4", "Open");
+        customerBean.create("289910323", "João", "joao@email.com", "123456");
+        customerBean.create("289910324", "Maria", "maria@email.com", "123456");
+        customerBean.create("289910325", "Pedro", "pedro@email.com", "123456");
+
+        occurrenceBean.create("Occurrence 1", "Open", customerBean.find("289910323"));
+        occurrenceBean.create("Occurrence 2", "Pending", customerBean.find("289910324"));
+        occurrenceBean.create("Occurrence 3", "Open", customerBean.find("289910325"));
     }
 }

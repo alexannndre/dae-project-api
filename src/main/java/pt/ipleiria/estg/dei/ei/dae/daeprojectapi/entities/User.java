@@ -7,10 +7,10 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "users")
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class User extends Versionable implements Serializable {
-    private int id;
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+public class User extends Versionable implements Serializable {
     @Id
+    private String nif;
     @Email
     private String email;
     @NotNull
@@ -19,19 +19,19 @@ public abstract class User extends Versionable implements Serializable {
     public User() {
     }
 
-    public User(int id, String name, String email, String password) {
-        this.id = id;
+    public User(String nif, String name, String email, String password) {
+        this.nif = nif;
         this.password = password;
         this.name = name;
         this.email = email;
     }
 
-    public int getId() {
-        return id;
+    public String getNif() {
+        return nif;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
     public String getPassword() {

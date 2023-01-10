@@ -1,31 +1,31 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 public class CustomerDTO implements Serializable {
-    @NotNull
-    private int id;
-    @NotNull
-    private String name, password, email, taxNumber;
+    private String nif, name, password, email;
+    private List<OccurrenceDTO> occurrences;
 
     public CustomerDTO() {
+        this.occurrences = new LinkedList<>();
     }
 
-    public CustomerDTO(int id, String name, String password, String email, String taxNumber) {
-        this.id = id;
+    public CustomerDTO(String nif, String name, String password, String email) {
+        this.nif = nif;
         this.name = name;
         this.password = password;
         this.email = email;
-        this.taxNumber = taxNumber;
+        this.occurrences = new LinkedList<>();
     }
 
-    public int getId() {
-        return id;
+    public String getNif() {
+        return nif;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
     public String getName() {
@@ -52,11 +52,11 @@ public class CustomerDTO implements Serializable {
         this.email = email;
     }
 
-    public String getTaxNumber() {
-        return taxNumber;
+    public List<OccurrenceDTO> getOccurrences() {
+        return occurrences;
     }
 
-    public void setTaxNumber(String taxNumber) {
-        this.taxNumber = taxNumber;
+    public void setOccurrences(List<OccurrenceDTO> occurrences) {
+        this.occurrences = occurrences;
     }
 }

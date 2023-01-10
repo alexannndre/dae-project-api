@@ -7,18 +7,28 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Entity
+@Table(name = "occurrences")
 @NamedQueries(value = {
         @NamedQuery(
                 name = "getAllOccurrences",
-                query = "SELECT o FROM Occurrence o" // JPQL
+                query = "SELECT o FROM Occurrence o"
+        ),
+        @NamedQuery(
+                name = "getCustomerOccurrences",
+                query = "SELECT o FROM Occurrence o WHERE o.customer.nif = :nif"
         )
 })
-@Table(name = "occurrences")
 public class Occurrence extends Versionable implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+
     @NotNull
     private String description, status;
+
+    @ManyToOne
+    private Customer customer;
+
     @OneToMany(mappedBy = "occurrence")
     private List<Document> documents;
 
@@ -26,10 +36,10 @@ public class Occurrence extends Versionable implements Serializable {
         this.documents = new LinkedList<>();
     }
 
-    public Occurrence(int id, String description, String status) {
-        this.id = id;
+    public Occurrence(String description, String status, Customer customer) {
         this.description = description;
         this.status = status;
+        this.customer = customer;
         this.documents = new LinkedList<>();
     }
 
@@ -55,5 +65,21 @@ public class Occurrence extends Versionable implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<Document> getDocuments() {
+        return documents;
+    }
+
+    public void setDocuments(List<Document> documents) {
+        this.documents = documents;
     }
 }

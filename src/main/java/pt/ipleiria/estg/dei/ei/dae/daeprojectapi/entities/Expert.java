@@ -13,14 +13,14 @@ import java.io.Serializable;
                 query = "SELECT e FROM Expert e ORDER BY e.name" // JPQL
         )
 })
-@Table(name = "experts")
+//@Table(name = "experts")
 public class Expert extends User implements Serializable {
 
     public Expert() {
     }
 
-    public Expert(int id, String name, String email, String password) {
-        super(id, password, name, email);
+    public Expert(String nif, String name, String email, String password) {
+        super(nif, name, email, password);
     }
 
 }

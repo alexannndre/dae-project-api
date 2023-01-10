@@ -5,26 +5,24 @@ import java.io.Serializable;
 
 public class UserDTO implements Serializable {
     @NotNull
-    private int id;
-    @NotNull
-    private String username, name, email, role;
+    private String nif, username, name, email, role;
 
     public UserDTO() {}
 
-    public UserDTO(int id, String username, String name, String email, String role) {
-        this.id = id;
+    public UserDTO(String nif, String username, String name, String email, String role) {
+        this.nif = nif;
         this.username = username;
         this.name = name;
         this.email = email;
         this.role = role;
     }
 
-    public int getId() {
-        return id;
+    public String getNif() {
+        return nif;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setNif(String nif) {
+        this.nif = nif;
     }
 
     public String getUsername() {

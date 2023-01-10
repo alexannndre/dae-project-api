@@ -1,7 +1,9 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
@@ -13,29 +15,25 @@ import java.util.List;
                 query = "SELECT c FROM Customer c ORDER BY c.name" // JPQL
         )
 })
-@Table(name = "customers")
+//@Table(name = "customers")
 public class Customer extends User implements Serializable {
-    @NotNull
-    private int taxNumber;
-
-    //    @OneToMany(mappedBy = "customer")
-//    private List<Occurrence> occurrences;
+    @OneToMany(mappedBy = "customer")
+    private List<Occurrence> occurrences;
 
     public Customer() {
-//        this.occurrences = new LinkedList<>();
+        this.occurrences = new LinkedList<>();
     }
 
-    public Customer(int id, String name, String email, String password, int taxNumber) {
-        super(id, name, password, email);
-        this.taxNumber = taxNumber;
-//        this.occurrences = new LinkedList<>();
+    public Customer(String nif, String name, String email, String password) {
+        super(nif, name, email, password);
+        this.occurrences = new LinkedList<>();
     }
 
-    public int getTaxNumber() {
-        return taxNumber;
+    public List<Occurrence> getOccurrences() {
+        return occurrences;
     }
 
-    public void setTaxNumber(int taxNumber) {
-        this.taxNumber = taxNumber;
+    public void setOccurrences(List<Occurrence> occurrences) {
+        this.occurrences = occurrences;
     }
 }
