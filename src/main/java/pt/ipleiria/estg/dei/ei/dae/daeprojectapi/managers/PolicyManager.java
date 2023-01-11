@@ -2,9 +2,12 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.CustomerBean;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.pojos.Policy;
 
 
+import javax.ejb.EJB;
 import javax.json.Json;
 import javax.json.JsonReader;
 import java.io.StringReader;
@@ -13,6 +16,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class PolicyManager {
+
+    @EJB
+    CustomerBean customerBean = new CustomerBean();
 
     private final String API_URL = "https://63beea09585bedcb36ba824f.mockapi.io/api";
 
@@ -51,9 +57,10 @@ public class PolicyManager {
             jsonReader.readArray().forEach(jsonValue -> {
                 var jsonObject = jsonValue.asJsonObject();
                 var policy = new Policy();
-
+                policy.setCustomer(customerBean.findOrFail(jsonObject.getString("customer_vat")));
                 policy.setCode(jsonObject.getString("code"));
-                policy.setInsurerCompany(jsonObject.getString("insurerCompany"));
+                policy.setCode(jsonObject.getString("code"));
+                policy.setInsurerCompany(jsonObject.getString("insurer_company"));
                 policy.setType(jsonObject.getString("type"));
                 jsonObject.getJsonArray("covers").forEach(coverJsonValue -> policy.addCover(coverJsonValue.toString()));
 
