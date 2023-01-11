@@ -1,14 +1,12 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Status;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.util.logging.Logger;
 
-import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Status.*;
+import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status.*;
 
 @Singleton
 @Startup

@@ -1,7 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;

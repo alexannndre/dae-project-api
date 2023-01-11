@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities;
 
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
@@ -29,7 +31,6 @@ public class Occurrence extends Versionable implements Serializable {
     @NotNull
     @Enumerated(EnumType.STRING)
     private Status status;
-
 
     @ManyToOne
     private Customer customer;

@@ -1,8 +1,8 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
+import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -26,8 +26,14 @@ public class OccurrenceBean {
         customer.addOccurrence(occurrence);
     }
 
-    public Occurrence find(int id) {
+    public Occurrence find(Long id) {
         return em.find(Occurrence.class, id);
+    }
+
+    public Occurrence findOrFail(Long id) {
+        var occurrence = em.getReference(Occurrence.class, id);
+        Hibernate.initialize(occurrence);
+        return occurrence;
     }
 
     public List<Occurrence> getAllOccurrences() {

@@ -45,7 +45,7 @@ public class CustomerService {
 
     @GET
     @Path("{nif}/occurrences")
-    public Response getOccurrences(@PathParam("nif") String nif) throws MyEntityNotFoundException {
+    public Response getOccurrences(@PathParam("nif") String nif) {
         return Response.ok(OccurrenceDTO.from(customerBean.getOccurrences(nif))).build();
     }
 }

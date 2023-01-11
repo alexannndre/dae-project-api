@@ -71,8 +71,12 @@ public class CustomerBean {
             throw new MyConstraintViolationException(e);
         }
     }
+    
+    public Occurrence getOccurrence(String nif) {
+        return em.find(Occurrence.class, nif);
+    }
 
-    public List<Occurrence> getOccurrences(String nif) throws MyEntityNotFoundException {
+    public List<Occurrence> getOccurrences(String nif) {
         var occurrences = findOrFail(nif).getOccurrences();
         Hibernate.initialize(occurrences);
         return occurrences;
