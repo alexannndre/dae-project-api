@@ -12,6 +12,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import java.io.File;
@@ -23,8 +24,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA;
+import static javax.ws.rs.core.MediaType.*;
+import static javax.ws.rs.core.Response.Status.OK;
 
 @Path("occurrences")
 @Produces({APPLICATION_JSON})  // injects header “Content-Type: application/json”
@@ -113,6 +114,26 @@ public class OccurrenceService {
 
         return Response.ok(DocumentDTO.from(documents)).build();
 
+    }
+
+    @GET
+    @Path("{id}/documents/{documentId}")
+    @Produces(APPLICATION_OCTET_STREAM)
+    public Response download(@PathParam("documentId") Long documentId) {
+        var document = documentBean.findOrFail(documentId);
+        var response = Response.ok(new File(document.getFilepath()));
+
+        response.header("Content-Disposition", "attachment;filename=" + document.getFilename());
+
+        return response.build();
+    }
+
+    @GET
+    @Path("{id}/documents")
+    @Produces(APPLICATION_JSON)
+    public Response getDocuments(@PathParam("id") Long id) {
+        var documents = documentBean.getOccurrenceDocuments(id);
+        return Response.ok(DocumentDTO.from(documents)).build();
     }
 
     private void mkdirIfNotExists(String path) {

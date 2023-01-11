@@ -17,6 +17,9 @@ public class ConfigBean {
     @EJB
     OccurrenceBean occurrenceBean = new OccurrenceBean();
 
+    @EJB
+    DocumentBean documentBean = new DocumentBean();
+
     private static final Logger LOGGER = Logger.getLogger("ejbs.ConfigBean");
 
     @PostConstruct
@@ -41,6 +44,9 @@ public class ConfigBean {
             occurrenceBean.create("Occurrence 7", APPROVED, "289910325");
             occurrenceBean.create("Occurrence 8", REJECTED, "289910325");
             occurrenceBean.create("Occurrence 9", APPROVED, "289910325");
+
+            // Documents
+            documentBean.create("/opt/jboss/uploads/occurrences/1/doc1.txt", "doc1.txt", 1L);
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }

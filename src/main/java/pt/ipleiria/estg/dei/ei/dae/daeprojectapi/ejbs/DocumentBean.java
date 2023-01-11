@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
+import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 
@@ -31,7 +32,13 @@ public class DocumentBean {
         return em.find(Document.class, id);
     }
 
-    public List<Document> getOccurrenceDocuments(int occurrenceId) {
+    public Document findOrFail(Long id) {
+        var document = em.getReference(Document.class, id);
+        Hibernate.initialize(document);
+        return document;
+    }
+
+    public List<Document> getOccurrenceDocuments(Long occurrenceId) {
         return em.createNamedQuery("getOccurrenceDocuments", Document.class).setParameter("id", occurrenceId).getResultList();
     }
 }
