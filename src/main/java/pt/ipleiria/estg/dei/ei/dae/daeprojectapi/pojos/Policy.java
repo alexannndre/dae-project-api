@@ -17,7 +17,9 @@ public class Policy implements Serializable {
 
     private String insurerCompany;
 
-    private Status status;
+    private String type;
+
+    private List<String> covers;
 
     private Customer customer;
 
@@ -25,13 +27,14 @@ public class Policy implements Serializable {
 
     public Policy() {
         this.occurrences = new LinkedList<>();
+        this.covers = new LinkedList<>();
     }
 
-    public Policy(String code, String insurerCompany, Status status, Customer customer) {
+    public Policy(String code, String insurerCompany, String type, Customer customer) {
         this();
         this.code = code;
         this.insurerCompany = insurerCompany;
-        this.status = status;
+        this.type = type;
         this.customer = customer;
     }
 
@@ -51,12 +54,12 @@ public class Policy implements Serializable {
         this.insurerCompany = insurerCompany;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getType() {
+        return type;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public Customer getCustomer() {
@@ -83,5 +86,22 @@ public class Policy implements Serializable {
     public void removeOccurrence(Occurrence occurrence) {
         if (!this.occurrences.contains(occurrence))
             this.occurrences.remove(occurrence);
+    }
+
+    public List<String> getCovers() {
+        return covers;
+    }
+
+    public void setCovers(List<String> covers) {
+        this.covers = covers;
+    }
+    public void addCover(String cover) {
+        if (!this.covers.contains(cover))
+            this.covers.add(cover);
+    }
+
+    public void removeCover(String cover) {
+        if (!this.covers.contains(cover))
+            this.covers.remove(cover);
     }
 }
