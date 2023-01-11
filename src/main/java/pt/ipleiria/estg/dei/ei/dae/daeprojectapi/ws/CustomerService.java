@@ -3,7 +3,9 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ws;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.CustomerDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.PaginatedDTOs;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.PolicyDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.CustomerBean;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.requests.PageRequest;
 
 import javax.ejb.EJB;
@@ -47,6 +49,12 @@ public class CustomerService {
     @Path("{vat}/occurrences")
     public Response getOccurrences(@PathParam("vat") String vat) {
         return Response.ok(OccurrenceDTO.from(customerBean.getOccurrences(vat))).build();
+    }
+
+    @GET
+    @Path("{vat}/policies")
+    public Response getByVat(@PathParam("vat") String vat) {
+        return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByVat(vat))).build();
     }
 
     @POST

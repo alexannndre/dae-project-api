@@ -51,11 +51,5 @@ public class PolicyService {
         return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByCode(code))).build();
     }
 
-    @GET
-    @Path("customer/{vat}")
-    public Response getByVat(@PathParam("vat") String vat) {
-        return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByVat(vat))).build();
-    }
-
 
 }
