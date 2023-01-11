@@ -81,7 +81,7 @@ const rndVat = () => {
 };
 
 const randomPolicy = () => {
-    const code = faker.datatype.uuid();
+    const code = faker.random.numeric(5);
     const insurer_company = faker.company.name();
     const type = rndType();
     const typeName = type[0];
