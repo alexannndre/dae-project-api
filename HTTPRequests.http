@@ -35,6 +35,10 @@ Content-Disposition: form-data; name="file"; filename="sample-3s.mp3"
 GET http://localhost:8080/daeproject/api/customers/289910325/occurrences
 Accept: application/json
 
+### Get All Policies of a Specific Customer By VAT
+GET http://localhost:8080/daeproject/api/customers/163807108/policies
+Accept: application/json
+
 ### Create Customer
 POST http://localhost:8080/daeproject/api/customers
 Content-Type: application/json
@@ -45,3 +49,15 @@ Content-Type: application/json
   "email": "email@email.email",
   "password": "123456"
 }
+
+
+#### Policies
+
+### Get All Policies
+GET http://localhost:8080/daeproject/api/policies
+Accept: application/json
+
+### Get A Policy By Code
+GET http://localhost:8080/daeproject/api/policies/86084
+Accept: application/json
+
