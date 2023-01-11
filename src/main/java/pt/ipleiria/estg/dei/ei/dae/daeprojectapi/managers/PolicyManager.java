@@ -11,6 +11,7 @@ import javax.ejb.EJB;
 import javax.ejb.Singleton;
 import javax.json.Json;
 import javax.json.JsonReader;
+import javax.json.JsonString;
 import javax.json.JsonValue;
 import java.io.StringReader;
 import java.util.LinkedList;
@@ -34,7 +35,9 @@ public class PolicyManager {
         policy.setCode(jsonObject.getString("code"));
         policy.setInsurerCompany(jsonObject.getString("insurer_company"));
         policy.setType(jsonObject.getString("type"));
-        jsonObject.getJsonArray("covers").forEach(coverJsonValue -> policy.addCover(coverJsonValue.toString()));
+        //jsonValue to string
+
+        jsonObject.getJsonArray("covers").forEach(coverJsonValue -> policy.addCover(((JsonString)coverJsonValue).getString()));
 
         policies.add(policy);
     }
