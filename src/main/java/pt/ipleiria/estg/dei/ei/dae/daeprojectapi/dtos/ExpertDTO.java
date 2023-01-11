@@ -5,24 +5,24 @@ import java.io.Serializable;
 
 public class ExpertDTO implements Serializable {
     @NotNull
-    private String nif, name, password, email;
+    private String vat, name, password, email;
 
     public ExpertDTO() {
     }
 
-    public ExpertDTO(String nif, String name, String password, String email) {
-        this.nif = nif;
+    public ExpertDTO(String vat, String name, String password, String email) {
+        this.vat = vat;
         this.name = name;
         this.password = password;
         this.email = email;
     }
 
-    public String getNif() {
-        return nif;
+    public String getVat() {
+        return vat;
     }
 
-    public void setNif(String nif) {
-        this.nif = nif;
+    public void setVat(String vat) {
+        this.vat = vat;
     }
 
     public String getName() {

@@ -10,7 +10,7 @@ import java.io.Serializable;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User extends Versionable implements Serializable {
     @Id
-    private String nif;
+    private String vat;
     @Email
     private String email;
     @NotNull
@@ -19,19 +19,19 @@ public class User extends Versionable implements Serializable {
     public User() {
     }
 
-    public User(String nif, String name, String email, String password) {
-        this.nif = nif;
+    public User(String vat, String name, String email, String password) {
+        this.vat = vat;
         this.password = password;
         this.name = name;
         this.email = email;
     }
 
-    public String getNif() {
-        return nif;
+    public String getVat() {
+        return vat;
     }
 
-    public void setNif(String nif) {
-        this.nif = nif;
+    public void setVat(String vat) {
+        this.vat = vat;
     }
 
     public String getPassword() {

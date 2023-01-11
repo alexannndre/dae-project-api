@@ -23,8 +23,8 @@ public class Customer extends User implements Serializable {
         this.occurrences = new LinkedList<>();
     }
 
-    public Customer(String nif, String name, String email, String password) {
-        super(nif, name, email, password);
+    public Customer(String vat, String name, String email, String password) {
+        super(vat, name, email, password);
         this.occurrences = new LinkedList<>();
     }
 

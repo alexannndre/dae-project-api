@@ -18,8 +18,8 @@ public class Expert extends User implements Serializable {
     public Expert() {
     }
 
-    public Expert(String nif, String name, String email, String password) {
-        super(nif, name, email, password);
+    public Expert(String vat, String name, String email, String password) {
+        super(vat, name, email, password);
     }
 
 }

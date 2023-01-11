@@ -31,7 +31,7 @@ Content-Disposition: form-data; name="file"; filename="sample-3s.mp3"
 
 #### Customers
 
-### Get All Occurrences of a Specific Customer By NIF
+### Get All Occurrences of a Specific Customer By VAT
 GET http://localhost:8080/daeproject/api/customers/289910325/occurrences
 Accept: application/json
 
@@ -40,7 +40,7 @@ POST http://localhost:8080/daeproject/api/customers
 Content-Type: application/json
 
 {
-  "nif": "289911123",
+  "vat": "289911123",
   "name": "Marisa",
   "email": "email@email.email",
   "password": "123456"

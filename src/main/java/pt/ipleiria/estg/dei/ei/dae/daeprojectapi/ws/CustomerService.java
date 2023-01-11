@@ -38,28 +38,28 @@ public class CustomerService {
     }
 
     @GET
-    @Path("{nif}")
-    public Response get(@PathParam("nif") String nif) {
-        return Response.ok(CustomerDTO.from(customerBean.findOrFail(nif))).build();
+    @Path("{vat}")
+    public Response get(@PathParam("vat") String vat) {
+        return Response.ok(CustomerDTO.from(customerBean.findOrFail(vat))).build();
     }
 
     @GET
-    @Path("{nif}/occurrences")
-    public Response getOccurrences(@PathParam("nif") String nif) {
-        return Response.ok(OccurrenceDTO.from(customerBean.getOccurrences(nif))).build();
+    @Path("{vat}/occurrences")
+    public Response getOccurrences(@PathParam("vat") String vat) {
+        return Response.ok(OccurrenceDTO.from(customerBean.getOccurrences(vat))).build();
     }
 
     @POST
     @Path("/")
     public Response create(CustomerDTO customerDTO) {
         customerBean.create(
-                customerDTO.getNif(),
+                customerDTO.getVat(),
                 customerDTO.getName(),
                 customerDTO.getEmail(),
                 customerDTO.getPassword()
         );
 
-        var customer = customerBean.findOrFail(customerDTO.getNif());
+        var customer = customerBean.findOrFail(customerDTO.getVat());
         return Response.status(CREATED).entity(CustomerDTO.from(customer)).build();
     }
 }
