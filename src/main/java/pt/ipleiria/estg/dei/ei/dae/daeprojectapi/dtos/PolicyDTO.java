@@ -38,9 +38,6 @@ public class PolicyDTO implements Serializable {
         this.covers = covers;
         this.occurrences = occurrences;
         this.customer = customer;
-        for(String cover : covers){
-            System.out.println(cover);
-        }
     }
 
     public String getCode() {
