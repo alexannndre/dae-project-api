@@ -30,3 +30,7 @@ services:
     depends_on:
       - db
       - smtp
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
