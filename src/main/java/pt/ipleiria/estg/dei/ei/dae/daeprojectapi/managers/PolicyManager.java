@@ -65,7 +65,9 @@ public class PolicyManager {
         return retrievePolicies("");
     }
 
-    public static List<Policy> getPoliciesByVat(Object vat){
-        return retrievePolicies("customer_vat="+vat.toString());
+    public static List<Policy> getPoliciesByVat(String vat){
+        return retrievePolicies("customer_vat="+vat);
     }
+
+    public static List<Policy> getPoliciesByCode(String code){ return retrievePolicies("code="+code); }
 }
