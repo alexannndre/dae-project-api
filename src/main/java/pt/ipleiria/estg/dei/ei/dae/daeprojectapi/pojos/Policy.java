@@ -28,6 +28,7 @@ public class Policy implements Serializable {
     }
 
     public Policy(String code, String insurerCompany, Status status, Customer customer) {
+        this();
         this.code = code;
         this.insurerCompany = insurerCompany;
         this.status = status;
@@ -80,6 +81,7 @@ public class Policy implements Serializable {
     }
 
     public void removeOccurrence(Occurrence occurrence) {
-        this.occurrences.remove(occurrence);
+        if (!this.occurrences.contains(occurrence))
+            this.occurrences.remove(occurrence);
     }
 }
