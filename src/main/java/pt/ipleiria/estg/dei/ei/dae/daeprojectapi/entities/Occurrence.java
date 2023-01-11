@@ -88,4 +88,13 @@ public class Occurrence extends Versionable implements Serializable {
     public void setDocuments(List<Document> documents) {
         this.documents = documents;
     }
+
+    public void addDocument(Document document) {
+        if (!this.documents.contains(document))
+            this.documents.add(document);
+    }
+
+    public void removeDocument(Document document) {
+        this.documents.remove(document);
+    }
 }

@@ -2,24 +2,28 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class DocumentDTO implements Serializable {
+    @NotNull
     private Long id;
+   
+    @NotNull
     private String filename;
-    private String filepath;
-    private Long occurrenceId;
+
+//    private String filepath;
+
+//    private Long occurrenceId;
 
     public DocumentDTO() {
     }
 
-    public DocumentDTO(Long id, String filename, String filepath, Long occurrenceId) {
+    public DocumentDTO(@NotNull Long id, @NotNull String filename) {
         this.id = id;
         this.filename = filename;
-        this.filepath = filepath;
-        this.occurrenceId = occurrenceId;
     }
 
     public Long getId() {
@@ -38,24 +42,8 @@ public class DocumentDTO implements Serializable {
         this.filename = filename;
     }
 
-    public String getFilepath() {
-        return filepath;
-    }
-
-    public void setFilepath(String filepath) {
-        this.filepath = filepath;
-    }
-
-    public Long getOccurrenceId() {
-        return occurrenceId;
-    }
-
-    public void setOccurrenceId(Long occurrenceId) {
-        this.occurrenceId = occurrenceId;
-    }
-
     public static DocumentDTO from(Document document) {
-        return new DocumentDTO(document.getId(), document.getFilename(), document.getFilepath(), document.getOccurrence().getId());
+        return new DocumentDTO(document.getId(), document.getFilename());
     }
 
     public static List<DocumentDTO> from(List<Document> documents) {

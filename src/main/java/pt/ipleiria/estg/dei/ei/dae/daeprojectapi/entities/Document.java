@@ -1,12 +1,13 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "documents")
 //@NamedQuery(
-//        name = "getOccurrenceDocuments",
+//        name = "getStudentDocuments",
 //        query = "SELECT doc FROM Document doc WHERE doc.student.username = :id"
 //)
 @NamedQuery(
@@ -17,8 +18,10 @@ public class Document implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String filepath;
-    private String filename;
+    
+    @NotNull
+    private String filepath, filename;
+    
     @ManyToOne
     private Occurrence occurrence;
 
