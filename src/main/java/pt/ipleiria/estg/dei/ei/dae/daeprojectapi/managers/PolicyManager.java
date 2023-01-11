@@ -28,14 +28,14 @@ public class PolicyManager {
     private static void processJsonValue(List<Policy> policies, JsonValue jsonValue) {
         var jsonObject = jsonValue.asJsonObject();
         var policy = new Policy();
-
+        System.out.println(jsonObject.getString("customer_vat"));
         policy.setCustomer(customerBean.findOrFail(jsonObject.getString("customer_vat")));
         policy.setCode(jsonObject.getString("code"));
         policy.setCode(jsonObject.getString("code"));
         policy.setInsurerCompany(jsonObject.getString("insurer_company"));
         policy.setType(jsonObject.getString("type"));
         jsonObject.getJsonArray("covers").forEach(coverJsonValue -> policy.addCover(coverJsonValue.toString()));
-
+        System.out.println("Policy: " + policy.getCode() + " " + jsonValue);
         policies.add(policy);
     }
 
