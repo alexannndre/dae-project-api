@@ -6,7 +6,6 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.DocumentDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.PolicyDTO;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.CustomerBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.DocumentBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
@@ -39,19 +38,17 @@ public class PolicyService {
 
     //    @Context
 //    private SecurityContext securityContext;
-    @EJB
-    CustomerBean customerBean;
 
     @GET
     @Path("/")
     public List<PolicyDTO> all() {
-        return PolicyDTO.from(PolicyManager.getAllPolicies(customerBean));
+        return PolicyDTO.from(PolicyManager.getAllPolicies());
     }
 
     @GET
     @Path("{code}")
     public Response get(@PathParam("code") String code) {
-        return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByCode(customerBean, code))).build();
+        return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByCode(code))).build();
     }
 
 

@@ -20,13 +20,16 @@ import java.util.Objects;
 @Singleton
 public class PolicyManager {
 
+    @EJB
+    private static CustomerBean customerBean = new CustomerBean();
+
     private static final String API_URL = "https://63beea09585bedcb36ba824f.mockapi.io/api";
 
-    private static void processJsonValue(List<Policy> policies, CustomerBean cb, JsonValue jsonValue) {
+    private static void processJsonValue(List<Policy> policies, JsonValue jsonValue) {
         var jsonObject = jsonValue.asJsonObject();
         var policy = new Policy();
         System.out.println(jsonObject.getString("customer_vat"));
-        policy.setCustomer(cb.findOrFail(jsonObject.getString("customer_vat")));
+        policy.setCustomer(customerBean.findOrFail(jsonObject.getString("customer_vat")));
         policy.setCode(jsonObject.getString("code"));
         policy.setCode(jsonObject.getString("code"));
         policy.setInsurerCompany(jsonObject.getString("insurer_company"));
@@ -36,7 +39,7 @@ public class PolicyManager {
         policies.add(policy);
     }
 
-    private static List<Policy> retrievePolicies(String args, CustomerBean cb){
+    private static List<Policy> retrievePolicies(String args){
         List<Policy> policies = new LinkedList<>();
 
         OkHttpClient client = new OkHttpClient();
@@ -51,20 +54,20 @@ public class PolicyManager {
             var jsonStr = Objects.requireNonNull(response.body()).string();
             //Deserialize json
             JsonReader jsonReader = Json.createReader(new StringReader(jsonStr));
-            jsonReader.readArray().forEach(jsonValue -> processJsonValue(policies, cb, jsonValue));
+            jsonReader.readArray().forEach(jsonValue -> processJsonValue(policies, jsonValue));
         }catch (Exception e) {
             e.printStackTrace();
         }
         return policies;
     }
 
-    public static List<Policy> getAllPolicies(CustomerBean cb){
-        return retrievePolicies("", cb);
+    public static List<Policy> getAllPolicies(){
+        return retrievePolicies("");
     }
 
-    public static List<Policy> getPoliciesByVat(CustomerBean cb, String vat){
-        return retrievePolicies("customer_vat="+vat, cb);
+    public static List<Policy> getPoliciesByVat(String vat){
+        return retrievePolicies("customer_vat="+vat);
     }
 
-    public static List<Policy> getPoliciesByCode(CustomerBean cb, String code){ return retrievePolicies("code="+code, cb); }
+    public static List<Policy> getPoliciesByCode(String code){ return retrievePolicies("code="+code); }
 }
