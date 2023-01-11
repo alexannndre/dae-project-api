@@ -3,7 +3,6 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,8 +31,8 @@ public class CustomerDTO implements Serializable {
         return name;
     }
 
-    public void setName(String username) {
-        this.name = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPassword() {
