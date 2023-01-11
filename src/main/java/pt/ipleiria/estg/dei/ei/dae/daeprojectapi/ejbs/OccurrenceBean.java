@@ -10,6 +10,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.util.List;
 
+import static javax.persistence.LockModeType.OPTIMISTIC;
+
 @Stateless
 public class OccurrenceBean {
     @PersistenceContext
@@ -38,6 +40,19 @@ public class OccurrenceBean {
 
     public List<Occurrence> getAllOccurrences() {
         return (List<Occurrence>) em.createNamedQuery("getAllOccurrences").getResultList();
+    }
+
+    // TODO: Deve ser possível alterar o customer associado?
+    public void update(Long id, String description, Status status) {
+        var occurrence = findOrFail(id);
+
+        em.lock(occurrence, OPTIMISTIC);
+
+        if (description != null && !description.isEmpty())
+            occurrence.setDescription(description);
+
+        if (status != null)
+            occurrence.setStatus(status);
     }
 
 }

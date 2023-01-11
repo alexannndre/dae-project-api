@@ -41,14 +41,22 @@ public class OccurrenceService {
 
     @GET
     @Path("/")
-    public List<OccurrenceDTO> getAllOccurrences() {
+    public List<OccurrenceDTO> all() {
         return occurrencesToDTOs(occurrenceBean.getAllOccurrences());
     }
 
     @GET
     @Path("{id}")
-    public Response getOccurrenceDetails(@PathParam("id") Long id) {
+    public Response get(@PathParam("id") Long id) {
         var occurrence = occurrenceBean.findOrFail(id);
         return Response.ok(toDTO(occurrence)).build();
+    }
+
+    @PUT
+    @Path("{id}")
+    public Response update(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
+        occurrenceBean.update(id, occurrenceDTO.getDescription(), occurrenceDTO.getStatus());
+        occurrenceDTO = OccurrenceDTO.from(occurrenceBean.find(id));
+        return Response.ok(occurrenceDTO).build();
     }
 }

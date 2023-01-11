@@ -4,7 +4,6 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.CustomerDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.PaginatedDTOs;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.CustomerBean;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.exceptions.MyEntityNotFoundException;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.requests.PageRequest;
 
 import javax.ejb.EJB;
@@ -13,6 +12,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.Response.Status.CREATED;
 
 @Path("/customers")
 @Produces({APPLICATION_JSON})
@@ -47,5 +47,19 @@ public class CustomerService {
     @Path("{nif}/occurrences")
     public Response getOccurrences(@PathParam("nif") String nif) {
         return Response.ok(OccurrenceDTO.from(customerBean.getOccurrences(nif))).build();
+    }
+
+    @POST
+    @Path("/")
+    public Response create(CustomerDTO customerDTO) {
+        customerBean.create(
+                customerDTO.getNif(),
+                customerDTO.getName(),
+                customerDTO.getEmail(),
+                customerDTO.getPassword()
+        );
+
+        var customer = customerBean.findOrFail(customerDTO.getNif());
+        return Response.status(CREATED).entity(CustomerDTO.from(customer)).build();
     }
 }
