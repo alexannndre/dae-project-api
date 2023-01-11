@@ -33,6 +33,7 @@ public class ConfigBean {
             customerBean.create("289910323", "João", "joao@email.com", "123456");
             customerBean.create("289910324", "Maria", "maria@email.com", "123456");
             customerBean.create("289910325", "Pedro", "pedro@email.com", "123456");
+            customerBean.create("284542983", "Sofia", "Sofia@email.com", "123456");
             customerBean.create("530701258", "Driven Notice LLC", "legal@drivenotice.com", "123456");
 
             // Occurrences
