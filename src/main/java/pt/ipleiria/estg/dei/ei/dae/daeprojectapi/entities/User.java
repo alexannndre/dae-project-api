@@ -12,6 +12,7 @@ public class User extends Versionable implements Serializable {
     @Id
     private String vat;
     @Email
+    @Column(unique = true)
     private String email;
     @NotNull
     private String name, password;

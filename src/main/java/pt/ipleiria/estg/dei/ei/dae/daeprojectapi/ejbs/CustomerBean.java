@@ -37,9 +37,15 @@ public class CustomerBean {
         return customer;
     }
 
-    public boolean exists(String vat) {
+    public boolean existsVat(String vat) {
         var query = em.createQuery("SELECT COUNT (c.vat) FROM Customer c WHERE c.vat = :vat", Long.class);
         query.setParameter("vat", vat);
+        return query.getSingleResult() > 0;
+    }
+
+    public boolean existsEmail(String email) {
+        var query = em.createQuery("SELECT COUNT (c.email) FROM Customer c WHERE c.email = :email", Long.class);
+        query.setParameter("email", email);
         return query.getSingleResult() > 0;
     }
 
@@ -55,8 +61,11 @@ public class CustomerBean {
     }
 
     public void create(String vat, String name, String email, String password) {
-        if (exists(vat))
+        if (existsVat(vat))
             throw new EntityExistsException("Customer with vat " + vat + " already exists.");
+
+        if (existsEmail(email))
+            throw new EntityExistsException("Customer with email " + email + " already exists.");
 
         if (vat == null || vat.isEmpty() || name == null || name.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty())
             throw new IllegalArgumentException("Customer must have a vat, name, email and password.");
