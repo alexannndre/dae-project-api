@@ -36,7 +36,7 @@ GET http://localhost:8080/daeproject/api/customers/289910325/occurrences
 Accept: application/json
 
 ### Get All Policies of a Specific Customer By VAT
-GET http://localhost:8080/daeproject/api/customers/163807108/policies
+GET http://localhost:8080/daeproject/api/customers/289910325/policies
 Accept: application/json
 
 ### Create Customer

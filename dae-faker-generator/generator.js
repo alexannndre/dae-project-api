@@ -75,9 +75,15 @@ const rndCovers = (_covers) => {
 };
 
 const rndVat = () => {
-    const first = rndArrayElement([1, 2, 3, 5]);
+    /*const first = rndArrayElement([1, 2, 3, 5]);
     const second = faker.datatype.number({ min: 10000000, max: 99999999 });
-    return `${first}${second}`;
+    return `${first}${second}`;*/
+    return rndArrayElement([
+        "289910323",
+        "289910324",
+        "289910325",
+        "530701258",
+    ]); //Use one of the customer VATs we know are registred in the DB
 };
 
 const randomPolicy = () => {
