@@ -56,21 +56,26 @@ const ALL_TYPES = [
     ],
 ];
 
-const rndType = () => faker.random.arrayElement(ALL_TYPES);
+const rndArrayElement = (arr) => {
+    return arr[faker.datatype.number({ max: arr.length - 1 })];
+};
 
-const rndCovers = (covers) => {
+const rndType = () => rndArrayElement(ALL_TYPES);
+
+const rndCovers = (_covers) => {
+    let covers = [..._covers];
     const covLen = faker.datatype.number({ min: 1, max: covers.length });
     let covs = [];
     for (let i = 0; i < covLen; i++) {
-        const el = faker.random.arrayElement(covers);
+        const el = rndArrayElement(covers);
         covs.push(el);
-        delete covers[covers.indexOf(el)];
+        covers.splice(covers.indexOf(el), 1);
     }
     return covs;
 };
 
 const rndVat = () => {
-    const first = faker.random.arrayElement([1, 2, 3, 5]);
+    const first = rndArrayElement([1, 2, 3, 5]);
     const second = faker.datatype.number({ min: 10000000, max: 99999999 });
     return `${first}${second}`;
 };
@@ -92,9 +97,8 @@ const randomPolicy = () => {
     };
 };
 
-console.log(randomPolicy());
-console.log(randomPolicy());
-console.log(randomPolicy());
-console.log(randomPolicy());
-console.log(randomPolicy());
-console.log(randomPolicy());
+const allPolicies = [];
+
+for (let a = 0; a < 20; a++) allPolicies.push(randomPolicy());
+
+console.log(allPolicies);
