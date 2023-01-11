@@ -8,34 +8,29 @@ Accept: application/json
 GET http://localhost:8080/daeproject/api/occurrences/1
 Accept: application/json
 
+### Update an Occurrence
+PUT http://localhost:8080/daeproject/api/occurrences/1
+Content-Type: application/json
+
+{
+  "description": "Occurrence 1",
+  "status": "PENDING"
+}
+
+
+#### Customers
+
 ### Get All Occurrences of a Specific Customer By NIF
 GET http://localhost:8080/daeproject/api/customers/289910325/occurrences
 Accept: application/json
 
-###
-POST http://localhost:8080/academics/api/students
+### Create Customer
+POST http://localhost:8080/daeproject/api/customers
 Content-Type: application/json
 
 {
-  "username": "john2",
-  "password": "jd",
-  "name": "John Doe",
-  "email": "johndoe@mail.com",
-  "courseCode": 1234
+  "nif": "289911123",
+  "name": "Marisa",
+  "email": "email@email.email",
+  "password": "123456"
 }
-
-###
-PUT http://localhost:8080/academics/api/students/joao
-Content-Type: application/json
-
-{
-  "username": "joao",
-  "password": "joaojoao",
-  "name": "Joao 2",
-  "email": "teste@teste.com",
-  "courseCode": 1234
-}
-
-###
-DELETE http://localhost:8080/academics/api/students/maria
-Accept: application/json
