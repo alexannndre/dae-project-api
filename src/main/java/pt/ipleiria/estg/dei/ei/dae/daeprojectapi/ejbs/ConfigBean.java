@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -31,6 +33,7 @@ public class ConfigBean {
             customerBean.create("289910323", "João", "joao@email.com", "123456");
             customerBean.create("289910324", "Maria", "maria@email.com", "123456");
             customerBean.create("289910325", "Pedro", "pedro@email.com", "123456");
+            customerBean.create("284542983", "Sofia", "Sofia@email.com", "123456");
             customerBean.create("530701258", "Driven Notice LLC", "legal@drivenotice.com", "123456");
 
             // Occurrences
@@ -48,6 +51,8 @@ public class ConfigBean {
 
             // Documents
             documentBean.create("/opt/jboss/uploads/occurrences/1/doc1.txt", "doc1.txt", 1L);
+
+            PolicyManager.customerBean = customerBean;
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }

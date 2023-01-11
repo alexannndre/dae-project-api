@@ -21,21 +21,21 @@ import java.util.Objects;
 public class PolicyManager {
 
     @EJB
-    private static CustomerBean customerBean = new CustomerBean();
+    public static CustomerBean customerBean;
 
     private static final String API_URL = "https://63beea09585bedcb36ba824f.mockapi.io/api";
 
     private static void processJsonValue(List<Policy> policies, JsonValue jsonValue) {
         var jsonObject = jsonValue.asJsonObject();
         var policy = new Policy();
-        System.out.println(jsonObject.getString("customer_vat"));
+
         policy.setCustomer(customerBean.findOrFail(jsonObject.getString("customer_vat")));
         policy.setCode(jsonObject.getString("code"));
         policy.setCode(jsonObject.getString("code"));
         policy.setInsurerCompany(jsonObject.getString("insurer_company"));
         policy.setType(jsonObject.getString("type"));
         jsonObject.getJsonArray("covers").forEach(coverJsonValue -> policy.addCover(coverJsonValue.toString()));
-        System.out.println("Policy: " + policy.getCode() + " " + jsonValue);
+
         policies.add(policy);
     }
 
