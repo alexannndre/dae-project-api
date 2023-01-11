@@ -21,7 +21,7 @@ import java.util.Objects;
 public class PolicyManager {
 
     @EJB
-    private static CustomerBean customerBean = new CustomerBean();
+    public static CustomerBean customerBean;
 
     private static final String API_URL = "https://63beea09585bedcb36ba824f.mockapi.io/api";
 

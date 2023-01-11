@@ -1,5 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -48,6 +50,8 @@ public class ConfigBean {
 
             // Documents
             documentBean.create("/opt/jboss/uploads/occurrences/1/doc1.txt", "doc1.txt", 1L);
+
+            PolicyManager.customerBean = customerBean;
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }
