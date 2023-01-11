@@ -8,24 +8,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomerDTO implements Serializable {
-    private String nif, name, password, email;
+    private String vat, name, password, email;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String nif, String name, String password, String email) {
-        this.nif = nif;
+    public CustomerDTO(String vat, String name, String password, String email) {
+        this.vat = vat;
         this.name = name;
         this.password = password;
         this.email = email;
     }
 
-    public String getNif() {
-        return nif;
+    public String getVat() {
+        return vat;
     }
 
-    public void setNif(String nif) {
-        this.nif = nif;
+    public void setVat(String vat) {
+        this.vat = vat;
     }
 
     public String getName() {
@@ -54,7 +54,7 @@ public class CustomerDTO implements Serializable {
 
     public static CustomerDTO from(Customer customer) {
         return new CustomerDTO(
-                customer.getNif(),
+                customer.getVat(),
                 customer.getName(),
                 customer.getPassword(),
                 customer.getEmail()

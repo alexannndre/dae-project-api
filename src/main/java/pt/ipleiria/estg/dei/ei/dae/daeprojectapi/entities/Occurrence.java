@@ -17,7 +17,7 @@ import java.util.List;
         ),
         @NamedQuery(
                 name = "getCustomerOccurrences",
-                query = "SELECT o FROM Occurrence o WHERE o.customer.nif = :nif"
+                query = "SELECT o FROM Occurrence o WHERE o.customer.vat = :vat"
         )
 })
 public class Occurrence extends Versionable implements Serializable {

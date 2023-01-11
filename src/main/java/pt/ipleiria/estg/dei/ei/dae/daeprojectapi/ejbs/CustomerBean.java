@@ -20,26 +20,26 @@ public class CustomerBean {
     @Inject
     private Hasher hasher;
 
-    public Customer find(String nif) {
-        var customer = em.find(Customer.class, nif);
+    public Customer find(String vat) {
+        var customer = em.find(Customer.class, vat);
         return customer;
     }
 
-    public Customer findOrFail(String nif) {
-        var customer = em.getReference(Customer.class, nif);
+    public Customer findOrFail(String vat) {
+        var customer = em.getReference(Customer.class, vat);
         Hibernate.initialize(customer);
         return customer;
     }
 
-    public Customer findWithOccurrences(String nif) {
-        var customer = em.find(Customer.class, nif);
+    public Customer findWithOccurrences(String vat) {
+        var customer = em.find(Customer.class, vat);
         Hibernate.initialize(customer.getOccurrences());
         return customer;
     }
 
-    public boolean exists(String nif) {
-        var query = em.createQuery("SELECT COUNT (c.nif) FROM Customer c WHERE c.nif = :nif", Long.class);
-        query.setParameter("nif", nif);
+    public boolean exists(String vat) {
+        var query = em.createQuery("SELECT COUNT (c.vat) FROM Customer c WHERE c.vat = :vat", Long.class);
+        query.setParameter("vat", vat);
         return query.getSingleResult() > 0;
     }
 
@@ -54,23 +54,23 @@ public class CustomerBean {
         return em.createQuery("SELECT COUNT (*) FROM " + Customer.class.getSimpleName(), Long.class).getSingleResult();
     }
 
-    public void create(String nif, String name, String email, String password) {
-        if (exists(nif))
-            throw new EntityExistsException("Customer with nif " + nif + " already exists.");
+    public void create(String vat, String name, String email, String password) {
+        if (exists(vat))
+            throw new EntityExistsException("Customer with vat " + vat + " already exists.");
 
-        if (nif == null || nif.isEmpty() || name == null || name.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty())
-            throw new IllegalArgumentException("Customer must have a nif, name, email and password.");
+        if (vat == null || vat.isEmpty() || name == null || name.isEmpty() || email == null || email.isEmpty() || password == null || password.isEmpty())
+            throw new IllegalArgumentException("Customer must have a vat, name, email and password.");
 
-        var customer = new Customer(nif, name, email, hasher.hash(password));
+        var customer = new Customer(vat, name, email, hasher.hash(password));
         em.persist(customer);
     }
 
-    public Occurrence getOccurrence(String nif) {
-        return em.find(Occurrence.class, nif);
+    public Occurrence getOccurrence(String vat) {
+        return em.find(Occurrence.class, vat);
     }
 
-    public List<Occurrence> getOccurrences(String nif) {
-        var occurrences = findOrFail(nif).getOccurrences();
+    public List<Occurrence> getOccurrences(String vat) {
+        var occurrences = findOrFail(vat).getOccurrences();
         Hibernate.initialize(occurrences);
         return occurrences;
     }

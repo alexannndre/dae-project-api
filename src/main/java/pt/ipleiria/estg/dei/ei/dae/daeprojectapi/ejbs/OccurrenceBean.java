@@ -20,8 +20,8 @@ public class OccurrenceBean {
     @EJB
     CustomerBean customerBean = new CustomerBean();
 
-    public void create(String description, Status status, String customerNif) {
-        var customer = customerBean.findOrFail(customerNif);
+    public void create(String description, Status status, String customerVat) {
+        var customer = customerBean.findOrFail(customerVat);
         var occurrence = new Occurrence(description, status, customer);
 
         em.persist(occurrence);
