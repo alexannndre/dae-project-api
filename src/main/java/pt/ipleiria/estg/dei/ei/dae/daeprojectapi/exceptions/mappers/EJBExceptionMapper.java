@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ErrorDTO;
 import javax.ejb.EJBException;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
@@ -23,6 +24,9 @@ public class EJBExceptionMapper implements ExceptionMapper<EJBException> {
 
         if (cause instanceof IllegalArgumentException)
             return IllegalArgumentExceptionMapper.getResponse((IllegalArgumentException) cause);
+
+        if (cause instanceof ProcessingException)
+            return ProcessingExceptionMapper.getResponse((ProcessingException) cause);
 
         return Response.serverError().entity(new ErrorDTO(e.getMessage())).build();
     }
