@@ -84,8 +84,7 @@ public class Policy implements Serializable {
     }
 
     public void removeOccurrence(Occurrence occurrence) {
-        if (!this.occurrences.contains(occurrence))
-            this.occurrences.remove(occurrence);
+        this.occurrences.remove(occurrence);
     }
 
     public List<String> getCovers() {
@@ -101,7 +100,6 @@ public class Policy implements Serializable {
     }
 
     public void removeCover(String cover) {
-        if (!this.covers.contains(cover))
-            this.covers.remove(cover);
+        this.covers.remove(cover);
     }
 }
