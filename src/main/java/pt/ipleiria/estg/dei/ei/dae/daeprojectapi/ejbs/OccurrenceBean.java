@@ -11,6 +11,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static javax.persistence.LockModeType.OPTIMISTIC;
+import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status.PENDING;
 
 @Stateless
 public class OccurrenceBean {
@@ -20,12 +21,22 @@ public class OccurrenceBean {
     @EJB
     CustomerBean customerBean = new CustomerBean();
 
-    public void create(String description, Status status, String customerVat) {
+    public void create(String description, String policy, Status status, String customerVat) {
         var customer = customerBean.findOrFail(customerVat);
-        var occurrence = new Occurrence(description, status, customer);
+        var occurrence = new Occurrence(description, policy, status, customer);
 
         em.persist(occurrence);
         customer.addOccurrence(occurrence);
+    }
+
+    public Long create(String description, String policy, String customerVat) {
+        var customer = customerBean.findOrFail(customerVat);
+        var occurrence = new Occurrence(description, policy, PENDING, customer);
+
+        em.persist(occurrence);
+        customer.addOccurrence(occurrence);
+
+        return occurrence.getId();
     }
 
     public Occurrence find(Long id) {

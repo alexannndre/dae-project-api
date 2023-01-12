@@ -8,6 +8,8 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import static javax.persistence.EnumType.STRING;
+
 @Entity
 @Table(name = "occurrences")
 @NamedQueries(value = {
@@ -26,10 +28,10 @@ public class Occurrence extends Versionable implements Serializable {
     private Long id;
 
     @NotNull
-    private String description;
+    private String description, policy;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
+    @Enumerated(STRING)
     private Status status;
 
     @ManyToOne
@@ -42,8 +44,9 @@ public class Occurrence extends Versionable implements Serializable {
         this.documents = new LinkedList<>();
     }
 
-    public Occurrence(String description, Status status, Customer customer) {
+    public Occurrence(String description, String policy, Status status, Customer customer) {
         this.description = description;
+        this.policy = policy;
         this.status = status;
         this.customer = customer;
         this.documents = new LinkedList<>();
@@ -63,6 +66,14 @@ public class Occurrence extends Versionable implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPolicy() {
+        return policy;
+    }
+
+    public void setPolicy(String policy) {
+        this.policy = policy;
     }
 
     public Status getStatus() {

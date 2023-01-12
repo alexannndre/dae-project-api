@@ -49,6 +49,7 @@ public class OccurrenceService {
         return new OccurrenceDTO(
                 occurrence.getId(),
                 occurrence.getDescription(),
+                occurrence.getPolicy(),
                 occurrence.getStatus()
         );
     }

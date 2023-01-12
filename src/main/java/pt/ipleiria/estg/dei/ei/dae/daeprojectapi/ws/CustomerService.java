@@ -5,6 +5,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.PaginatedDTOs;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.PolicyDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.CustomerBean;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.requests.PageRequest;
 
@@ -24,6 +25,9 @@ import static javax.ws.rs.core.Response.Status.CREATED;
 public class CustomerService {
     @EJB
     private CustomerBean customerBean;
+
+    @EJB
+    private OccurrenceBean occurrenceBean;
 
     @GET
     @Path("/")
@@ -46,12 +50,6 @@ public class CustomerService {
     }
 
     @GET
-    @Path("{vat}/occurrences")
-    public Response getOccurrences(@PathParam("vat") String vat) {
-        return Response.ok(OccurrenceDTO.from(customerBean.getOccurrences(vat))).build();
-    }
-
-    @GET
     @Path("{vat}/policies")
     public Response getByVat(@PathParam("vat") String vat) {
         return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByVat(vat))).build();
@@ -69,5 +67,20 @@ public class CustomerService {
 
         var customer = customerBean.findOrFail(customerDTO.getVat());
         return Response.status(CREATED).entity(CustomerDTO.from(customer)).build();
+    }
+
+    // Occurrences
+    @GET
+    @Path("{vat}/occurrences")
+    public Response getOccurrences(@PathParam("vat") String vat) {
+        return Response.ok(OccurrenceDTO.from(customerBean.getOccurrences(vat))).build();
+    }
+
+    @POST
+    @Path("/{vat}/occurrences")
+    public Response createOccurrence(@PathParam("vat") String vat, OccurrenceDTO occurrenceDTO) {
+        var occurrenceId = occurrenceBean.create(occurrenceDTO.getDescription(), occurrenceDTO.getPolicy(), vat);
+        var dto = OccurrenceDTO.from(occurrenceBean.findOrFail(occurrenceId));
+        return Response.status(CREATED).entity(dto).build();
     }
 }

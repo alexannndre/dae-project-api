@@ -37,17 +37,17 @@ public class ConfigBean {
             customerBean.create("530701258", "Driven Notice LLC", "legal@drivenotice.com", "123456");
 
             // Occurrences
-            occurrenceBean.create("Occurrence 1", PENDING, "289910323");
-            occurrenceBean.create("Occurrence 2", APPROVED, "289910323");
-            occurrenceBean.create("Occurrence 3", REJECTED, "289910323");
+            occurrenceBean.create("Occurrence 1", "65510", PENDING, "289910323");
+            occurrenceBean.create("Occurrence 2", "65389", APPROVED, "289910323");
+            occurrenceBean.create("Occurrence 3", "64820", REJECTED, "289910323");
 
-            occurrenceBean.create("Occurrence 4", SOLVED, "289910324");
-            occurrenceBean.create("Occurrence 5", PENDING, "289910324");
-            occurrenceBean.create("Occurrence 6", PENDING, "289910324");
+            occurrenceBean.create("Occurrence 4", "83649", SOLVED, "289910324");
+            occurrenceBean.create("Occurrence 5", "77592", PENDING, "289910324");
+            occurrenceBean.create("Occurrence 6", "49838", PENDING, "289910324");
 
-            occurrenceBean.create("Occurrence 7", APPROVED, "289910325");
-            occurrenceBean.create("Occurrence 8", REJECTED, "289910325");
-            occurrenceBean.create("Occurrence 9", APPROVED, "289910325");
+            occurrenceBean.create("Occurrence 7", "50864", APPROVED, "289910325");
+            occurrenceBean.create("Occurrence 8", "77380", REJECTED, "289910325");
+            occurrenceBean.create("Occurrence 9", "86084", APPROVED, "289910325");
 
             // Documents
             documentBean.create("/opt/jboss/uploads/occurrences/1/doc1.txt", "doc1.txt", 1L);
