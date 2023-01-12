@@ -17,6 +17,9 @@ public class ConfigBean {
     CustomerBean customerBean = new CustomerBean();
 
     @EJB
+    ExpertBean expertBean = new ExpertBean();
+
+    @EJB
     OccurrenceBean occurrenceBean = new OccurrenceBean();
 
     @EJB
@@ -35,6 +38,7 @@ public class ConfigBean {
             customerBean.create("289910325", "Pedro", "pedro@email.com", "123456");
             customerBean.create("284542983", "Sofia", "Sofia@email.com", "123456");
             customerBean.create("530701258", "Driven Notice LLC", "legal@drivenotice.com", "123456");
+            expertBean.create("123123123", "Elso Bas", "oque@bas.com", "123456");
 
             // Occurrences
             occurrenceBean.create("Occurrence 1", "65510", PENDING, "289910323");
