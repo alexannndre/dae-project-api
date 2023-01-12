@@ -4,6 +4,7 @@ import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.DocumentDTO;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ErrorDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.DocumentBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
@@ -25,7 +26,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static javax.ws.rs.core.MediaType.*;
-import static javax.ws.rs.core.Response.Status.OK;
+import static javax.ws.rs.core.Response.Status.*;
 
 @Path("occurrences")
 @Produces({APPLICATION_JSON})  // injects header “Content-Type: application/json”
@@ -63,6 +64,7 @@ public class OccurrenceService {
     public List<OccurrenceDTO> all() {
         return occurrencesToDTOs(occurrenceBean.getAllOccurrences());
     }
+
     @GET
     @Path("pending")
     public List<OccurrenceDTO> pending() {
@@ -93,6 +95,12 @@ public class OccurrenceService {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
         List<InputPart> inputParts = uploadForm.get("file");
+
+        if (inputParts == null) {
+            var msg = "The \"file\" field is required";
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO(msg)).build();
+        }
+
         List<Document> documents = new LinkedList<>();
 
         for (InputPart inputPart : inputParts) {
