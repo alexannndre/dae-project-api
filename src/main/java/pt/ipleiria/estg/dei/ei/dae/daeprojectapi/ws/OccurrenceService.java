@@ -86,6 +86,30 @@ public class OccurrenceService {
         return Response.ok(occurrenceDTO).build();
     }
 
+    @PATCH
+    @Path("{id}/approve")
+    public Response approve(@PathParam("id") Long id) {
+        Occurrence oc = occurrenceBean.find(id);
+        try{
+            oc.approve();
+            return Response.ok("This occurrence has been approved").build();
+        }catch(IllegalStateException e){
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
+        }
+    }
+
+    @PATCH
+    @Path("{id}/reject")
+    public Response reject(@PathParam("id") Long id) {
+        Occurrence oc = occurrenceBean.find(id);
+        try{
+            oc.reject();
+            return Response.ok("This occurrence has been rejected").build();
+        }catch(IllegalStateException e){
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
+        }
+    }
+
     // Documents
     @POST
     @Path("{id}/documents")

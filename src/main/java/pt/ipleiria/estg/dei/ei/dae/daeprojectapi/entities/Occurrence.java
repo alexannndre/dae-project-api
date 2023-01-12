@@ -112,4 +112,18 @@ public class Occurrence extends Versionable implements Serializable {
     public void removeDocument(Document document) {
         this.documents.remove(document);
     }
+
+    public void approve(){
+        if(this.status == Status.PENDING)
+            this.status = Status.APPROVED;
+        else
+            throw new IllegalStateException("Occurrence is not pending");
+    }
+
+    public void reject(){
+        if(this.status == Status.PENDING)
+            this.status = Status.REJECTED;
+        else
+            throw new IllegalStateException("Occurrence is not pending");
+    }
 }
