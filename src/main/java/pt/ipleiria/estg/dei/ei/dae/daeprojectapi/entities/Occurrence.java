@@ -24,6 +24,10 @@ import static javax.persistence.EnumType.STRING;
         @NamedQuery(
                 name = "getAllPendingOccurrences",
                 query = "SELECT o FROM Occurrence o WHERE o.status = 'PENDING'"
+        ),
+        @NamedQuery(
+                name = "getAllOccurrencesByPolicy",
+                query = "SELECT o FROM Occurrence o WHERE o.policy=:policy"
         )
 })
 public class Occurrence extends Versionable implements Serializable {

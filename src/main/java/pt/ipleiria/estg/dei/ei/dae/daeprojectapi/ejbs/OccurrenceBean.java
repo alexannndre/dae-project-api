@@ -85,4 +85,9 @@ public class OccurrenceBean {
         occurrence.reject();
     }
 
+
+    public List<Occurrence> getOccurrencesByPolicy(String policyCode) {
+        return (List<Occurrence>) em.createNamedQuery("getAllOccurrencesByPolicy").setParameter("policy", policyCode).getResultList();
+    }
+
 }

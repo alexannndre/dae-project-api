@@ -73,3 +73,7 @@ Accept: application/json
 GET http://localhost:8080/daeproject/api/policies/86084
 Accept: application/json
 
+### Get All Occurrences of a Policy
+GET http://localhost:8080/daeproject/api/policies/86084/occurrences
+Accept: application/json
+
