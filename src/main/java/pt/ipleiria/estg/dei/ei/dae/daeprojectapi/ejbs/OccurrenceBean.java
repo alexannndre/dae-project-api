@@ -57,7 +57,6 @@ public class OccurrenceBean {
         return (List<Occurrence>) em.createNamedQuery("getAllPendingOccurrences").getResultList();
     }
 
-    // TODO: Deve ser possível alterar o customer associado?
     public void update(Long id, String description, Status status) {
         var occurrence = findOrFail(id);
 
@@ -68,6 +67,22 @@ public class OccurrenceBean {
 
         if (status != null)
             occurrence.setStatus(status);
+    }
+
+    public void approve(Long id) {
+        var occurrence = findOrFail(id);
+
+        em.lock(occurrence, OPTIMISTIC);
+
+        occurrence.approve();
+    }
+
+    public void reject(Long id) {
+        var occurrence = findOrFail(id);
+
+        em.lock(occurrence, OPTIMISTIC);
+
+        occurrence.reject();
     }
 
 }
