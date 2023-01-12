@@ -70,6 +70,11 @@ public class OccurrenceService {
     public List<OccurrenceDTO> pending() {
         return occurrencesToDTOs(occurrenceBean.getAllPendingOccurrences());
     }
+    @GET
+    @Path("approved")
+    public List<OccurrenceDTO> approved() {
+        return occurrencesToDTOs(occurrenceBean.getAllApprovedOccurrences());
+    }
 
     @GET
     @Path("{id}")

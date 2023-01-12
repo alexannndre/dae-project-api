@@ -8,6 +8,10 @@ Accept: application/json
 GET http://localhost:8080/daeproject/api/occurrences/pending
 Accept: application/json
 
+### Get All Approved Occurrences
+GET http://localhost:8080/daeproject/api/occurrences/approved
+Accept: application/json
+
 ### Get Occurrence by ID
 GET http://localhost:8080/daeproject/api/occurrences/1
 Accept: application/json

@@ -26,6 +26,10 @@ import static javax.persistence.EnumType.STRING;
                 query = "SELECT o FROM Occurrence o WHERE o.status = 'PENDING'"
         ),
         @NamedQuery(
+                name = "getAllApprovedOccurrences",
+                query = "SELECT o FROM Occurrence o WHERE o.status = 'APPROVED'"
+        ),
+        @NamedQuery(
                 name = "getAllOccurrencesByPolicy",
                 query = "SELECT o FROM Occurrence o WHERE o.policy=:policy"
         )
