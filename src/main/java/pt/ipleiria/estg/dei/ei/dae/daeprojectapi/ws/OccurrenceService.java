@@ -63,6 +63,11 @@ public class OccurrenceService {
     public List<OccurrenceDTO> all() {
         return occurrencesToDTOs(occurrenceBean.getAllOccurrences());
     }
+    @GET
+    @Path("pending")
+    public List<OccurrenceDTO> pending() {
+        return occurrencesToDTOs(occurrenceBean.getAllPendingOccurrences());
+    }
 
     @GET
     @Path("{id}")

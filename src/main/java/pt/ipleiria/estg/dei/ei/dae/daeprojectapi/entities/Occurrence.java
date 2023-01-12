@@ -20,6 +20,10 @@ import static javax.persistence.EnumType.STRING;
         @NamedQuery(
                 name = "getCustomerOccurrences",
                 query = "SELECT o FROM Occurrence o WHERE o.customer.vat = :vat"
+        ),
+        @NamedQuery(
+                name = "getAllPendingOccurrences",
+                query = "SELECT o FROM Occurrence o WHERE o.status = 'PENDING'"
         )
 })
 public class Occurrence extends Versionable implements Serializable {
