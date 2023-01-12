@@ -22,22 +22,14 @@ public class PolicyDTO implements Serializable {
     @NotNull
     private List<String> covers;
 
-    @NotNull
-    private List<OccurrenceDTO> occurrences;
-
-    @NotNull
-    private CustomerDTO customer;
-
     public PolicyDTO() {
     }
 
-    public PolicyDTO(String code, String insurerCompany, String type, List<String> covers, List<OccurrenceDTO> occurrences, CustomerDTO customer) {
+    public PolicyDTO(String code, String insurerCompany, String type, List<String> covers) {
         this.code = code;
         this.insurerCompany = insurerCompany;
         this.type = type;
         this.covers = covers;
-        this.occurrences = occurrences;
-        this.customer = customer;
     }
 
     public String getCode() {
@@ -72,30 +64,12 @@ public class PolicyDTO implements Serializable {
         this.covers = covers;
     }
 
-    public List<OccurrenceDTO> getOccurrences() {
-        return occurrences;
-    }
-
-    public void setOccurrences(List<OccurrenceDTO> occurrences) {
-        this.occurrences = occurrences;
-    }
-
-    public CustomerDTO getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(CustomerDTO customer) {
-        this.customer = customer;
-    }
-
     public static PolicyDTO from(Policy policy) {
         return new PolicyDTO(
                 policy.getCode(),
                 policy.getInsurerCompany(),
                 policy.getType(),
-                policy.getCovers(),
-                OccurrenceDTO.from(policy.getOccurrences()),
-                CustomerDTO.from(policy.getCustomer())
+                policy.getCovers()
         );
     }
 
