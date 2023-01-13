@@ -53,7 +53,8 @@ public class OccurrenceService {
                 occurrence.getId(),
                 occurrence.getDescription(),
                 occurrence.getPolicy(),
-                occurrence.getStatus()
+                occurrence.getStatus(),
+                occurrence.getCustomer().getVat()
         );
     }
 
