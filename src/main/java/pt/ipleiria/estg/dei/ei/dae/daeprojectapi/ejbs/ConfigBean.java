@@ -75,12 +75,11 @@ public class ConfigBean {
 
 
             // Documents
-            documentBean.create("/opt/jboss/uploads/occurrences/1/test.txt", "test.txt", 1L, "289910323");
+            documentBean.create("/opt/jboss/uploads/occurrences/15/test.txt", "test.txt", 15L, "289910323");
 
             PolicyManager.customerBean = customerBean;
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }
-
     }
 }
