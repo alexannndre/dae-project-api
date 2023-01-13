@@ -1,9 +1,9 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.pojos.Policy;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -76,6 +76,8 @@ public class OccurrenceBean {
 
     public void remove(Long id) {
         var occurrence = findOrFail(id);
+        for (Document document : occurrence.getDocuments())
+            document.setOccurrence(null);
         em.remove(occurrence);
     }
 
