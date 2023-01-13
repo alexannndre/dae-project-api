@@ -130,19 +130,19 @@ public class Occurrence extends Versionable implements Serializable {
         this.documents.remove(document);
     }
 
-    public void approve(){
+    public void approve(Expert expert){
         if(this.status == Status.PENDING){
             this.status = Status.APPROVED;
-            //setExpert(expert);
+            setExpert(expert);
         }
         else
             throw new IllegalStateException("Occurrence is not pending");
     }
 
-    public void reject(){
+    public void reject(Expert expert){
         if(this.status == Status.PENDING){
             this.status = Status.REJECTED;
-            //setExpert(expert);
+            setExpert(expert);
         }
         else
             throw new IllegalStateException("Occurrence is not pending");

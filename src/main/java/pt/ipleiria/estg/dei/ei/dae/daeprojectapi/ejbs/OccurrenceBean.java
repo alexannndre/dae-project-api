@@ -22,6 +22,8 @@ public class OccurrenceBean {
 
     @EJB
     CustomerBean customerBean = new CustomerBean();
+    @EJB
+    ExpertBean expertBean;
 
     public void create(String description, String policy, Status status, String customerVat) {
         var customer = customerBean.findOrFail(customerVat);
@@ -82,16 +84,18 @@ public class OccurrenceBean {
         em.remove(occurrence);
     }
 
-    public void approve(Long id) {
+    public void approve(Long id, String expertVat) {
         var occurrence = findOrFail(id);
         em.lock(occurrence, OPTIMISTIC);
-        occurrence.approve();
+        var expert = expertBean.findOrFail(expertVat);
+        occurrence.approve(expert);
     }
 
-    public void reject(Long id) {
+    public void reject(Long id, String expertVat) {
         var occurrence = findOrFail(id);
         em.lock(occurrence, OPTIMISTIC);
-        occurrence.reject();
+        var expert = expertBean.findOrFail(expertVat);
+        occurrence.reject(expert);
     }
 
 

@@ -105,9 +105,9 @@ public class OccurrenceService {
 
     @PATCH
     @Path("{id}/approve")
-    public Response approve(@PathParam("id") Long id) {
+    public Response approve(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
         try {
-            occurrenceBean.approve(id);
+            occurrenceBean.approve(id, occurrenceDTO.getExpertVat());
             return Response.ok("This occurrence has been approved").build();
         } catch (IllegalStateException e) {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
@@ -116,9 +116,9 @@ public class OccurrenceService {
 
     @PATCH
     @Path("{id}/reject")
-    public Response reject(@PathParam("id") Long id) {
+    public Response reject(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO)  {
         try {
-            occurrenceBean.reject(id);
+            occurrenceBean.reject(id, occurrenceDTO.getExpertVat());
             return Response.ok("This occurrence has been rejected").build();
         } catch (IllegalStateException e) {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
