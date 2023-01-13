@@ -29,6 +29,9 @@ public class ConfigBean {
     DocumentBean documentBean = new DocumentBean();
 
     @EJB
+    RepairerBean repairerBean = new RepairerBean();
+
+    @EJB
     ServiceBean serviceBean = new ServiceBean();
 
     private static final Logger LOGGER = Logger.getLogger("ejbs.ConfigBean");
@@ -47,6 +50,9 @@ public class ConfigBean {
 
             // Experts
             expertBean.create("123123123", "Elso Bas", "oque@bas.com", "123456");
+
+            //Repairers
+            repairerBean.create("321321321", "Boda Pedais", "boda@pedais.bike", "123456");
 
             // Administrators
             adminBean.create("421189655", "Marco", "marco@email.com", "123456");
