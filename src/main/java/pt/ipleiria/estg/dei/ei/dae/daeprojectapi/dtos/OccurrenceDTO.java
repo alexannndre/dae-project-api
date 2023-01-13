@@ -11,8 +11,12 @@ import java.util.stream.Collectors;
 public class OccurrenceDTO implements Serializable {
     @NotNull
     private Long id;
+
+    private Long serviceId;
     @NotNull
-    private String description, policy, customerVat, expertVat;
+    private String description, policy, customerVat;
+
+    private String expertVat;
 
     @NotNull
     private Status status;
@@ -20,13 +24,14 @@ public class OccurrenceDTO implements Serializable {
     public OccurrenceDTO() {
     }
 
-    public OccurrenceDTO(Long id, String description, String policy, Status status, String customerVat, String expertVat) {
+    public OccurrenceDTO(Long id, String description, String policy, Status status, String customerVat, String expertVat, Long serviceId) {
         this.id = id;
         this.description = description;
         this.policy = policy;
         this.status = status;
         this.customerVat = customerVat;
         this.expertVat = expertVat;
+        this.serviceId = serviceId;
     }
 
     public Long getId() {
@@ -84,7 +89,8 @@ public class OccurrenceDTO implements Serializable {
                 occurrence.getPolicy(),
                 occurrence.getStatus(),
                 occurrence.getCustomer().getVat(),
-                occurrence.getExpertVat()
+                occurrence.getExpertVat(),
+                occurrence.getServiceId()
         );
     }
 

@@ -53,6 +53,9 @@ public class Occurrence extends Versionable implements Serializable {
     @ManyToOne
     private Expert expert;
 
+    @ManyToOne
+    private Service service;
+
     @OneToMany(mappedBy = "occurrence")
     private List<Document> documents;
 
@@ -121,6 +124,11 @@ public class Occurrence extends Versionable implements Serializable {
             return null;
         return expert.getVat();
     }
+    public Long getServiceId(){
+        if(service==null)
+            return null;
+        return service.getId();
+    }
 
     public void addDocument(Document document) {
         if (!this.documents.contains(document))
@@ -159,5 +167,13 @@ public class Occurrence extends Versionable implements Serializable {
 
     public void setExpert(Expert expert) {
         this.expert = expert;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
     }
 }

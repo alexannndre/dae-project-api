@@ -48,19 +48,8 @@ public class OccurrenceService {
     @Context
     private SecurityContext securityContext;
 
-    private OccurrenceDTO toDTO(Occurrence occurrence) {
-        return new OccurrenceDTO(
-                occurrence.getId(),
-                occurrence.getDescription(),
-                occurrence.getPolicy(),
-                occurrence.getStatus(),
-                occurrence.getCustomer().getVat(),
-                occurrence.getExpertVat()
-        );
-    }
-
     private List<OccurrenceDTO> occurrencesToDTOs(List<Occurrence> occurrences) {
-        return occurrences.stream().map(this::toDTO).collect(Collectors.toList());
+        return occurrences.stream().map(OccurrenceDTO::from).collect(Collectors.toList());
     }
 
     @GET
@@ -85,7 +74,7 @@ public class OccurrenceService {
     @Path("{id}")
     public Response get(@PathParam("id") Long id) {
         var occurrence = occurrenceBean.findOrFail(id);
-        return Response.ok(toDTO(occurrence)).build();
+        return Response.ok(OccurrenceDTO.from(occurrence)).build();
     }
 
     @PUT
