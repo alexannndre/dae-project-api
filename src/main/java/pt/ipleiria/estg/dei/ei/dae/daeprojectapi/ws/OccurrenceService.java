@@ -72,6 +72,12 @@ public class OccurrenceService {
     }
 
     @GET
+    @Path("repairing")
+    public List<OccurrenceDTO> repairing() {
+        return occurrencesToDTOs(occurrenceBean.getAllRepairingOccurrences());
+    }
+
+    @GET
     @Path("{id}")
     public Response get(@PathParam("id") Long id) {
         var occurrence = occurrenceBean.findOrFail(id);

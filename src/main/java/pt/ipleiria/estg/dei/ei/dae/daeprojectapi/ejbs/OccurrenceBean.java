@@ -87,6 +87,10 @@ public class OccurrenceBean {
         return (List<Occurrence>) em.createNamedQuery("getAllApprovedOccurrences").getResultList();
     }
 
+    public List<Occurrence> getAllRepairingOccurrences() {
+        return (List<Occurrence>) em.createNamedQuery("getAllRepairingOccurrences").getResultList();
+    }
+
     public void update(Long id, String description, String policy) {
         var occurrence = findOrFail(id);
 
