@@ -49,6 +49,9 @@ public class Occurrence extends Versionable implements Serializable {
     @ManyToOne
     private Customer customer;
 
+    @ManyToOne
+    private Expert expert;
+
     @OneToMany(mappedBy = "occurrence")
     private List<Document> documents;
 
@@ -112,6 +115,12 @@ public class Occurrence extends Versionable implements Serializable {
         this.documents = documents;
     }
 
+    public String getExpertVat(){
+        if(expert==null)
+            return null;
+        return expert.getVat();
+    }
+
     public void addDocument(Document document) {
         if (!this.documents.contains(document))
             this.documents.add(document);
@@ -122,16 +131,28 @@ public class Occurrence extends Versionable implements Serializable {
     }
 
     public void approve(){
-        if(this.status == Status.PENDING)
+        if(this.status == Status.PENDING){
             this.status = Status.APPROVED;
+            //setExpert(expert);
+        }
         else
             throw new IllegalStateException("Occurrence is not pending");
     }
 
     public void reject(){
-        if(this.status == Status.PENDING)
+        if(this.status == Status.PENDING){
             this.status = Status.REJECTED;
+            //setExpert(expert);
+        }
         else
             throw new IllegalStateException("Occurrence is not pending");
+    }
+
+    public Expert getExpert() {
+        return expert;
+    }
+
+    public void setExpert(Expert expert) {
+        this.expert = expert;
     }
 }

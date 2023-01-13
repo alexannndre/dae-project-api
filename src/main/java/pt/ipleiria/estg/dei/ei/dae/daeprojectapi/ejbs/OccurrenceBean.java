@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Expert;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 
