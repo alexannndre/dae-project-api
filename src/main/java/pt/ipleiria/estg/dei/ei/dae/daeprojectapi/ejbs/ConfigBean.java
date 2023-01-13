@@ -75,6 +75,7 @@ public class ConfigBean {
 
 
             occurrenceBean.create("Occurrence 10", "14050", APPROVED, "289910324", "123123123");
+            occurrenceBean.create("Occurrence 11", "14050", REPAIRING, "289910324", "123123123", 6L);
 
 
             // Documents
