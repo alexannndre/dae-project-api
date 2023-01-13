@@ -33,6 +33,15 @@ public class OccurrenceBean {
         customer.addOccurrence(occurrence);
     }
 
+    public void create(String description, String policy, Status status, String customerVat, String expertVat) {
+        var customer = customerBean.findOrFail(customerVat);
+        var expert = expertBean.findOrFail(expertVat);
+        var occurrence = new Occurrence(description, policy, status, customer);
+        occurrence.setExpert(expert);
+        em.persist(occurrence);
+        customer.addOccurrence(occurrence);
+    }
+
     public Long create(String description, String policy, String customerVat) {
         var customer = customerBean.findOrFail(customerVat);
         var occurrence = new Occurrence(description, policy, PENDING, customer);
