@@ -114,5 +114,5 @@ GET http://localhost:8080/daeproject/api/services
 Accept: application/json
 
 ### Get Services By TYpe
-GET http://localhost:8080/daeproject/api/services/health
+GET http://localhost:8080/daeproject/api/services/electronics
 Accept: application/json
