@@ -23,6 +23,10 @@ import static javax.persistence.EnumType.STRING;
                 query = "SELECT o FROM Occurrence o WHERE o.customer.vat = :vat"
         ),
         @NamedQuery(
+                name = "getServiceOccurrences",
+                query = "SELECT o FROM Occurrence o WHERE o.service.id = :id"
+        ),
+        @NamedQuery(
                 name = "getAllPendingOccurrences",
                 query = "SELECT o FROM Occurrence o WHERE o.status = 'PENDING'"
         ),
