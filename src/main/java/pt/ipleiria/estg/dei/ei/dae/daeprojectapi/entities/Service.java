@@ -2,9 +2,6 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.ws.rs.core.Link;
-import java.util.LinkedList;
-import java.util.List;
 
 @Entity
 @Table(name = "services")
@@ -30,15 +27,10 @@ public class Service {
     private String type;
 
 
-    @OneToMany(mappedBy = "services")
-    private List<Occurrence> occurrences;
-
     public Service() {
-        this.occurrences = new LinkedList<>();
     }
 
     public Service(String name, String type) {
-        this();
         this.name = name;
         this.type = type;
     }
@@ -65,22 +57,5 @@ public class Service {
 
     public void setType(String type) {
         this.type = type;
-    }
-
-    public List<Occurrence> getOccurrences() {
-        return occurrences;
-    }
-
-    public void setOccurrences(List<Occurrence> occurrences) {
-        this.occurrences = occurrences;
-    }
-
-    public void addOccurrence(Occurrence occurrence) {
-        if (!this.occurrences.contains(occurrence))
-            this.occurrences.add(occurrence);
-    }
-
-    public void removeOccurrence(Occurrence occurrence) {
-        this.occurrences.remove(occurrence);
     }
 }
