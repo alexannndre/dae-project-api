@@ -89,11 +89,11 @@ public class OccurrenceService {
     @PUT
     @Path("{id}")
     public Response update(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
-        occurrenceBean.update(id, occurrenceDTO.getDescription(), occurrenceDTO.getStatus());
+        occurrenceBean.update(id, occurrenceDTO.getDescription(), occurrenceDTO.getPolicy());
         occurrenceDTO = OccurrenceDTO.from(occurrenceBean.find(id));
         return Response.ok(occurrenceDTO).build();
     }
-    
+
     @DELETE
     @Path("{id}")
     public Response delete(@PathParam("id") Long id) {

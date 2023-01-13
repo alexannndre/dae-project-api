@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.pojos.Policy;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -61,7 +62,7 @@ public class OccurrenceBean {
         return (List<Occurrence>) em.createNamedQuery("getAllApprovedOccurrences").getResultList();
     }
 
-    public void update(Long id, String description, Status status) {
+    public void update(Long id, String description, String policy) {
         var occurrence = findOrFail(id);
 
         em.lock(occurrence, OPTIMISTIC);
@@ -69,8 +70,8 @@ public class OccurrenceBean {
         if (description != null && !description.isEmpty())
             occurrence.setDescription(description);
 
-        if (status != null)
-            occurrence.setStatus(status);
+        if (policy != null && !policy.isEmpty())
+            occurrence.setPolicy(policy);
     }
 
     public void remove(Long id) {
