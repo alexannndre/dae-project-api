@@ -55,7 +55,7 @@ public class PolicyManager {
 
         try (var response = client.newCall(request).execute()) {
             var jsonStr = Objects.requireNonNull(response.body()).string();
-            System.out.println(jsonStr);
+
             //Deserialize json
             JsonReader jsonReader = Json.createReader(new StringReader(jsonStr));
             jsonReader.readArray().forEach(jsonValue -> processJsonValue(policies, jsonValue));
