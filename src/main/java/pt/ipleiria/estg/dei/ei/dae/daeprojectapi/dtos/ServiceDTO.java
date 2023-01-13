@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Service;
 
 import java.io.Serializable;
 import java.util.List;
@@ -44,7 +45,7 @@ public class ServiceDTO implements Serializable {
         this.type = type;
     }
 
-    public static ServiceDTO toDTO(ServiceDTO repairService) {
+    public static ServiceDTO toDTO(Service repairService) {
         return new ServiceDTO(
                 repairService.getId(),
                 repairService.getName(),
@@ -52,7 +53,7 @@ public class ServiceDTO implements Serializable {
         );
     }
 
-    public static List<ServiceDTO> toServiceDTOs(List<ServiceDTO> repairServices) {
+    public static List<ServiceDTO> toServiceDTOs(List<Service> repairServices) {
         return repairServices.stream().map(ServiceDTO::toDTO).collect(Collectors.toList());
     }
 }
