@@ -39,10 +39,23 @@ Content-Type: application/json
 ### Approve an Occurence
 PATCH http://localhost:8080/daeproject/api/occurrences/1/approve
 Accept: application/json
+Content-Type: application/json
+
+{
+  "expertVat": "123123123"
+}
+
 
 ### Reject an Occurence
 PATCH http://localhost:8080/daeproject/api/occurrences/5/reject
 Accept: application/json
+Content-Type: application/json
+
+{
+  "expertVat": "123123123"
+}
+
+
 
 ### Upload Document
 POST http://localhost:8080/daeproject/api/occurrences/1/documents HTTP/1.1
@@ -91,4 +104,15 @@ Accept: application/json
 
 ### Get All Occurrences of a Policy
 GET http://localhost:8080/daeproject/api/policies/86084/occurrences
+Accept: application/json
+
+
+#### Services
+
+### Get All Services
+GET http://localhost:8080/daeproject/api/services
+Accept: application/json
+
+### Get Services By TYpe
+GET http://localhost:8080/daeproject/api/services/health
 Accept: application/json
