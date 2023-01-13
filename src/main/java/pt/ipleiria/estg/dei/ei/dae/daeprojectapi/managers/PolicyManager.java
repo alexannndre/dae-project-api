@@ -73,5 +73,10 @@ public class PolicyManager {
         return retrievePolicies("customer_vat="+vat);
     }
 
-    public static List<Policy> getPoliciesByCode(String code){ return retrievePolicies("code="+code); }
+    public static Policy getPolicyByCode(String code){
+        var pols = retrievePolicies("code="+code);
+        if(pols.size()!=0)
+            return pols.get(0);
+        return null;
+    }
 }

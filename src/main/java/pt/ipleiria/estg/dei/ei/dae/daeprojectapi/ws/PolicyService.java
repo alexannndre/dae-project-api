@@ -50,7 +50,10 @@ public class PolicyService {
     @GET
     @Path("{code}")
     public Response get(@PathParam("code") String code) {
-        return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByCode(code))).build();
+        var policy = PolicyManager.getPolicyByCode(code);
+        if(policy==null)
+            return Response.status(Response.Status.NOT_FOUND).build();
+        return Response.ok(PolicyDTO.from(policy)).build();
     }
 
 
