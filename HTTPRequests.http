@@ -58,7 +58,7 @@ Content-Type: application/json
 
 
 ### Select service for an Occurence
-PATCH http://localhost:8080/daeproject/api/occurrences/6/service
+PATCH http://localhost:8080/daeproject/api/occurrences/13/service
 Accept: application/json
 Content-Type: application/json
 
@@ -68,7 +68,7 @@ Content-Type: application/json
 
 
 ### Create a new service and choose it for an Occurence
-POST http://localhost:8080/daeproject/api/occurrences/10/service
+POST http://localhost:8080/daeproject/api/occurrences/17/service
 Accept: application/json
 Content-Type: application/json
 
@@ -94,11 +94,11 @@ Content-Disposition: form-data; name="file"; filename="sample-3s.mp3"
 #### Customers
 
 ### Get All Occurrences of a Specific Customer By VAT
-GET http://localhost:8080/daeproject/api/customers/289910325/occurrences
+GET http://localhost:8080/daeproject/api/customers/289910324/occurrences
 Accept: application/json
 
 ### Get All Policies of a Specific Customer By VAT
-GET http://localhost:8080/daeproject/api/customers/289910325/policies
+GET http://localhost:8080/daeproject/api/customers/289910324/policies
 Accept: application/json
 
 ### Create Customer
@@ -134,6 +134,6 @@ Accept: application/json
 GET http://localhost:8080/daeproject/api/services
 Accept: application/json
 
-### Get Services By TYpe
+### Get Services By Type
 GET http://localhost:8080/daeproject/api/services/electronics
 Accept: application/json
