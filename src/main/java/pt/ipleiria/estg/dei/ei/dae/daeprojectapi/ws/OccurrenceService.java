@@ -93,6 +93,13 @@ public class OccurrenceService {
         occurrenceDTO = OccurrenceDTO.from(occurrenceBean.find(id));
         return Response.ok(occurrenceDTO).build();
     }
+    
+    @DELETE
+    @Path("{id}")
+    public Response delete(@PathParam("id") Long id) {
+        occurrenceBean.remove(id);
+        return Response.noContent().build();
+    }
 
     @PATCH
     @Path("{id}/approve")

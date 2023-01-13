@@ -73,19 +73,20 @@ public class OccurrenceBean {
             occurrence.setStatus(status);
     }
 
+    public void remove(Long id) {
+        var occurrence = findOrFail(id);
+        em.remove(occurrence);
+    }
+
     public void approve(Long id) {
         var occurrence = findOrFail(id);
-
         em.lock(occurrence, OPTIMISTIC);
-
         occurrence.approve();
     }
 
     public void reject(Long id) {
         var occurrence = findOrFail(id);
-
         em.lock(occurrence, OPTIMISTIC);
-
         occurrence.reject();
     }
 
