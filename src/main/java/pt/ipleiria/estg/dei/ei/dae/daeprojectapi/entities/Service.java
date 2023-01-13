@@ -1,8 +1,20 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities;
 
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
+@Entity
+@Table(name = "services")
+@NamedQueries(value = {
+        @NamedQuery(
+                name = "getAllServices",
+                query = "SELECT s FROM Service s"
+        ),
+        @NamedQuery(
+                name = "getServicesByType",
+                query = "SELECT s FROM Service s WHERE s.type=:type"
+        )
+})
 public class Service {
     @Id
     private Long id;
@@ -17,8 +29,7 @@ public class Service {
     public Service() {
     }
 
-    public Service(Long id, String name, String type) {
-        this.id = id;
+    public Service(String name, String type) {
         this.name = name;
         this.type = type;
     }
