@@ -1,21 +1,20 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Administrator;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Expert;
 
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ExpertDTO implements Serializable {
+public class AdministratorDTO implements Serializable {
     @NotNull
     private String vat, name, password, email;
 
-    public ExpertDTO() {
+    public AdministratorDTO() {
     }
 
-    public ExpertDTO(String vat, String name, String password, String email) {
+    public AdministratorDTO(String vat, String name, String password, String email) {
         this.vat = vat;
         this.name = name;
         this.password = password;
@@ -54,16 +53,16 @@ public class ExpertDTO implements Serializable {
         this.email = email;
     }
 
-    public static ExpertDTO from(Expert expert) {
-        return new ExpertDTO(
-                expert.getVat(),
-                expert.getName(),
-                expert.getEmail(),
-                expert.getPassword()
+    public static AdministratorDTO from(Administrator admin) {
+        return new AdministratorDTO(
+                admin.getVat(),
+                admin.getName(),
+                admin.getEmail(),
+                admin.getPassword()
         );
     }
 
-    public static List<ExpertDTO> from(List<Expert> experts) {
-        return experts.stream().map(ExpertDTO::from).collect(Collectors.toList());
+    public static List<AdministratorDTO> from(List<Administrator> admins) {
+        return admins.stream().map(AdministratorDTO::from).collect(Collectors.toList());
     }
 }
