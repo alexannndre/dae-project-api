@@ -14,13 +14,18 @@ import java.util.List;
 public class DocumentBean {
     @EJB
     private OccurrenceBean occurrenceBean;
+    
+    @EJB
+    private UserBean userBean;
 
     @PersistenceContext
     private EntityManager em;
 
-    public Document create(String filepath, String filename, Long occurrenceId) {
+    public Document create(String filepath, String filename, Long occurrenceId, String vat) {
         var occurrence = occurrenceBean.findOrFail(occurrenceId);
-        var document = new Document(filepath, filename, occurrence);
+        var user = userBean.findOrFail(vat);
+        
+        var document = new Document(filepath, filename, occurrence, user);
 
         em.persist(document);
         occurrence.addDocument(document);

@@ -54,7 +54,7 @@ public class ConfigBean {
             occurrenceBean.create("Occurrence 9", "86084", APPROVED, "289910325");
 
             // Documents
-            documentBean.create("/opt/jboss/uploads/occurrences/1/doc1.txt", "doc1.txt", 1L);
+            documentBean.create("/opt/jboss/uploads/occurrences/1/test.txt", "test.txt", 1L, "289910323");
 
             PolicyManager.customerBean = customerBean;
         } catch (Exception e) {

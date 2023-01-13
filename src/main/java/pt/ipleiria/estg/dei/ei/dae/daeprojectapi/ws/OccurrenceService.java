@@ -10,12 +10,14 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.DocumentBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
 import javax.ejb.EJB;
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -26,7 +28,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static javax.ws.rs.core.MediaType.*;
-import static javax.ws.rs.core.Response.Status.*;
+import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 
 @Path("occurrences")
 @Produces({APPLICATION_JSON})  // injects header “Content-Type: application/json”
@@ -43,8 +45,8 @@ public class OccurrenceService {
     @EJB
     private DocumentBean documentBean;
 
-    //    @Context
-//    private SecurityContext securityContext;
+    @Context
+    private SecurityContext securityContext;
 
     private OccurrenceDTO toDTO(Occurrence occurrence) {
         return new OccurrenceDTO(
@@ -70,6 +72,7 @@ public class OccurrenceService {
     public List<OccurrenceDTO> pending() {
         return occurrencesToDTOs(occurrenceBean.getAllPendingOccurrences());
     }
+
     @GET
     @Path("approved")
     public List<OccurrenceDTO> approved() {
@@ -94,10 +97,10 @@ public class OccurrenceService {
     @PATCH
     @Path("{id}/approve")
     public Response approve(@PathParam("id") Long id) {
-        try{
+        try {
             occurrenceBean.approve(id);
             return Response.ok("This occurrence has been approved").build();
-        }catch(IllegalStateException e){
+        } catch (IllegalStateException e) {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
         }
     }
@@ -105,10 +108,10 @@ public class OccurrenceService {
     @PATCH
     @Path("{id}/reject")
     public Response reject(@PathParam("id") Long id) {
-        try{
+        try {
             occurrenceBean.reject(id);
             return Response.ok("This occurrence has been rejected").build();
-        }catch(IllegalStateException e){
+        } catch (IllegalStateException e) {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
         }
     }
@@ -118,8 +121,11 @@ public class OccurrenceService {
     @Path("{id}/documents")
     @Consumes(MULTIPART_FORM_DATA)
     @Produces(APPLICATION_JSON)
+    @Authenticated
     public Response upload(@PathParam("id") Long id, MultipartFormDataInput input) throws IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
+
+        var vat = securityContext.getUserPrincipal().getName();
 
         List<InputPart> inputParts = uploadForm.get("file");
 
@@ -147,14 +153,11 @@ public class OccurrenceService {
             String filepath = dirpath + File.separator + filename;
             writeFile(bytes, filepath);
 
-            System.out.println("File saved to " + filepath);
-
-            var document = documentBean.create(filepath, filename, id);
+            var document = documentBean.create(filepath, filename, id, vat);
             documents.add(document);
         }
 
         return Response.ok(DocumentDTO.from(documents)).build();
-
     }
 
     @GET
