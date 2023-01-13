@@ -22,14 +22,26 @@ public class PolicyDTO implements Serializable {
     @NotNull
     private List<String> covers;
 
+    @NotNull
+    private boolean repairable;
+
     public PolicyDTO() {
     }
 
-    public PolicyDTO(String code, String insurerCompany, String type, List<String> covers) {
+    public PolicyDTO(String code, String insurerCompany, String type, List<String> covers, boolean repairable) {
         this.code = code;
         this.insurerCompany = insurerCompany;
         this.type = type;
         this.covers = covers;
+        this.repairable = repairable;
+    }
+
+    public boolean isRepairable() {
+        return repairable;
+    }
+
+    public void setRepairable(boolean repairable) {
+        this.repairable = repairable;
     }
 
     public String getCode() {
@@ -69,7 +81,8 @@ public class PolicyDTO implements Serializable {
                 policy.getCode(),
                 policy.getInsurerCompany(),
                 policy.getType(),
-                policy.getCovers()
+                policy.getCovers(),
+                policy.isRepairable()
         );
     }
 

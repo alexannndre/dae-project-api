@@ -11,6 +11,7 @@ const ALL_TYPES = [
             "personal possesions",
             "theft and robbery",
         ],
+        true,
     ],
     [
         "home",
@@ -21,8 +22,9 @@ const ALL_TYPES = [
             "water damage",
             "personal possesions",
         ],
+        true,
     ],
-    ["life", ["death by third party", "death by suicide"]],
+    ["life", ["death by third party", "death by suicide"], false],
     [
         "health",
         [
@@ -34,6 +36,7 @@ const ALL_TYPES = [
             "dental work",
             "vision",
         ],
+        false,
     ],
     [
         "travel",
@@ -44,6 +47,7 @@ const ALL_TYPES = [
             "missed transport",
             "delayed departure",
         ],
+        false,
     ],
     [
         "electronics",
@@ -53,6 +57,7 @@ const ALL_TYPES = [
             "theft and robbery",
             "shattered screen",
         ],
+        true,
     ],
 ];
 
@@ -93,6 +98,7 @@ const randomPolicy = () => {
     const typeName = type[0];
     const covers = rndCovers(type[1]);
     const customer_vat = rndVat();
+    const repairable = type[2];
 
     return {
         code,
@@ -100,6 +106,7 @@ const randomPolicy = () => {
         insurer_company,
         type: typeName,
         covers,
+        repairable,
     };
 };
 

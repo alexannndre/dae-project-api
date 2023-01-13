@@ -25,17 +25,20 @@ public class Policy implements Serializable {
 
     private List<Occurrence> occurrences;
 
+    private boolean repairable;
+
     public Policy() {
         this.occurrences = new LinkedList<>();
         this.covers = new LinkedList<>();
     }
 
-    public Policy(String code, String insurerCompany, String type, Customer customer) {
+    public Policy(String code, String insurerCompany, String type, Customer customer, boolean repairable) {
         this();
         this.code = code;
         this.insurerCompany = insurerCompany;
         this.type = type;
         this.customer = customer;
+        this.repairable = repairable;
     }
 
     public String getCode() {
@@ -101,5 +104,13 @@ public class Policy implements Serializable {
 
     public void removeCover(String cover) {
         this.covers.remove(cover);
+    }
+
+    public boolean isRepairable() {
+        return repairable;
+    }
+
+    public void setRepairable(boolean repairable) {
+        this.repairable = repairable;
     }
 }

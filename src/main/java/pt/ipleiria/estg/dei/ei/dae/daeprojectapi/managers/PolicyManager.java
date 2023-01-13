@@ -35,7 +35,7 @@ public class PolicyManager {
         policy.setCode(jsonObject.getString("code"));
         policy.setInsurerCompany(jsonObject.getString("insurer_company"));
         policy.setType(jsonObject.getString("type"));
-        //jsonValue to string
+        policy.setRepairable(jsonObject.getBoolean("repairable"));
 
         jsonObject.getJsonArray("covers").forEach(coverJsonValue -> policy.addCover(((JsonString)coverJsonValue).getString()));
 
