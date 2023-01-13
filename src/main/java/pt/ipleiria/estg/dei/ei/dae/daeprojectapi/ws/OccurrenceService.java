@@ -6,6 +6,7 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.DocumentDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ErrorDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.DocumentBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
@@ -112,6 +113,23 @@ public class OccurrenceService {
         } catch (IllegalStateException e) {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
         }
+    }
+
+    @PATCH
+    @Path("{id}/service")
+    public Response chooseService(@PathParam("id") Long id, ServiceDTO serviceDTO) {
+        try {
+            occurrenceBean.chooseService(id, serviceDTO);
+            return Response.ok("A service has been selected for this occurrence").build();
+        } catch (IllegalStateException e) {
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
+        }
+    }
+
+    @POST
+    @Path("{id}/service")
+    public Response chooseServiceAndCreate(@PathParam("id") Long id, ServiceDTO serviceDTO) {
+        return chooseService(id, serviceDTO);
     }
 
     // Documents

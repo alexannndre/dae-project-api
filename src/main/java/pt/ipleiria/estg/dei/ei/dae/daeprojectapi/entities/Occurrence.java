@@ -2,6 +2,7 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.pojos.Policy;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -95,6 +96,10 @@ public class Occurrence extends Versionable implements Serializable {
         return policy;
     }
 
+    public Policy getPolicyInstance(){
+        return PolicyManager.getPolicyByCode(this.policy);
+    }
+
     public void setPolicy(String policy) {
         this.policy = policy;
     }
@@ -145,7 +150,7 @@ public class Occurrence extends Versionable implements Serializable {
 
     public void approve(Expert expert){
         if(this.status == Status.PENDING){
-            var pol = PolicyManager.getPolicyByCode(this.policy);
+            var pol = getPolicyInstance();
             if(pol==null || pol.isRepairable())
                 this.status = Status.APPROVED;
             else

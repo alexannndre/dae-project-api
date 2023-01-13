@@ -24,10 +24,11 @@ public class ServiceBean {
     @EJB
     RepairerBean repairerBean;
 
-    public void create(String name, String type) {
+    public Service create(String name, String type) {
         var service = new Service(name, type);
 
         em.persist(service);
+        return service;
     }
 
     public Service find(Long id) {

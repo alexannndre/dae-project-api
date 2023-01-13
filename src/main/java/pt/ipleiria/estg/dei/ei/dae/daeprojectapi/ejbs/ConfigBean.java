@@ -67,11 +67,14 @@ public class ConfigBean {
 
             occurrenceBean.create("Occurrence 4", "83649", PENDING, "289910324");
             occurrenceBean.create("Occurrence 5", "86084", PENDING, "289910324");
-            occurrenceBean.create("Occurrence 6", "49838", APPROVED, "289910324", "123123123");
+            occurrenceBean.create("Occurrence 6", "14050", APPROVED, "289910324", "123123123");
 
             occurrenceBean.create("Occurrence 7", "50864", PENDING, "289910325");
             occurrenceBean.create("Occurrence 8", "77380", PENDING, "289910325");
             occurrenceBean.create("Occurrence 9", "86084", SOLVED, "289910325", "123123123");
+
+
+            occurrenceBean.create("Occurrence 10", "14050", APPROVED, "289910324", "123123123");
 
 
             // Documents

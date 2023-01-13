@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Expert;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
@@ -24,6 +25,8 @@ public class OccurrenceBean {
     CustomerBean customerBean = new CustomerBean();
     @EJB
     ExpertBean expertBean;
+    @EJB
+    ServiceBean serviceBean;
 
     public void create(String description, String policy, Status status, String customerVat) {
         var customer = customerBean.findOrFail(customerVat);
@@ -110,6 +113,26 @@ public class OccurrenceBean {
 
     public List<Occurrence> getOccurrencesByPolicy(String policyCode) {
         return (List<Occurrence>) em.createNamedQuery("getAllOccurrencesByPolicy").setParameter("policy", policyCode).getResultList();
+    }
+
+    public void chooseService(Long id, ServiceDTO serviceDTO) {
+        var occurrence = findOrFail(id);
+        em.lock(occurrence, OPTIMISTIC);
+
+        if(occurrence.getStatus()!=Status.APPROVED)
+            throw new IllegalArgumentException("This occurrence is not approved for repair");
+
+        var service = serviceBean.find(serviceDTO.getId());
+        var pol = occurrence.getPolicyInstance();
+
+        if(service==null)
+            service = serviceBean.create(serviceDTO.getName(), pol.getType());
+
+        if(!service.getType().equals(pol.getType()))
+            throw new IllegalArgumentException("This repair service is not compatible with this policy type");
+
+        occurrence.setService(service);
+        occurrence.setStatus(Status.REPAIRING);
     }
 
 }
