@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 
@@ -53,8 +54,15 @@ public class OccurrenceBean {
         return (List<Occurrence>) em.createNamedQuery("getAllOccurrences").getResultList();
     }
 
-    // TODO: Deve ser possível alterar o customer associado?
-    public void update(Long id, String description, Status status) {
+    public List<Occurrence> getAllPendingOccurrences() {
+        return (List<Occurrence>) em.createNamedQuery("getAllPendingOccurrences").getResultList();
+    }
+
+    public List<Occurrence> getAllApprovedOccurrences() {
+        return (List<Occurrence>) em.createNamedQuery("getAllApprovedOccurrences").getResultList();
+    }
+
+    public void update(Long id, String description, String policy) {
         var occurrence = findOrFail(id);
 
         em.lock(occurrence, OPTIMISTIC);
@@ -62,8 +70,32 @@ public class OccurrenceBean {
         if (description != null && !description.isEmpty())
             occurrence.setDescription(description);
 
-        if (status != null)
-            occurrence.setStatus(status);
+        if (policy != null && !policy.isEmpty())
+            occurrence.setPolicy(policy);
+    }
+
+    public void remove(Long id) {
+        var occurrence = findOrFail(id);
+        for (Document document : occurrence.getDocuments())
+            document.setOccurrence(null);
+        em.remove(occurrence);
+    }
+
+    public void approve(Long id) {
+        var occurrence = findOrFail(id);
+        em.lock(occurrence, OPTIMISTIC);
+        occurrence.approve();
+    }
+
+    public void reject(Long id) {
+        var occurrence = findOrFail(id);
+        em.lock(occurrence, OPTIMISTIC);
+        occurrence.reject();
+    }
+
+
+    public List<Occurrence> getOccurrencesByPolicy(String policyCode) {
+        return (List<Occurrence>) em.createNamedQuery("getAllOccurrencesByPolicy").setParameter("policy", policyCode).getResultList();
     }
 
 }

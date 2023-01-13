@@ -39,6 +39,8 @@ public class PolicyService {
     //    @Context
 //    private SecurityContext securityContext;
 
+    @EJB
+    private OccurrenceBean occurrenceBean;
     @GET
     @Path("/")
     public List<PolicyDTO> all() {
@@ -49,6 +51,13 @@ public class PolicyService {
     @Path("{code}")
     public Response get(@PathParam("code") String code) {
         return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByCode(code))).build();
+    }
+
+
+    @GET
+    @Path("{code}/occurrences")
+    public Response getOccurrences(@PathParam("code") String code) {
+        return Response.ok(OccurrenceDTO.from(occurrenceBean.getOccurrencesByPolicy(code))).build();
     }
 
 

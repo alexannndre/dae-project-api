@@ -1,7 +1,26 @@
+#### Auth
+
+### Login
+POST http://localhost:8080/daeproject/api/auth/login
+Content-Type: application/json
+
+{
+  "vat": "289910323",
+  "password": "123456"
+}
+
 #### Occurrences
 
 ### Get All Occurrences
 GET http://localhost:8080/daeproject/api/occurrences
+Accept: application/json
+
+### Get All Pending Occurrences
+GET http://localhost:8080/daeproject/api/occurrences/pending
+Accept: application/json
+
+### Get All Approved Occurrences
+GET http://localhost:8080/daeproject/api/occurrences/approved
 Accept: application/json
 
 ### Get Occurrence by ID
@@ -17,9 +36,18 @@ Content-Type: application/json
   "status": "PENDING"
 }
 
+### Approve an Occurence
+PATCH http://localhost:8080/daeproject/api/occurrences/1/approve
+Accept: application/json
+
+### Reject an Occurence
+PATCH http://localhost:8080/daeproject/api/occurrences/5/reject
+Accept: application/json
+
 ### Upload Document
 POST http://localhost:8080/daeproject/api/occurrences/1/documents HTTP/1.1
 Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIyODk5MTAzMjMiLCJpYXQiOjE2NzM1NzA0MTYsImV4cCI6MTY3MzU3NDAxNn0.-d4vMsCf0x18l_haAC1jXa0ot3qvAR21tXpVpIV-hVA
 
 --boundary
 Content-Disposition: form-data; name="file"; filename="sample-3s.mp3"
@@ -61,3 +89,6 @@ Accept: application/json
 GET http://localhost:8080/daeproject/api/policies/86084
 Accept: application/json
 
+### Get All Occurrences of a Policy
+GET http://localhost:8080/daeproject/api/policies/86084/occurrences
+Accept: application/json

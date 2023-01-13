@@ -20,6 +20,18 @@ import static javax.persistence.EnumType.STRING;
         @NamedQuery(
                 name = "getCustomerOccurrences",
                 query = "SELECT o FROM Occurrence o WHERE o.customer.vat = :vat"
+        ),
+        @NamedQuery(
+                name = "getAllPendingOccurrences",
+                query = "SELECT o FROM Occurrence o WHERE o.status = 'PENDING'"
+        ),
+        @NamedQuery(
+                name = "getAllApprovedOccurrences",
+                query = "SELECT o FROM Occurrence o WHERE o.status = 'APPROVED'"
+        ),
+        @NamedQuery(
+                name = "getAllOccurrencesByPolicy",
+                query = "SELECT o FROM Occurrence o WHERE o.policy=:policy"
         )
 })
 public class Occurrence extends Versionable implements Serializable {
@@ -107,5 +119,19 @@ public class Occurrence extends Versionable implements Serializable {
 
     public void removeDocument(Document document) {
         this.documents.remove(document);
+    }
+
+    public void approve(){
+        if(this.status == Status.PENDING)
+            this.status = Status.APPROVED;
+        else
+            throw new IllegalStateException("Occurrence is not pending");
+    }
+
+    public void reject(){
+        if(this.status == Status.PENDING)
+            this.status = Status.REJECTED;
+        else
+            throw new IllegalStateException("Occurrence is not pending");
     }
 }

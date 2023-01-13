@@ -12,7 +12,7 @@ public class OccurrenceDTO implements Serializable {
     @NotNull
     private Long id;
     @NotNull
-    private String description, policy;
+    private String description, policy, customerVat;
 
     @NotNull
     private Status status;
@@ -20,11 +20,12 @@ public class OccurrenceDTO implements Serializable {
     public OccurrenceDTO() {
     }
 
-    public OccurrenceDTO(Long id, String description, String policy, Status status) {
+    public OccurrenceDTO(Long id, String description, String policy, Status status, String customerVat) {
         this.id = id;
         this.description = description;
         this.policy = policy;
         this.status = status;
+        this.customerVat = customerVat;
     }
 
     public Long getId() {
@@ -59,12 +60,21 @@ public class OccurrenceDTO implements Serializable {
         this.status = status;
     }
 
+    public String getCustomerVat() {
+        return customerVat;
+    }
+
+    public void setCustomerVat(String customerVat) {
+        this.customerVat = customerVat;
+    }
+
     public static OccurrenceDTO from(Occurrence occurrence) {
         return new OccurrenceDTO(
                 occurrence.getId(),
                 occurrence.getDescription(),
                 occurrence.getPolicy(),
-                occurrence.getStatus()
+                occurrence.getStatus(),
+                occurrence.getCustomer().getVat()
         );
     }
 

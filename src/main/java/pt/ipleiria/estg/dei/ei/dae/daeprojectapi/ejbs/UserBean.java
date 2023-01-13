@@ -29,7 +29,6 @@ public class UserBean {
 
     public boolean canLogin(String vat, String password) {
         var user = find(vat);
-        System.out.println("User: " + user);
         return user != null && user.getPassword().equals(hasher.hash(password));
     }
 }
