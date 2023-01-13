@@ -63,6 +63,9 @@ public class Occurrence extends Versionable implements Serializable {
     private Expert expert;
 
     @ManyToOne
+    private Repairer repairer;
+
+    @ManyToOne
     private Service service;
 
     @OneToMany(mappedBy = "occurrence")
@@ -137,6 +140,13 @@ public class Occurrence extends Versionable implements Serializable {
             return null;
         return expert.getVat();
     }
+
+    public String getRepairerVat(){
+        if(repairer==null)
+            return null;
+        return repairer.getVat();
+    }
+
     public Long getServiceId(){
         if(service==null)
             return null;
@@ -174,6 +184,15 @@ public class Occurrence extends Versionable implements Serializable {
             throw new IllegalStateException("Occurrence is not pending");
     }
 
+    public void solve(Repairer repairer){
+        if(this.status == Status.REPAIRING){
+            this.status = Status.SOLVED;
+            setRepairer(repairer);
+        }
+        else
+            throw new IllegalStateException("Occurrence is not repairing");
+    }
+
     public Expert getExpert() {
         return expert;
     }
@@ -188,5 +207,13 @@ public class Occurrence extends Versionable implements Serializable {
 
     public void setService(Service service) {
         this.service = service;
+    }
+
+    public Repairer getRepairer() {
+        return repairer;
+    }
+
+    public void setRepairer(Repairer repairer) {
+        this.repairer = repairer;
     }
 }

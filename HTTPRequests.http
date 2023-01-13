@@ -80,7 +80,14 @@ Content-Type: application/json
   "name": "Toze Repairingz"
 }
 
+### Solve an Occurence
+PATCH http://localhost:8080/daeproject/api/occurrences/18/solve
+Accept: application/json
+Content-Type: application/json
 
+{
+  "repairerVat": "321321321"
+}
 
 ### Upload Document
 POST http://localhost:8080/daeproject/api/occurrences/1/documents HTTP/1.1

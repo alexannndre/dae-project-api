@@ -138,6 +138,17 @@ public class OccurrenceService {
         return chooseService(id, serviceDTO);
     }
 
+    @PATCH
+    @Path("{id}/solve")
+    public Response solve(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
+        try {
+            occurrenceBean.solve(id, occurrenceDTO.getRepairerVat());
+            return Response.ok("This occurrence has been set to solved").build();
+        } catch (IllegalStateException e) {
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
+        }
+    }
+
     // Documents
     @POST
     @Path("{id}/documents")

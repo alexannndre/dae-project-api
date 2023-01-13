@@ -27,13 +27,16 @@ public class OccurrenceBean {
     ExpertBean expertBean;
     @EJB
     ServiceBean serviceBean;
+    @EJB
+    RepairerBean repairerBean;
 
-    public void create(String description, String policy, Status status, String customerVat) {
+    public Long create(String description, String policy, Status status, String customerVat) {
         var customer = customerBean.findOrFail(customerVat);
         var occurrence = new Occurrence(description, policy, status, customer);
 
         em.persist(occurrence);
         customer.addOccurrence(occurrence);
+        return occurrence.getId();
     }
 
     public void create(String description, String policy, Status status, String customerVat, String expertVat) {
@@ -55,14 +58,20 @@ public class OccurrenceBean {
         customer.addOccurrence(occurrence);
     }
 
-    public Long create(String description, String policy, String customerVat) {
+    public void create(String description, String policy, Status status, String customerVat, String expertVat, Long serviceId, String repairerVat) {
         var customer = customerBean.findOrFail(customerVat);
-        var occurrence = new Occurrence(description, policy, PENDING, customer);
-
+        var expert = expertBean.findOrFail(expertVat);
+        var occurrence = new Occurrence(description, policy, status, customer);
+        occurrence.setExpert(expert);
+        occurrence.setService(serviceBean.findOrFail(serviceId));
+        var repairer = repairerBean.findOrFail(repairerVat);
+        occurrence.setRepairer(repairer);
         em.persist(occurrence);
         customer.addOccurrence(occurrence);
+    }
 
-        return occurrence.getId();
+    public Long create(String description, String policy, String customerVat) {
+        return create(description, policy, PENDING, customerVat);
     }
 
     public Occurrence find(Long id) {
@@ -149,6 +158,18 @@ public class OccurrenceBean {
 
         occurrence.setService(service);
         occurrence.setStatus(Status.REPAIRING);
+    }
+
+    public void solve(Long id, String repairerVal) {
+        var occurrence = findOrFail(id);
+        em.lock(occurrence, OPTIMISTIC);
+
+        //if(occurrence.getStatus()!=Status.REPAIRING)
+            //throw new IllegalArgumentException("This occurrence is not repairing");
+        //A verificação acima já é realizada no occurrence.solve()
+
+        var repairer = repairerBean.findOrFail(repairerVal);
+        occurrence.solve(repairer);
     }
 
 }

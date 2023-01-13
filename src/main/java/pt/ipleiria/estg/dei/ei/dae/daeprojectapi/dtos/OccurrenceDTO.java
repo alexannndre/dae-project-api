@@ -16,7 +16,7 @@ public class OccurrenceDTO implements Serializable {
     @NotNull
     private String description, policy, customerVat;
 
-    private String expertVat;
+    private String expertVat, repairerVat;
 
     @NotNull
     private Status status;
@@ -24,7 +24,7 @@ public class OccurrenceDTO implements Serializable {
     public OccurrenceDTO() {
     }
 
-    public OccurrenceDTO(Long id, String description, String policy, Status status, String customerVat, String expertVat, Long serviceId) {
+    public OccurrenceDTO(Long id, String description, String policy, Status status, String customerVat, String expertVat, Long serviceId, String repairerVat) {
         this.id = id;
         this.description = description;
         this.policy = policy;
@@ -32,6 +32,7 @@ public class OccurrenceDTO implements Serializable {
         this.customerVat = customerVat;
         this.expertVat = expertVat;
         this.serviceId = serviceId;
+        this.repairerVat = repairerVat;
     }
 
     public Long getId() {
@@ -82,6 +83,22 @@ public class OccurrenceDTO implements Serializable {
         this.expertVat = expertVat;
     }
 
+    public Long getServiceId() {
+        return serviceId;
+    }
+
+    public void setServiceId(Long serviceId) {
+        this.serviceId = serviceId;
+    }
+
+    public String getRepairerVat() {
+        return repairerVat;
+    }
+
+    public void setRepairerVat(String repairerVat) {
+        this.repairerVat = repairerVat;
+    }
+
     public static OccurrenceDTO from(Occurrence occurrence) {
         return new OccurrenceDTO(
                 occurrence.getId(),
@@ -90,7 +107,8 @@ public class OccurrenceDTO implements Serializable {
                 occurrence.getStatus(),
                 occurrence.getCustomer().getVat(),
                 occurrence.getExpertVat(),
-                occurrence.getServiceId()
+                occurrence.getServiceId(),
+                occurrence.getRepairerVat()
         );
     }
 
