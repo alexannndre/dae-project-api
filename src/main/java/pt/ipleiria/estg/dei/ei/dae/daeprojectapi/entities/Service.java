@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
         ),
         @NamedQuery(
                 name = "getServicesByType",
-                query = "SELECT s FROM Service s WHERE s.type=:type AND s.officialservice=1"
+                query = "SELECT s FROM Service s WHERE s.type=:type"
         )
 })
 public class Service {

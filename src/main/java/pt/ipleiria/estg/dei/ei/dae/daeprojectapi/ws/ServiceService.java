@@ -12,6 +12,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.ServiceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Service;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
 import javax.ejb.EJB;
@@ -53,7 +54,7 @@ public class ServiceService {
     @GET
     @Path("{type}")
     public List<ServiceDTO> getByType(@PathParam("type") String type) {
-        return ServiceDTO.toServiceDTOs(serviceBean.getServicesByType(type));
+        return ServiceDTO.toServiceDTOs(serviceBean.getServicesByType(type).stream().filter(Service::isOfficialService).collect(Collectors.toList()));
     }
 
 }
