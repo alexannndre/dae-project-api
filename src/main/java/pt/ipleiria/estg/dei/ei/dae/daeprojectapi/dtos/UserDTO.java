@@ -10,15 +10,16 @@ import java.util.stream.Collectors;
 
 public class UserDTO implements Serializable {
     @NotNull
-    private String vat, name, email, role;
+    private String vat, name, email, role, password;
 
     public UserDTO() {}
 
-    public UserDTO(String vat, String name, String email, String role) {
+    public UserDTO(String vat, String name, String email, String role, String password) {
         this.vat = vat;
         this.name = name;
         this.email = email;
         this.role = role;
+        this.password = password;
     }
 
     public String getVat() {
@@ -53,12 +54,21 @@ public class UserDTO implements Serializable {
         this.role = role;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public static UserDTO from(User user) {
         return new UserDTO(
                 user.getVat(),
                 user.getName(),
                 user.getEmail(),
-                Hibernate.getClass(user).getSimpleName()
+                Hibernate.getClass(user).getSimpleName(),
+                user.getPassword()
         );
     }
 
