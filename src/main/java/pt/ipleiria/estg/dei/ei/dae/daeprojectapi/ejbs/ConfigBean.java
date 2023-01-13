@@ -28,6 +28,9 @@ public class ConfigBean {
     @EJB
     DocumentBean documentBean = new DocumentBean();
 
+    @EJB
+    ServiceBean serviceBean = new ServiceBean();
+
     private static final Logger LOGGER = Logger.getLogger("ejbs.ConfigBean");
 
     @PostConstruct
@@ -47,6 +50,15 @@ public class ConfigBean {
 
             // Administrators
             adminBean.create("421189655", "Marco", "marco@email.com", "123456");
+
+            // Services
+            serviceBean.create("Mech & Mech", "vehicle");
+            serviceBean.create("Oil Trooper", "vehicle");
+            serviceBean.create("Tire Smash", "vehicle");
+            serviceBean.create("Peter & Karl Home Repairs", "home");
+            serviceBean.create("Innov Renovations", "home");
+            serviceBean.create("Taj Repairs", "electronics");
+            serviceBean.create("Phony Johnny", "electronics");
 
             // Occurrences
             occurrenceBean.create("Occurrence 1", "65510", PENDING, "289910323");
