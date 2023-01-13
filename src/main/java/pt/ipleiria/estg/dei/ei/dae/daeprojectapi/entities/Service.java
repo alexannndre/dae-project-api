@@ -12,7 +12,7 @@ import javax.validation.constraints.NotNull;
         ),
         @NamedQuery(
                 name = "getServicesByType",
-                query = "SELECT s FROM Service s WHERE s.type=:type"
+                query = "SELECT s FROM Service s WHERE s.type=:type AND s.officialservice=1"
         )
 })
 public class Service {
@@ -26,13 +26,26 @@ public class Service {
     @NotNull
     private String type;
 
+    private String creatorVat;
+
+    private boolean officialService;
+
 
     public Service() {
     }
 
-    public Service(String name, String type) {
+    public Service(String name, String type, boolean officialService) {
         this.name = name;
         this.type = type;
+        this.officialService = officialService;
+    }
+
+    public void setOfficialService(boolean officialService) {
+        this.officialService = officialService;
+    }
+
+    public boolean isOfficialService() {
+        return officialService;
     }
 
     public Long getId() {
@@ -57,5 +70,13 @@ public class Service {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void setCreatorVat(String creatorVat) {
+        this.creatorVat = creatorVat;
+    }
+
+    public String getCreatorVat() {
+        return creatorVat;
     }
 }

@@ -25,7 +25,11 @@ public class ServiceBean {
     RepairerBean repairerBean;
 
     public Service create(String name, String type) {
-        var service = new Service(name, type);
+        return create(name, type, true);
+    }
+
+    public Service create(String name, String type, boolean isOfficial) {
+        var service = new Service(name, type, isOfficial);
 
         em.persist(service);
         return service;

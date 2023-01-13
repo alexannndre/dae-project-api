@@ -135,8 +135,10 @@ public class OccurrenceBean {
         var service = serviceBean.find(serviceDTO.getId());
         var pol = occurrence.getPolicyInstance();
 
-        if(service==null)
-            service = serviceBean.create(serviceDTO.getName(), pol.getType());
+        if(service==null){
+            service = serviceBean.create(serviceDTO.getName(), pol.getType(), false);
+            service.setCreatorVat(pol.getCustomer().getVat());
+        }
 
         if(!service.getType().equals(pol.getType()))
             throw new IllegalArgumentException("This repair service is not compatible with this policy type");

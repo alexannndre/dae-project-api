@@ -11,14 +11,34 @@ public class ServiceDTO implements Serializable {
     private long id;
     private String name;
     private String type;
+    private String creatorVat;
+    private boolean isOfficial;
 
     public ServiceDTO() {
     }
 
-    public ServiceDTO(long id, String name, String type) {
+    public ServiceDTO(long id, String name, String type, String creatorVat, boolean isOfficial) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.creatorVat = creatorVat;
+        this.isOfficial = isOfficial;
+    }
+
+    public String getCreatorVat() {
+        return creatorVat;
+    }
+
+    public void setCreatorVat(String creatorVat) {
+        this.creatorVat = creatorVat;
+    }
+
+    public boolean isOfficial() {
+        return isOfficial;
+    }
+
+    public void setOfficial(boolean official) {
+        isOfficial = official;
     }
 
     public long getId() {
@@ -49,7 +69,9 @@ public class ServiceDTO implements Serializable {
         return new ServiceDTO(
                 repairService.getId(),
                 repairService.getName(),
-                repairService.getType()
+                repairService.getType(),
+                repairService.getCreatorVat(),
+                repairService.isOfficialService()
         );
     }
 
