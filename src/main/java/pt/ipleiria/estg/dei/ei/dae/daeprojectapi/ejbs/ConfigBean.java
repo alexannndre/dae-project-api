@@ -20,6 +20,9 @@ public class ConfigBean {
     ExpertBean expertBean = new ExpertBean();
 
     @EJB
+    AdministratorBean administratorBean = new AdministratorBean();
+
+    @EJB
     OccurrenceBean occurrenceBean = new OccurrenceBean();
 
     @EJB
@@ -38,7 +41,12 @@ public class ConfigBean {
             customerBean.create("289910325", "Pedro", "pedro@email.com", "123456");
             customerBean.create("284542983", "Sofia", "Sofia@email.com", "123456");
             customerBean.create("530701258", "Driven Notice LLC", "legal@drivenotice.com", "123456");
+
+            // Experts
             expertBean.create("123123123", "Elso Bas", "oque@bas.com", "123456");
+
+            // Administrators
+            administratorBean.create("421189655", "Marco", "marco@email.com", "123456");
 
             // Occurrences
             occurrenceBean.create("Occurrence 1", "65510", PENDING, "289910323");

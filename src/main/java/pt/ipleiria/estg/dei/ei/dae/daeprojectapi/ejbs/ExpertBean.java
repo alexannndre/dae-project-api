@@ -32,29 +32,6 @@ public class ExpertBean {
         return expert;
     }
 
-    public boolean existsVat(String vat) {
-        var query = em.createQuery("SELECT COUNT (e.vat) FROM Expert e WHERE e.vat = :vat", Long.class);
-        query.setParameter("vat", vat);
-        return query.getSingleResult() > 0;
-    }
-
-    public boolean existsEmail(String email) {
-        var query = em.createQuery("SELECT COUNT (e.email) FROM Expert e WHERE e.email = :email", Long.class);
-        query.setParameter("email", email);
-        return query.getSingleResult() > 0;
-    }
-
-    public List<Expert> getAll(int offset, int limit) {
-        return em.createNamedQuery("getAllExperts", Expert.class)
-                .setFirstResult(offset)
-                .setMaxResults(limit)
-                .getResultList();
-    }
-
-    public Long count() {
-        return em.createQuery("SELECT COUNT (*) FROM " + Expert.class.getSimpleName(), Long.class).getSingleResult();
-    }
-
     public void create(String vat, String name, String email, String password) {
         if (existsVat(vat))
             throw new EntityExistsException("Expert with vat " + vat + " already exists.");
@@ -68,4 +45,28 @@ public class ExpertBean {
         var expert = new Expert(vat, name, email, hasher.hash(password));
         em.persist(expert);
     }
+
+    public List<Expert> getAll(int offset, int limit) {
+        return em.createNamedQuery("getAllExperts", Expert.class)
+                .setFirstResult(offset)
+                .setMaxResults(limit)
+                .getResultList();
+    }
+
+    public boolean existsVat(String vat) {
+        var query = em.createQuery("SELECT COUNT (e.vat) FROM Expert e WHERE e.vat = :vat", Long.class);
+        query.setParameter("vat", vat);
+        return query.getSingleResult() > 0;
+    }
+
+    public boolean existsEmail(String email) {
+        var query = em.createQuery("SELECT COUNT (e.email) FROM Expert e WHERE e.email = :email", Long.class);
+        query.setParameter("email", email);
+        return query.getSingleResult() > 0;
+    }
+
+    public Long count() {
+        return em.createQuery("SELECT COUNT (*) FROM " + Expert.class.getSimpleName(), Long.class).getSingleResult();
+    }
+
 }
