@@ -82,9 +82,6 @@ public class ConfigBean {
             //documentBean.create("/opt/jboss/uploads/occurrences/1/test.txt", "test.txt", 1L, "289910323");
 
             PolicyManager.customerBean = customerBean;
-
-            for(int i = 0; i<1000; i++)
-                System.out.println("Ai que spama ai que doi ai ai tenh omedo ;_;\n");
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
         }
