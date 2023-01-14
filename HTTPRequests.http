@@ -148,3 +148,20 @@ Accept: application/json
 ### Get Services By Type
 GET http://localhost:8080/daeproject/api/services/electronics
 Accept: application/json
+
+
+#### Uploads
+
+### Upload Occurrences by CSV
+
+### Upload Document
+POST http://localhost:8080/daeproject/api/occurrences/upload
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MjExODk2NTUiLCJpYXQiOjE2NzM3MjYyNzEsImV4cCI6MTY3MzcyOTg3MX0.gq_HD7RmgAJ-Y7o-Ob39mxlnou_b4ghzQcNVx5zMvwc
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="cenas.csv"
+
+< C:\csvtest\test1.csv
+
+--boundary

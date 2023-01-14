@@ -55,8 +55,8 @@ public class CsvHelper {
     }
 
     public static OccurrenceDTO toOccurrence(String[] arr){
-        if(arr.length < 3)
-            throw new IllegalArgumentException("Every occurrence in the csv file must have at least 3 columns");
+        if(arr.length < 4)
+            throw new IllegalArgumentException("Every occurrence in the csv file must have at least 4 columns");
         System.out.println(Arrays.toString(arr));
         return new OccurrenceDTO(-1L, arr[0], arr[1], Status.valueOf(arr[2]), arr[3],
                 isStringNull(arr, 4)?null:arr[4],

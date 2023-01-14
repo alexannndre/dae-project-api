@@ -275,22 +275,17 @@ public class OccurrenceService {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
         }
 
-        int count=list.size(),created=0,updated=0;
+        int count=list.size();
 
         if(count==0)
             return Response.status(BAD_REQUEST).entity(new ErrorDTO("No processable occurrences were found in that file")).build();
 
-
-        for (OccurrenceDTO occ : list) {
-            if(occurrenceBean.find(occ.getId()) == null){
-                occurrenceBean.create(occ);
-                created++;
-            }else{
-                occurrenceBean.update(occ);
-                updated++;
-            }
+        for (OccurrenceDTO occ : list){
+            System.out.println(occ.getRepairerVat() + " " + occ.getCustomerVat());
+            occurrenceBean.create(occ);
         }
-        return Response.ok(String.format("Success! Processed %d occurrences; Created %d new occurrences; Updated %d occurrences;", count, created, updated)).build();
+
+        return Response.ok(String.format("Success! Created %d new occurrences", count)).build();
     }
 
 }
