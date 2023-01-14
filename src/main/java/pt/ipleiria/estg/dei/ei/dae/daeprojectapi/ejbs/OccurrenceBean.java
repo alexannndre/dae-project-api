@@ -30,7 +30,7 @@ public class OccurrenceBean {
     @EJB
     RepairerBean repairerBean;
 
-    public void create(OccurrenceDTO occurrenceDTO){
+    public void create(OccurrenceDTO occurrenceDTO) {
         this.create(occurrenceDTO.getDescription(), occurrenceDTO.getPolicy(), occurrenceDTO.getStatus(), occurrenceDTO.getCustomerVat(), occurrenceDTO.getExpertVat(), occurrenceDTO.getServiceId(), occurrenceDTO.getRepairerVat());
     }
 
@@ -66,13 +66,13 @@ public class OccurrenceBean {
         var customer = customerBean.findOrFail(customerVat);
 
         var occurrence = new Occurrence(description, policy, status, customer);
-        if(expertVat!=null){
+        if (expertVat != null) {
             var expert = expertBean.findOrFail(expertVat);
             occurrence.setExpert(expert);
         }
-        if(serviceId!=null)
+        if (serviceId != null)
             occurrence.setService(serviceBean.findOrFail(serviceId));
-        if(repairerVat!=null){
+        if (repairerVat != null) {
             var repairer = repairerBean.findOrFail(repairerVat);
             occurrence.setRepairer(repairer);
         }
@@ -97,7 +97,7 @@ public class OccurrenceBean {
     public List<Occurrence> getAllOccurrences() {
         return (List<Occurrence>) em.createNamedQuery("getAllOccurrences").getResultList();
     }
-    
+
     public List<Occurrence> getAllOccurrencesByStatus(Status status) {
         return (List<Occurrence>) em.createNamedQuery("getAllOccurrencesByStatus").setParameter("status", status).getResultList();
     }
@@ -130,7 +130,7 @@ public class OccurrenceBean {
             occurrence.setPolicy(policy);
     }
 
-    public void update(OccurrenceDTO occurrenceDTO){
+    public void update(OccurrenceDTO occurrenceDTO) {
         this.update(occurrenceDTO.getId(), occurrenceDTO.getDescription(), occurrenceDTO.getPolicy());
     }
 
@@ -185,11 +185,6 @@ public class OccurrenceBean {
     public void solve(Long id, String repairerVal) {
         var occurrence = findOrFail(id);
         em.lock(occurrence, OPTIMISTIC);
-
-        // if (occurrence.getStatus() != Status.REPAIRING)
-        //   throw new IllegalArgumentException("This occurrence is not repairing");
-        // A verificação acima já é realizada no occurrence.solve()
-
         var repairer = repairerBean.findOrFail(repairerVal);
         occurrence.solve(repairer);
     }

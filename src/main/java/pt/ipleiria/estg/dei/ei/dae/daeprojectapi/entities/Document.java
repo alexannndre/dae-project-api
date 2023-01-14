@@ -6,10 +6,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "documents")
-//@NamedQuery(
-//        name = "getStudentDocuments",
-//        query = "SELECT doc FROM Document doc WHERE doc.student.username = :id"
-//)
 @NamedQuery(
         name = "getOccurrenceDocuments",
         query = "SELECT doc FROM Document doc WHERE doc.occurrence.id = :id"

@@ -22,13 +22,5 @@ public class EntityExistsExceptionMapper implements ExceptionMapper<EntityExists
     protected static Response getResponse(EntityExistsException e) {
         LOGGER.warning("ERROR: " + e.getMessage());
         return Response.status(CONFLICT).entity(new ErrorDTO(e.getMessage())).build();
-       
-//        var msgs = e.getMessage().split("#");
-//        var entity = msgs[0].substring(msgs[0].lastIndexOf('.') + 1);
-//        var pk = msgs[1].substring(0, msgs[1].length() - 1);
-//        var msg = entity + " already exists: " + pk;
-//        LOGGER.warning("ERROR: " + msg);
-//
-//        return Response.status(CONFLICT).entity(new ErrorDTO(msg)).build();
     }
 }

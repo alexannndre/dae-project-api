@@ -83,10 +83,6 @@ public class ConfigBean {
             occurrenceBean.create("Occurrence 11", "14050", REPAIRING, "289910324", "123123123", 6L);
             occurrenceBean.create("Occurrence 12", "14050", REPAIRING, "289910324", "123123123", 6L);
 
-
-            // Documents
-            //documentBean.create("/opt/jboss/uploads/occurrences/1/test.txt", "test.txt", 1L, "289910323");
-
             PolicyManager.customerBean = customerBean;
         } catch (Exception e) {
             LOGGER.severe(e.getMessage());
