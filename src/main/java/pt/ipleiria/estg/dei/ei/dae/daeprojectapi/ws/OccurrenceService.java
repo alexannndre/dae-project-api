@@ -3,14 +3,12 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ws;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.DocumentDTO;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ErrorDTO;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.DocumentBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
 import javax.ejb.EJB;
@@ -53,6 +51,10 @@ public class OccurrenceService {
         return occurrences.stream().map(OccurrenceDTO::from).collect(Collectors.toList());
     }
 
+    private List<StatusDTO> statusesToDTOs(List<Status> statuses) {
+        return statuses.stream().map(StatusDTO::from).collect(Collectors.toList());
+    }
+
     @GET
     @Path("/")
     public List<OccurrenceDTO> all() {
@@ -84,6 +86,12 @@ public class OccurrenceService {
         return Response.ok(OccurrenceDTO.from(occurrence)).build();
     }
 
+    @GET
+    @Path("status")
+    public List<StatusDTO> getStatus() {
+        return statusesToDTOs(occurrenceBean.getAllStatus());
+    }
+
     @PUT
     @Path("{id}")
     public Response update(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
@@ -112,7 +120,7 @@ public class OccurrenceService {
 
     @PATCH
     @Path("{id}/reject")
-    public Response reject(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO)  {
+    public Response reject(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
         try {
             occurrenceBean.reject(id, occurrenceDTO.getExpertVat());
             return Response.ok("This occurrence has been rejected").build();

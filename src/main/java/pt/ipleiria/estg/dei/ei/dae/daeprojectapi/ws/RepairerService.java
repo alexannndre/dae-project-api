@@ -31,5 +31,4 @@ public class RepairerService {
         emailBean.send(repairer.getEmail(), emailDTO.getSubject(), emailDTO.getBody());
         return Response.ok().build();
     }
-
 }
