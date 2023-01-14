@@ -16,7 +16,9 @@ import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.CREATED;
@@ -31,6 +33,9 @@ public class CustomerService {
 
     @EJB
     private OccurrenceBean occurrenceBean;
+
+    @Context
+    private SecurityContext securityContext;
 
     @GET
     @RolesAllowed({"Administrator", "Repairer", "Expert"})
@@ -77,12 +82,13 @@ public class CustomerService {
         return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByVat(vat))).build();
     }
 
-
     // Occurrences
     @GET
-    @RolesAllowed({"Administrator", "Customer", "Repairer", "Expert"})
     @Path("{vat}/occurrences")
     public Response getOccurrences(@PathParam("vat") String vat) {
+        if (securityContext.isUserInRole("Customer") && !securityContext.getUserPrincipal().getName().equals(vat))
+            return Response.status(Response.Status.FORBIDDEN).build();
+
         return Response.ok(OccurrenceDTO.from(customerBean.getOccurrences(vat))).build();
     }
 
