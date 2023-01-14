@@ -4,6 +4,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.CustomerBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.EmailBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.requests.PageRequest;
 
@@ -85,6 +86,15 @@ public class CustomerService {
         var dto = OccurrenceDTO.from(occurrenceBean.findOrFail(occurrenceId));
         return Response.status(CREATED).entity(dto).build();
     }
+
+
+    @GET
+    @Path("{vat}/occurrences/status/{status}")
+    public Response allByStatus(@PathParam("vat") String vat, @PathParam("status") Status status) {
+        var occurrences = customerBean.getOccurrencesByStatus(vat, status);
+        return Response.ok(OccurrenceDTO.from(occurrences)).build();
+    }
+
 
     // Emails
     @POST

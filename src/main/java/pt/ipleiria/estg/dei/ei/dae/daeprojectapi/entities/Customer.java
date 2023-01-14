@@ -15,8 +15,8 @@ import static javax.persistence.FetchType.LAZY;
 @NamedQueries(value = {
         @NamedQuery(
                 name = "getAllCustomers",
-                query = "SELECT c FROM Customer c ORDER BY c.name" // JPQL
-        )
+                query = "SELECT c FROM Customer c ORDER BY c.name"
+        ),
 })
 public class Customer extends User implements Serializable {
     @OneToMany(mappedBy = "customer", fetch = LAZY, cascade = REMOVE)

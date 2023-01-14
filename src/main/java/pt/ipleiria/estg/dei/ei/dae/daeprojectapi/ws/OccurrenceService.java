@@ -62,6 +62,12 @@ public class OccurrenceService {
     }
 
     @GET
+    @Path("/status/{status}")
+    public List<OccurrenceDTO> allByStatus(@PathParam("status") Status status) {
+        return occurrencesToDTOs(occurrenceBean.getAllOccurrencesByStatus(status));
+    }
+
+    @GET
     @Path("pending")
     public List<OccurrenceDTO> pending() {
         return occurrencesToDTOs(occurrenceBean.getAllPendingOccurrences());

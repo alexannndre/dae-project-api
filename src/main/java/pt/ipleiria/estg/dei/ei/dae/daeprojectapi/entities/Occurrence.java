@@ -44,6 +44,10 @@ import static javax.persistence.FetchType.LAZY;
         @NamedQuery(
                 name = "getAllOccurrencesByPolicy",
                 query = "SELECT o FROM Occurrence o WHERE o.policy=:policy"
+        ),
+        @NamedQuery(
+                name = "getAllOccurrencesByStatus",
+                query = "SELECT o FROM Occurrence o WHERE o.status = :status"
         )
 })
 public class Occurrence extends Versionable implements Serializable {

@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Hasher;
 
 import javax.ejb.Stateless;
@@ -81,6 +82,13 @@ public class CustomerBean {
     public List<Occurrence> getOccurrences(String vat) {
         var occurrences = findOrFail(vat).getOccurrences();
         Hibernate.initialize(occurrences);
+        return occurrences;
+    }
+
+    public List<Occurrence> getOccurrencesByStatus(String vat, Status status) {
+        var occurrences = findOrFail(vat).getOccurrences();
+        Hibernate.initialize(occurrences);
+        occurrences.removeIf(occurrence -> !occurrence.getStatus().equals(status));
         return occurrences;
     }
 }

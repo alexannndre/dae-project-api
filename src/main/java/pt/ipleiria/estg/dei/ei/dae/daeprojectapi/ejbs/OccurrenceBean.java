@@ -86,6 +86,10 @@ public class OccurrenceBean {
     public List<Occurrence> getAllOccurrences() {
         return (List<Occurrence>) em.createNamedQuery("getAllOccurrences").getResultList();
     }
+    
+    public List<Occurrence> getAllOccurrencesByStatus(Status status) {
+        return (List<Occurrence>) em.createNamedQuery("getAllOccurrencesByStatus").setParameter("status", status).getResultList();
+    }
 
     public List<Occurrence> getAllPendingOccurrences() {
         return (List<Occurrence>) em.createNamedQuery("getAllPendingOccurrences").getResultList();
