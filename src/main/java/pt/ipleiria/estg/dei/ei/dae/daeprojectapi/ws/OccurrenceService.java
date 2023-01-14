@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ws;
 
 import com.opencsv.CSVReader;
+import jakarta.annotation.security.RolesAllowed;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -264,11 +265,9 @@ public class OccurrenceService {
     @Path("upload")
     @Consumes(MULTIPART_FORM_DATA)
     @Produces(APPLICATION_JSON)
-    @Authenticated()
+    @Authenticated
+    @RolesAllowed({"Administrator"})
     public Response loadData(MultipartFormDataInput input) throws IOException {
-        if(!securityContext.isUserInRole("Administrator"))
-            return Response.status(FORBIDDEN).build();
-
         List<OccurrenceDTO> list;
         try{
            list = CsvHelper.loadCsv(input, CsvHelper::toOccurrence);
@@ -277,6 +276,11 @@ public class OccurrenceService {
         }
 
         int count=list.size(),created=0,updated=0;
+
+        if(count==0)
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO("No processable occurrences were found in that file")).build();
+
+
         for (OccurrenceDTO occ : list) {
             if(occurrenceBean.find(occ.getId()) == null){
                 occurrenceBean.create(occ);
