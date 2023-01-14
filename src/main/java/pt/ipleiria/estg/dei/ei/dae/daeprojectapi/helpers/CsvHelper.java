@@ -47,16 +47,21 @@ public class CsvHelper {
         return tStuff;
     }
 
-    private static boolean isStringNull(Object o){
-        String s = String.valueOf(o);
+    private static boolean isStringNull(String[] o, int idx){
+        if(idx >= o.length)
+            return true;
+        String s = String.valueOf(o[idx]);
         return s == null || s.isEmpty() || s.equalsIgnoreCase("null");
     }
 
     public static OccurrenceDTO toOccurrence(String[] arr){
-        return new OccurrenceDTO(Long.parseLong(arr[0]), arr[1], arr[2], Status.valueOf(arr[3]), arr[4],
-                isStringNull(arr[5])?null:arr[5],
-                isStringNull(arr[6])?null:Long.parseLong(arr[6]),
-                isStringNull(arr[7])?null:arr[7]
+        if(arr.length < 3)
+            throw new IllegalArgumentException("Every occurrence in the csv file must have at least 3 columns");
+        System.out.println(Arrays.toString(arr));
+        return new OccurrenceDTO(-1L, arr[0], arr[1], Status.valueOf(arr[2]), arr[3],
+                isStringNull(arr, 4)?null:arr[4],
+                isStringNull(arr, 5)?null:Long.parseLong(arr[5]),
+                isStringNull(arr, 6)?null:arr[6]
         );
     }
 }

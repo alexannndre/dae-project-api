@@ -267,7 +267,7 @@ public class OccurrenceService {
     @Produces(APPLICATION_JSON)
     @Authenticated
     @RolesAllowed({"Administrator"})
-    public Response loadData(MultipartFormDataInput input) throws IOException {
+    public Response loadData(MultipartFormDataInput input) {
         List<OccurrenceDTO> list;
         try{
            list = CsvHelper.loadCsv(input, CsvHelper::toOccurrence);
