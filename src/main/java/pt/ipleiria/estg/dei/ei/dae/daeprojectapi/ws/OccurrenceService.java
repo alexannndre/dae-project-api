@@ -6,6 +6,7 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.DocumentBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.UserBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
@@ -29,6 +30,7 @@ import java.util.stream.Collectors;
 
 import static javax.ws.rs.core.MediaType.*;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 
 @Path("occurrences")
 @Produces({APPLICATION_JSON})
@@ -176,11 +178,22 @@ public class OccurrenceService {
     @POST
     @Consumes(MULTIPART_FORM_DATA)
     @Produces(APPLICATION_JSON)
+    @RolesAllowed({"Administrator", "Customer", "Repairer"})
     @Path("{id}/documents")
     public Response upload(@PathParam("id") Long id, MultipartFormDataInput input) throws IOException {
-        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
         var vat = securityContext.getUserPrincipal().getName();
+        var occurrence = occurrenceBean.findOrFail(id);
+
+        if (!occurrence.getCustomer().getVat().equals(vat) && securityContext.isUserInRole("Customer"))
+            return Response.status(FORBIDDEN).build();
+
+        if (occurrence.getStatus() != Status.PENDING && securityContext.isUserInRole("Customer")) {
+            var msg = "You can't add a document to an occurrence that is not pending";
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO(msg)).build();
+        }
+
+        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
         List<InputPart> inputParts = uploadForm.get("file");
 

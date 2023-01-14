@@ -22,6 +22,9 @@ public class User extends Versionable implements Serializable {
     @NotNull
     private String password;
 
+    @Column(insertable = false, updatable = false)
+    private String dtype;
+
     public User() {
     }
 
@@ -62,5 +65,9 @@ public class User extends Versionable implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return dtype;
     }
 }

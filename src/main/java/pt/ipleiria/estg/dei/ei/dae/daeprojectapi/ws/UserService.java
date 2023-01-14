@@ -13,7 +13,9 @@ import javax.ejb.EJB;
 import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.ws.rs.*;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.SecurityContext;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.Response.Status.CREATED;
@@ -29,19 +31,45 @@ public class UserService {
     @EJB
     private EmailBean emailBean;
 
+    @Context
+    private SecurityContext securityContext;
+
     @PUT
-    @Path("{vat}")
-    public Response update(@PathParam("vat") String vat, UserDTO userDTO) {
+    @Path("/me")
+    public Response updateMe(UserDTO userDTO) {
+        var vat = securityContext.getUserPrincipal().getName();
+
         userBean.update(vat, userDTO.getName(), userDTO.getEmail());
         userDTO = UserDTO.from(userBean.findOrFail(vat));
+
         return Response.ok(userDTO).build();
     }
 
     @PUT
+    @Path("/me/password")
+    public Response updateMyPassword(UserCreateDTO userDTO) {
+        var vat = securityContext.getUserPrincipal().getName();
+        userBean.updatePassword(vat, userDTO.getPassword());
+        return Response.ok().build();
+    }
+
+    @PUT
+    @RolesAllowed({"Administrator"})
+    @Path("{vat}")
+    public Response updateUser(@PathParam("vat") String vat, UserDTO userDTO) {
+        userBean.update(vat, userDTO.getName(), userDTO.getEmail());
+        userDTO = UserDTO.from(userBean.findOrFail(vat));
+
+        return Response.ok(userDTO).build();
+    }
+
+    @PUT
+    @RolesAllowed({"Administrator"})
     @Path("{vat}/password")
-    public Response updatePassword(@PathParam("vat") String vat, UserCreateDTO userDTO) {
+    public Response updateUserPassword(@PathParam("vat") String vat, UserCreateDTO userDTO) {
         userBean.updatePassword(vat, userDTO.getPassword());
         userDTO = UserCreateDTO.from(userBean.findOrFail(vat));
+
         return Response.ok(userDTO).build();
     }
 

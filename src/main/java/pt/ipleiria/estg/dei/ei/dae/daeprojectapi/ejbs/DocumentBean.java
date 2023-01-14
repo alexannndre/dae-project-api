@@ -3,18 +3,22 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.User;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 @Stateless
 public class DocumentBean {
     @EJB
     private OccurrenceBean occurrenceBean;
-    
+
     @EJB
     private UserBean userBean;
 
@@ -24,7 +28,6 @@ public class DocumentBean {
     public Document create(String filepath, String filename, Long occurrenceId, String vat) {
         var occurrence = occurrenceBean.findOrFail(occurrenceId);
         var user = userBean.findOrFail(vat);
-        
         var document = new Document(filepath, filename, occurrence, user);
 
         em.persist(document);
