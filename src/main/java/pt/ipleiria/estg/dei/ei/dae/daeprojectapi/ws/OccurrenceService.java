@@ -8,7 +8,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.DocumentBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
 import javax.ejb.EJB;

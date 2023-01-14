@@ -1,7 +1,5 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.pojos.Policy;
 
 import javax.validation.constraints.NotNull;

@@ -4,7 +4,7 @@ import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
@@ -13,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static javax.persistence.LockModeType.OPTIMISTIC;
-import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status.*;
+import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status.*;
 
 @Stateless
 public class OccurrenceBean {

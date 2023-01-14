@@ -1,12 +1,8 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.pojos;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;

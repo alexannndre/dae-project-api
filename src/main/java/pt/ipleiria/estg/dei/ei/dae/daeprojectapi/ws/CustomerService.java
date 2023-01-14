@@ -4,7 +4,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.CustomerBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.EmailBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.requests.PageRequest;
 

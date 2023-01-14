@@ -1,6 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities;
 
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.pojos.Policy;
 

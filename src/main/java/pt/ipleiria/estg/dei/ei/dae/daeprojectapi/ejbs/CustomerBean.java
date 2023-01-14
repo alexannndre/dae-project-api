@@ -3,7 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Hasher;
 
 import javax.ejb.Stateless;

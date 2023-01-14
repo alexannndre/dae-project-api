@@ -8,7 +8,7 @@ import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import java.util.logging.Logger;
 
-import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status.*;
+import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status.*;
 
 @Singleton
 @Startup
