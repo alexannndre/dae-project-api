@@ -72,7 +72,6 @@ public class UserService {
 
     // Emails
     @POST
-    @RolesAllowed({"Administrator", "Customer", "Expert", "Repairer"})
     @Path("/{vat}/email/send")
     public Response sendEmail(@PathParam("vat") String vat, EmailDTO emailDTO) throws MessagingException {
         var user = userBean.findOrFail(vat);
