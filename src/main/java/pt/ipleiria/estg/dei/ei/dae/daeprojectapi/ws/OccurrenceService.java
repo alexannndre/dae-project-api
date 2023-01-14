@@ -1,5 +1,6 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ws;
 
+import com.opencsv.CSVReader;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -9,18 +10,18 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.helpers.CsvHelper;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
 import javax.ejb.EJB;
+import javax.enterprise.inject.spi.Bean;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 
 import static javax.ws.rs.core.MediaType.*;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 
 @Path("occurrences")
 @Produces({APPLICATION_JSON})  // injects header “Content-Type: application/json”
@@ -169,7 +171,7 @@ public class OccurrenceService {
     @Consumes(MULTIPART_FORM_DATA)
     @Produces(APPLICATION_JSON)
     @Authenticated
-    public Response upload(@PathParam("id") Long id, MultipartFormDataInput input) throws IOException {
+    public Response uploadDoc(@PathParam("id") Long id, MultipartFormDataInput input) throws IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
         var vat = securityContext.getUserPrincipal().getName();
@@ -256,6 +258,35 @@ public class OccurrenceService {
         fop.write(content);
         fop.flush();
         fop.close();
+    }
+
+    @POST
+    @Path("upload")
+    @Consumes(MULTIPART_FORM_DATA)
+    @Produces(APPLICATION_JSON)
+    @Authenticated()
+    public Response loadData(MultipartFormDataInput input) throws IOException {
+        if(!securityContext.isUserInRole("Administrator"))
+            return Response.status(FORBIDDEN).build();
+
+        List<OccurrenceDTO> list;
+        try{
+           list = CsvHelper.loadCsv(input, CsvHelper::toOccurrence);
+        }catch(Exception e){
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
+        }
+
+        int count=list.size(),created=0,updated=0;
+        for (OccurrenceDTO occ : list) {
+            if(occurrenceBean.find(occ.getId()) == null){
+                occurrenceBean.create(occ);
+                created++;
+            }else{
+                occurrenceBean.update(occ);
+                updated++;
+            }
+        }
+        return Response.ok(String.format("Success! Processed %d occurrences; Created %d new occurrences; Updated %d occurrences;", count, created, updated)).build();
     }
 
 }

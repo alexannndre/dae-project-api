@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
@@ -28,6 +29,10 @@ public class OccurrenceBean {
     ServiceBean serviceBean;
     @EJB
     RepairerBean repairerBean;
+
+    public void create(OccurrenceDTO occurrenceDTO){
+        this.create(occurrenceDTO.getDescription(), occurrenceDTO.getPolicy(), occurrenceDTO.getStatus(), occurrenceDTO.getCustomerVat(), occurrenceDTO.getExpertVat(), occurrenceDTO.getServiceId(), occurrenceDTO.getRepairerVat());
+    }
 
     public Long create(String description, String policy, Status status, String customerVat) {
         var customer = customerBean.findOrFail(customerVat);
@@ -117,6 +122,10 @@ public class OccurrenceBean {
 
         if (policy != null && !policy.isEmpty())
             occurrence.setPolicy(policy);
+    }
+
+    public void update(OccurrenceDTO occurrenceDTO){
+        this.update(occurrenceDTO.getId(), occurrenceDTO.getDescription(), occurrenceDTO.getPolicy());
     }
 
     public void remove(Long id) {
