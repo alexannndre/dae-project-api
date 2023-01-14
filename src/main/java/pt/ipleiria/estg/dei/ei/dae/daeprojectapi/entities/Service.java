@@ -31,25 +31,25 @@ public class Service {
 
     private String creatorVat;
 
-    private boolean officialService;
+    private boolean isOfficial;
 
 
     public Service() {
     }
 
-    public Service(String name, String email, String type, boolean officialService) {
+    public Service(String name, String email, String type, boolean isOfficial) {
         this.name = name;
         this.email = email;
         this.type = type;
-        this.officialService = officialService;
+        this.isOfficial = isOfficial;
     }
 
-    public void setOfficialService(boolean officialService) {
-        this.officialService = officialService;
+    public boolean isOfficial() {
+        return isOfficial;
     }
 
-    public boolean isOfficialService() {
-        return officialService;
+    public void setOfficial(boolean official) {
+        isOfficial = official;
     }
 
     public Long getId() {

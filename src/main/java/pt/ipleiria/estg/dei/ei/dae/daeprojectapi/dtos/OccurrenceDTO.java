@@ -13,13 +13,22 @@ public class OccurrenceDTO implements Serializable {
     private Long id;
 
     private Long serviceId;
-    @NotNull
-    private String description, policy, customerVat;
 
-    private String expertVat, repairerVat;
+    @NotNull
+    private String description;
+
+    @NotNull
+    private String policy;
+
+    @NotNull
+    private String customerVat;
 
     @NotNull
     private Status status;
+
+    private String expertVat;
+
+    private String repairerVat;
 
     public OccurrenceDTO() {
     }

@@ -9,15 +9,20 @@ import java.util.stream.Collectors;
 
 public class AdministratorDTO implements Serializable {
     @NotNull
-    private String vat, name, password, email;
+    private String vat;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String email;
 
     public AdministratorDTO() {
     }
 
-    public AdministratorDTO(String vat, String name, String password, String email) {
+    public AdministratorDTO(String vat, String name, String email) {
         this.vat = vat;
         this.name = name;
-        this.password = password;
         this.email = email;
     }
 
@@ -37,14 +42,6 @@ public class AdministratorDTO implements Serializable {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -57,8 +54,7 @@ public class AdministratorDTO implements Serializable {
         return new AdministratorDTO(
                 admin.getVat(),
                 admin.getName(),
-                admin.getEmail(),
-                admin.getPassword()
+                admin.getEmail()
         );
     }
 

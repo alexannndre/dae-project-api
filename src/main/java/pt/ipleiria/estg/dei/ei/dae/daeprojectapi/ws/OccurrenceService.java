@@ -11,6 +11,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -30,14 +31,10 @@ import static javax.ws.rs.core.MediaType.*;
 import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 
 @Path("occurrences")
-@Produces({APPLICATION_JSON})  // injects header “Content-Type: application/json”
-@Consumes({APPLICATION_JSON})  // injects header “Accept: application/json”
-//@Authenticated
-//@RolesAllowed({"Teacher", "Administrator"})
+@Produces({APPLICATION_JSON})
+@Consumes({APPLICATION_JSON})
+@Authenticated
 public class OccurrenceService {
-    //    @EJB
-//    private CustomerBean studentBean;
-
     @EJB
     private OccurrenceBean occurrenceBean;
 
@@ -56,36 +53,42 @@ public class OccurrenceService {
     }
 
     @GET
+    @RolesAllowed({"Administrator"})
     @Path("/")
     public List<OccurrenceDTO> all() {
         return occurrencesToDTOs(occurrenceBean.getAllOccurrences());
     }
 
     @GET
+    @RolesAllowed({"Administrator"})
     @Path("/status/{status}")
     public List<OccurrenceDTO> allByStatus(@PathParam("status") Status status) {
         return occurrencesToDTOs(occurrenceBean.getAllOccurrencesByStatus(status));
     }
 
     @GET
+    @RolesAllowed({"Administrator", "Expert"})
     @Path("pending")
     public List<OccurrenceDTO> pending() {
         return occurrencesToDTOs(occurrenceBean.getAllPendingOccurrences());
     }
 
     @GET
+    @RolesAllowed({"Administrator"})
     @Path("approved")
     public List<OccurrenceDTO> approved() {
         return occurrencesToDTOs(occurrenceBean.getAllApprovedOccurrences());
     }
 
     @GET
+    @RolesAllowed({"Administrator", "Repairer"})
     @Path("repairing")
     public List<OccurrenceDTO> repairing() {
         return occurrencesToDTOs(occurrenceBean.getAllRepairingOccurrences());
     }
 
     @GET
+    @RolesAllowed({"Administrator", "Customer", "Repairer", "Expert"})
     @Path("{id}")
     public Response get(@PathParam("id") Long id) {
         var occurrence = occurrenceBean.findOrFail(id);
@@ -93,6 +96,7 @@ public class OccurrenceService {
     }
 
     @GET
+    @RolesAllowed({"Administrator", "Customer", "Expert", "Repairer"})
     @Path("status")
     public List<StatusDTO> getStatus() {
         return statusesToDTOs(occurrenceBean.getAllStatus());
@@ -114,6 +118,7 @@ public class OccurrenceService {
     }
 
     @PATCH
+    @RolesAllowed({"Expert"})
     @Path("{id}/approve")
     public Response approve(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
         try {
@@ -125,6 +130,7 @@ public class OccurrenceService {
     }
 
     @PATCH
+    @RolesAllowed({"Expert"})
     @Path("{id}/reject")
     public Response reject(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
         try {
@@ -136,6 +142,7 @@ public class OccurrenceService {
     }
 
     @PATCH
+    @RolesAllowed({"Customer"})
     @Path("{id}/service")
     public Response chooseService(@PathParam("id") Long id, ServiceDTO serviceDTO) {
         try {
@@ -147,12 +154,14 @@ public class OccurrenceService {
     }
 
     @POST
+    @RolesAllowed({"Customer"})
     @Path("{id}/service")
     public Response chooseServiceAndCreate(@PathParam("id") Long id, ServiceDTO serviceDTO) {
         return chooseService(id, serviceDTO);
     }
 
     @PATCH
+    @RolesAllowed({"Repairer"})
     @Path("{id}/solve")
     public Response solve(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
         try {
@@ -165,10 +174,9 @@ public class OccurrenceService {
 
     // Documents
     @POST
-    @Path("{id}/documents")
     @Consumes(MULTIPART_FORM_DATA)
     @Produces(APPLICATION_JSON)
-    @Authenticated
+    @Path("{id}/documents")
     public Response upload(@PathParam("id") Long id, MultipartFormDataInput input) throws IOException {
         Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 

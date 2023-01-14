@@ -11,20 +11,25 @@ import java.io.Serializable;
 public class User extends Versionable implements Serializable {
     @Id
     private String vat;
+
     @Email
     @Column(unique = true)
     private String email;
+
     @NotNull
-    private String name, password;
+    private String name;
+
+    @NotNull
+    private String password;
 
     public User() {
     }
 
     public User(String vat, String name, String email, String password) {
         this.vat = vat;
-        this.password = password;
         this.name = name;
         this.email = email;
+        this.password = password;
     }
 
     public String getVat() {
@@ -35,12 +40,12 @@ public class User extends Versionable implements Serializable {
         this.vat = vat;
     }
 
-    public String getPassword() {
-        return password;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -51,12 +56,11 @@ public class User extends Versionable implements Serializable {
         this.name = name;
     }
 
-    public String getEmail() {
-        return email;
+    public String getPassword() {
+        return password;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setPassword(String password) {
+        this.password = password;
     }
-
 }

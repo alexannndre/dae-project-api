@@ -10,15 +10,20 @@ import java.util.stream.Collectors;
 
 public class ExpertDTO implements Serializable {
     @NotNull
-    private String vat, name, password, email;
+    private String vat;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String email;
 
     public ExpertDTO() {
     }
 
-    public ExpertDTO(String vat, String name, String password, String email) {
+    public ExpertDTO(String vat, String name, String email) {
         this.vat = vat;
         this.name = name;
-        this.password = password;
         this.email = email;
     }
 
@@ -38,14 +43,6 @@ public class ExpertDTO implements Serializable {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -58,8 +55,7 @@ public class ExpertDTO implements Serializable {
         return new ExpertDTO(
                 expert.getVat(),
                 expert.getName(),
-                expert.getEmail(),
-                expert.getPassword()
+                expert.getEmail()
         );
     }
 
