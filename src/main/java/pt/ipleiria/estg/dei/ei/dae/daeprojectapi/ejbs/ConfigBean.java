@@ -26,9 +26,6 @@ public class ConfigBean {
     OccurrenceBean occurrenceBean = new OccurrenceBean();
 
     @EJB
-    DocumentBean documentBean = new DocumentBean();
-
-    @EJB
     RepairerBean repairerBean = new RepairerBean();
 
     @EJB
