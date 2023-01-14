@@ -2,16 +2,11 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.User;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.SecurityContext;
 import java.util.List;
 
 @Stateless

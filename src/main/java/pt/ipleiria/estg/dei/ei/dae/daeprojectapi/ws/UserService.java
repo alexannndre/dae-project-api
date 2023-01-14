@@ -1,24 +1,21 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ws;
 
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.*;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.EmailDTO;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.UserDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.create.UserCreateDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.EmailBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.UserBean;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.requests.PageRequest;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.mail.MessagingException;
-import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.Response.Status.CREATED;
 
 @Path("/users")
 @Produces({APPLICATION_JSON})

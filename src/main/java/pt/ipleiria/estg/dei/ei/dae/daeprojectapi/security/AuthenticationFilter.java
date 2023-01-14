@@ -14,7 +14,6 @@ import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.SecurityContext;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.ext.Provider;
-
 import java.security.Principal;
 
 import static javax.ws.rs.Priorities.AUTHENTICATION;
