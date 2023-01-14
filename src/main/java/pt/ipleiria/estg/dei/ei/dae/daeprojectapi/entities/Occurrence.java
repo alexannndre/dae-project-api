@@ -10,7 +10,9 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.REMOVE;
 import static javax.persistence.EnumType.STRING;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Table(name = "occurrences")
@@ -68,7 +70,7 @@ public class Occurrence extends Versionable implements Serializable {
     @ManyToOne
     private Service service;
 
-    @OneToMany(mappedBy = "occurrence")
+    @OneToMany(mappedBy = "occurrence", fetch = LAZY, cascade = REMOVE)
     private List<Document> documents;
 
     public Occurrence() {
@@ -103,7 +105,7 @@ public class Occurrence extends Versionable implements Serializable {
         return policy;
     }
 
-    public Policy getPolicyInstance(){
+    public Policy getPolicyInstance() {
         return PolicyManager.getPolicyByCode(this.policy);
     }
 
@@ -135,20 +137,20 @@ public class Occurrence extends Versionable implements Serializable {
         this.documents = documents;
     }
 
-    public String getExpertVat(){
-        if(expert==null)
+    public String getExpertVat() {
+        if (expert == null)
             return null;
         return expert.getVat();
     }
 
-    public String getRepairerVat(){
-        if(repairer==null)
+    public String getRepairerVat() {
+        if (repairer == null)
             return null;
         return repairer.getVat();
     }
 
-    public Long getServiceId(){
-        if(service==null)
+    public Long getServiceId() {
+        if (service == null)
             return null;
         return service.getId();
     }
@@ -162,34 +164,31 @@ public class Occurrence extends Versionable implements Serializable {
         this.documents.remove(document);
     }
 
-    public void approve(Expert expert){
-        if(this.status == Status.PENDING){
+    public void approve(Expert expert) {
+        if (this.status == Status.PENDING) {
             var pol = getPolicyInstance();
-            if(pol==null || pol.isRepairable())
+            if (pol == null || pol.isRepairable())
                 this.status = Status.APPROVED;
             else
                 this.status = Status.SOLVED;
             setExpert(expert);
-        }
-        else
+        } else
             throw new IllegalStateException("Occurrence is not pending");
     }
 
-    public void reject(Expert expert){
-        if(this.status == Status.PENDING){
+    public void reject(Expert expert) {
+        if (this.status == Status.PENDING) {
             this.status = Status.REJECTED;
             setExpert(expert);
-        }
-        else
+        } else
             throw new IllegalStateException("Occurrence is not pending");
     }
 
-    public void solve(Repairer repairer){
-        if(this.status == Status.REPAIRING){
+    public void solve(Repairer repairer) {
+        if (this.status == Status.REPAIRING) {
             this.status = Status.SOLVED;
             setRepairer(repairer);
-        }
-        else
+        } else
             throw new IllegalStateException("Occurrence is not repairing");
     }
 

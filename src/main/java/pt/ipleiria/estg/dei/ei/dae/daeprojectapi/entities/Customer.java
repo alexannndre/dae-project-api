@@ -8,6 +8,9 @@ import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.REMOVE;
+import static javax.persistence.FetchType.LAZY;
+
 @Entity
 @NamedQueries(value = {
         @NamedQuery(
@@ -16,7 +19,7 @@ import java.util.List;
         )
 })
 public class Customer extends User implements Serializable {
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer", fetch = LAZY, cascade = REMOVE)
     private List<Occurrence> occurrences;
 
     public Customer() {
