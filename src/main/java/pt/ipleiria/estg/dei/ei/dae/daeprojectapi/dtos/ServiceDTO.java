@@ -14,7 +14,6 @@ public class ServiceDTO implements Serializable {
     @NotNull
     private String name;
     
-    @NotNull
     private String email;
     
     @NotNull

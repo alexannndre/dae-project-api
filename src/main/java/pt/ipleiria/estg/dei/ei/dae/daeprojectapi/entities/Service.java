@@ -23,7 +23,6 @@ public class Service {
     @NotNull
     private String name;
 
-    @NotNull
     private String email;
 
     @NotNull
