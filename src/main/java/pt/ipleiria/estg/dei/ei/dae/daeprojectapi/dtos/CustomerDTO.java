@@ -2,20 +2,28 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Customer;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.security.PrivateKey;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class CustomerDTO implements Serializable {
-    private String vat, name, password, email;
+    @NotNull
+    private String vat;
+
+    @NotNull
+    private String name;
+
+    @NotNull
+    private String email;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(String vat, String name, String password, String email) {
+    public CustomerDTO(String vat, String name, String email) {
         this.vat = vat;
         this.name = name;
-        this.password = password;
         this.email = email;
     }
 
@@ -35,14 +43,6 @@ public class CustomerDTO implements Serializable {
         this.name = name;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -55,7 +55,6 @@ public class CustomerDTO implements Serializable {
         return new CustomerDTO(
                 customer.getVat(),
                 customer.getName(),
-                customer.getPassword(),
                 customer.getEmail()
         );
     }

@@ -1,7 +1,5 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ws;
 
-import com.opencsv.CSVReader;
-import jakarta.annotation.security.RolesAllowed;
 import org.apache.commons.io.IOUtils;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
@@ -14,16 +12,18 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.helpers.CsvHelper;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ejb.EJB;
 import javax.ejb.EJBTransactionRolledbackException;
-import javax.enterprise.inject.spi.Bean;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
-import java.io.*;
-import java.util.Arrays;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -34,14 +34,10 @@ import static javax.ws.rs.core.Response.Status.BAD_REQUEST;
 import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 
 @Path("occurrences")
-@Produces({APPLICATION_JSON})  // injects header “Content-Type: application/json”
-@Consumes({APPLICATION_JSON})  // injects header “Accept: application/json”
-//@Authenticated
-//@RolesAllowed({"Teacher", "Administrator"})
+@Produces({APPLICATION_JSON})
+@Consumes({APPLICATION_JSON})
+@Authenticated
 public class OccurrenceService {
-    //    @EJB
-//    private CustomerBean studentBean;
-
     @EJB
     private OccurrenceBean occurrenceBean;
 
@@ -60,36 +56,42 @@ public class OccurrenceService {
     }
 
     @GET
+    @RolesAllowed({"Administrator"})
     @Path("/")
     public List<OccurrenceDTO> all() {
         return occurrencesToDTOs(occurrenceBean.getAllOccurrences());
     }
 
     @GET
+    @RolesAllowed({"Administrator"})
     @Path("/status/{status}")
     public List<OccurrenceDTO> allByStatus(@PathParam("status") Status status) {
         return occurrencesToDTOs(occurrenceBean.getAllOccurrencesByStatus(status));
     }
 
     @GET
+    @RolesAllowed({"Administrator", "Expert"})
     @Path("pending")
     public List<OccurrenceDTO> pending() {
         return occurrencesToDTOs(occurrenceBean.getAllPendingOccurrences());
     }
 
     @GET
+    @RolesAllowed({"Administrator"})
     @Path("approved")
     public List<OccurrenceDTO> approved() {
         return occurrencesToDTOs(occurrenceBean.getAllApprovedOccurrences());
     }
 
     @GET
+    @RolesAllowed({"Administrator", "Repairer"})
     @Path("repairing")
     public List<OccurrenceDTO> repairing() {
         return occurrencesToDTOs(occurrenceBean.getAllRepairingOccurrences());
     }
 
     @GET
+    @RolesAllowed({"Administrator", "Customer", "Repairer", "Expert"})
     @Path("{id}")
     public Response get(@PathParam("id") Long id) {
         var occurrence = occurrenceBean.findOrFail(id);
@@ -97,6 +99,7 @@ public class OccurrenceService {
     }
 
     @GET
+    @RolesAllowed({"Administrator", "Customer", "Expert", "Repairer"})
     @Path("status")
     public List<StatusDTO> getStatus() {
         return statusesToDTOs(occurrenceBean.getAllStatus());
@@ -118,6 +121,7 @@ public class OccurrenceService {
     }
 
     @PATCH
+    @RolesAllowed({"Expert"})
     @Path("{id}/approve")
     public Response approve(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
         try {
@@ -129,6 +133,7 @@ public class OccurrenceService {
     }
 
     @PATCH
+    @RolesAllowed({"Expert"})
     @Path("{id}/reject")
     public Response reject(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
         try {
@@ -140,6 +145,7 @@ public class OccurrenceService {
     }
 
     @PATCH
+    @RolesAllowed({"Customer"})
     @Path("{id}/service")
     public Response chooseService(@PathParam("id") Long id, ServiceDTO serviceDTO) {
         try {
@@ -151,12 +157,14 @@ public class OccurrenceService {
     }
 
     @POST
+    @RolesAllowed({"Customer"})
     @Path("{id}/service")
     public Response chooseServiceAndCreate(@PathParam("id") Long id, ServiceDTO serviceDTO) {
         return chooseService(id, serviceDTO);
     }
 
     @PATCH
+    @RolesAllowed({"Repairer"})
     @Path("{id}/solve")
     public Response solve(@PathParam("id") Long id, OccurrenceDTO occurrenceDTO) {
         try {
@@ -169,14 +177,24 @@ public class OccurrenceService {
 
     // Documents
     @POST
-    @Path("{id}/documents")
     @Consumes(MULTIPART_FORM_DATA)
     @Produces(APPLICATION_JSON)
-    @Authenticated
+    @RolesAllowed({"Administrator", "Customer", "Repairer"})
+    @Path("{id}/documents")
     public Response uploadDoc(@PathParam("id") Long id, MultipartFormDataInput input) throws IOException {
-        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
         var vat = securityContext.getUserPrincipal().getName();
+        var occurrence = occurrenceBean.findOrFail(id);
+
+        if (!occurrence.getCustomer().getVat().equals(vat) && securityContext.isUserInRole("Customer"))
+            return Response.status(FORBIDDEN).build();
+
+        if (occurrence.getStatus() != Status.PENDING && securityContext.isUserInRole("Customer")) {
+            var msg = "You can't add a document to an occurrence that is not pending";
+            return Response.status(BAD_REQUEST).entity(new ErrorDTO(msg)).build();
+        }
+
+        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
 
         List<InputPart> inputParts = uploadForm.get("file");
 
@@ -270,33 +288,33 @@ public class OccurrenceService {
     @RolesAllowed({"Administrator"})
     public Response loadData(MultipartFormDataInput input) {
         List<OccurrenceDTO> list;
-        try{
-           list = CsvHelper.loadCsv(input, CsvHelper::toOccurrence);
-        }catch(Exception e){
+        try {
+            list = CsvHelper.loadCsv(input, CsvHelper::toOccurrence);
+        } catch (Exception e) {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
         }
 
-        int count=list.size(),success=0,fail=0;
+        int count = list.size(), success = 0, fail = 0;
 
-        if(count==0)
+        if (count == 0)
             return Response.status(BAD_REQUEST).entity(new ErrorDTO("No processable occurrences were found in that file")).build();
 
-        for (OccurrenceDTO occ : list){
-            try{
+        for (OccurrenceDTO occ : list) {
+            try {
                 occurrenceBean.create(occ);
                 success++;
-            }catch(EJBTransactionRolledbackException etre){
+            } catch (EJBTransactionRolledbackException etre) {
                 fail++;
             }
         }
 
         var msg = "";
-        if(fail==0)
+        if (fail == 0)
             msg = String.format("Success! Created %d new occurrences", count);
-        else if(success==0)
+        else if (success == 0)
             msg = String.format("Failed! None of the %d processed occurrences were created due to invalid id/vat(s)", count);
         else
-            msg = String.format("%d occurrences have been processed. %d were successfully created. Failed to import %d occurrences due to invalid id/vat(s)",count, success,fail);
+            msg = String.format("%d occurrences have been processed. %d were successfully created. Failed to import %d occurrences due to invalid id/vat(s)", count, success, fail);
         return Response.ok(msg).build();
     }
 

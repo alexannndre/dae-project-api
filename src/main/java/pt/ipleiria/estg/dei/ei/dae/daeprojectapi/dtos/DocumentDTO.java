@@ -10,13 +10,9 @@ import java.util.stream.Collectors;
 public class DocumentDTO implements Serializable {
     @NotNull
     private Long id;
-   
+
     @NotNull
     private String filename;
-
-//    private String filepath;
-
-//    private Long occurrenceId;
 
     public DocumentDTO() {
     }

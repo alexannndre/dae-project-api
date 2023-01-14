@@ -1,18 +1,27 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos;
 
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Service;
 
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ServiceDTO implements Serializable {
+    @NotNull
     private long id;
+    
+    @NotNull
     private String name;
+    
+    @NotNull
     private String email;
+    
+    @NotNull
     private String type;
+    
     private String creatorVat;
+    
     private boolean isOfficial;
 
     public ServiceDTO() {
@@ -82,7 +91,7 @@ public class ServiceDTO implements Serializable {
                 repairService.getEmail(),
                 repairService.getType(),
                 repairService.getCreatorVat(),
-                repairService.isOfficialService()
+                repairService.isOfficial()
         );
     }
 
