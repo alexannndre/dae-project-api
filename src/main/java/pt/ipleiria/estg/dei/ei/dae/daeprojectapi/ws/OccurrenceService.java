@@ -268,29 +268,7 @@ public class OccurrenceService {
     @Authenticated
     @RolesAllowed({"Administrator"})
     public Response loadData(MultipartFormDataInput input) throws IOException {
-        List<OccurrenceDTO> list;
-        try{
-           list = CsvHelper.loadCsv(input, CsvHelper::toOccurrence);
-        }catch(Exception e){
-            return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
-        }
 
-        int count=list.size(),created=0,updated=0;
-
-        if(count==0)
-            return Response.status(BAD_REQUEST).entity(new ErrorDTO("No processable occurrences were found in that file")).build();
-
-
-        for (OccurrenceDTO occ : list) {
-            if(occurrenceBean.find(occ.getId()) == null){
-                occurrenceBean.create(occ);
-                created++;
-            }else{
-                occurrenceBean.update(occ);
-                updated++;
-            }
-        }
-        return Response.ok(String.format("Success! Processed %d occurrences; Created %d new occurrences; Updated %d occurrences;", count, created, updated)).build();
     }
 
 }

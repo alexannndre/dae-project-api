@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class OccurrenceDTO implements Serializable {
+public class OccurrenceDTO implements Serializable, IdentifiableDTO<Long> {
     @NotNull
     private Long id;
 

@@ -22,16 +22,7 @@ import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 
 public class CsvHelper {
 
-    public static <T> List<T> loadCsv(MultipartFormDataInput input, Function<String[], T> from) throws Exception {
-
-        Map<String, List<InputPart>> uploadForm = input.getFormDataMap();
-
-        List<InputPart> inputParts = uploadForm.get("file");
-
-        if (inputParts == null) {
-            var msg = "The \"file\" field is required";
-            throw new Exception(msg);
-        }
+    public static <T> List<T> loadCsv(List<InputPart> inputParts, Function<String[], T> from) throws Exception {
         List<T> tStuff = new LinkedList<>();
         for (InputPart inputPart : inputParts) {
             var inputStream = inputPart.getBody(InputStream.class, null);
