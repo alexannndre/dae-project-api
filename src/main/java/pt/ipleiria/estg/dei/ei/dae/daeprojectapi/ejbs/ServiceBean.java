@@ -1,6 +1,7 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 
 import org.hibernate.Hibernate;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Service;
 
 import javax.ejb.Stateless;
@@ -12,6 +13,11 @@ import java.util.List;
 public class ServiceBean {
     @PersistenceContext
     private EntityManager em;
+
+    public void create(ServiceDTO servDto){
+        Service ss = this.create(servDto.getName(), servDto.getEmail(), servDto.getType(), servDto.isOfficial());
+        ss.setCreatorVat(servDto.getCreatorVat());
+    }
 
     public Service create(String name, String email, String type) {
         return create(name, email, type, true);

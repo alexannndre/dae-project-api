@@ -282,7 +282,6 @@ public class OccurrenceService {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO("No processable occurrences were found in that file")).build();
 
         for (OccurrenceDTO occ : list){
-            System.out.println(occ.getRepairerVat() + " " + occ.getCustomerVat());
             try{
                 occurrenceBean.create(occ);
                 success++;

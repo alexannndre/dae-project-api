@@ -153,15 +153,26 @@ Accept: application/json
 #### Uploads
 
 ### Upload Occurrences by CSV
-
-### Upload Document
 POST http://localhost:8080/daeproject/api/occurrences/upload
 Content-Type: multipart/form-data; boundary=boundary
-Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MjExODk2NTUiLCJpYXQiOjE2NzM3MjYyNzEsImV4cCI6MTY3MzcyOTg3MX0.gq_HD7RmgAJ-Y7o-Ob39mxlnou_b4ghzQcNVx5zMvwc
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MjExODk2NTUiLCJpYXQiOjE2NzM3MzEyODQsImV4cCI6MTY3MzczNDg4NH0.8XFxWeCl9skJ3Z2ExsdRGzW6s5X26LIb-BpndsoXgj0
 
 --boundary
 Content-Disposition: form-data; name="file"; filename="cenas.csv"
 
-< C:\csvtest\test.csv
+< C:\csvtest\occurrences.csv
+
+--boundary
+
+
+### Upload Services by CSV
+POST http://localhost:8080/daeproject/api/services/upload
+Content-Type: multipart/form-data; boundary=boundary
+Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MjExODk2NTUiLCJpYXQiOjE2NzM3MzEyODQsImV4cCI6MTY3MzczNDg4NH0.8XFxWeCl9skJ3Z2ExsdRGzW6s5X26LIb-BpndsoXgj0
+
+--boundary
+Content-Disposition: form-data; name="file"; filename="cenas.csv"
+
+< C:\csvtest\services.csv
 
 --boundary

@@ -6,6 +6,7 @@ import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.DocumentDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ErrorDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.enums.Status;
 
@@ -57,11 +58,18 @@ public class CsvHelper {
     public static OccurrenceDTO toOccurrence(String[] arr){
         if(arr.length < 4)
             throw new IllegalArgumentException("Every occurrence in the csv file must have at least 4 columns");
-        System.out.println(Arrays.toString(arr));
         return new OccurrenceDTO(-1L, arr[0], arr[1], Status.valueOf(arr[2]), arr[3],
                 isStringNull(arr, 4)?null:arr[4],
                 isStringNull(arr, 5)?null:Long.parseLong(arr[5]),
                 isStringNull(arr, 6)?null:arr[6]
         );
+    }
+
+    public static ServiceDTO toService(String[] arr){
+        if(arr.length < 3)
+            throw new IllegalArgumentException("Every service in the csv file must have at least 3 columns");
+        String customerVat = isStringNull(arr, 3)?null:arr[3];
+        boolean isOfficial = customerVat==null||(!isStringNull(arr, 4)&&Boolean.parseBoolean(arr[4]));
+        return new ServiceDTO(-1L, arr[0], arr[1], arr[2], customerVat,isOfficial);
     }
 }
