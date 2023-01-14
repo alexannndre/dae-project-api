@@ -315,7 +315,7 @@ public class OccurrenceService {
             msg = String.format("Failed! None of the %d processed occurrences were created due to invalid id/vat(s)", count);
         else
             msg = String.format("%d occurrences have been processed. %d were successfully created. Failed to import %d occurrences due to invalid id/vat(s)", count, success, fail);
-        return Response.ok(msg).build();
+        return Response.ok().entity(new UploadResultDTO(count, success, fail, msg)).build();
     }
 
 }

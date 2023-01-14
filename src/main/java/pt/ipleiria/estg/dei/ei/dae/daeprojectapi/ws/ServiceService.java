@@ -3,6 +3,7 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ws;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ErrorDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.UploadResultDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.ServiceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Service;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.helpers.CsvHelper;
@@ -77,6 +78,6 @@ public class ServiceService {
         else
             msg = String.format("%d services have been processed. %d were successfully created. Failed to import %d services due to invalid id/vat(s)", count, success, fail);
 
-        return Response.ok(msg).build();
+        return Response.ok().entity(new UploadResultDTO(count, success, fail, msg)).build();
     }
 }
