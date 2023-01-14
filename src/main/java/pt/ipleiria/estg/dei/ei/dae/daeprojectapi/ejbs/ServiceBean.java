@@ -21,12 +21,12 @@ public class ServiceBean {
     @PersistenceContext
     private EntityManager em;
 
-    public Service create(String name, String type) {
-        return create(name, type, true);
+    public Service create(String name, String email, String type) {
+        return create(name, email, type, true);
     }
 
-    public Service create(String name, String type, boolean isOfficial) {
-        var service = new Service(name, type, isOfficial);
+    public Service create(String name, String email, String type, boolean isOfficial) {
+        var service = new Service(name, email, type, isOfficial);
 
         em.persist(service);
         return service;

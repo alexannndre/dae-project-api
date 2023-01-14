@@ -3,7 +3,6 @@ package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs;
 import org.hibernate.Hibernate;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.ServiceDTO;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Document;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Expert;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.Occurrence;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status;
 
@@ -14,7 +13,7 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 import static javax.persistence.LockModeType.OPTIMISTIC;
-import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status.PENDING;
+import static pt.ipleiria.estg.dei.ei.dae.daeprojectapi.entities.enums.Status.*;
 
 @Stateless
 public class OccurrenceBean {
@@ -142,31 +141,31 @@ public class OccurrenceBean {
         var occurrence = findOrFail(id);
         em.lock(occurrence, OPTIMISTIC);
 
-        if(occurrence.getStatus()!=Status.APPROVED)
+        if (occurrence.getStatus() != APPROVED)
             throw new IllegalArgumentException("This occurrence is not approved for repair");
 
         var service = serviceBean.find(serviceDTO.getId());
         var pol = occurrence.getPolicyInstance();
 
-        if(service==null){
-            service = serviceBean.create(serviceDTO.getName(), pol.getType(), false);
+        if (service == null) {
+            service = serviceBean.create(serviceDTO.getName(), serviceDTO.getEmail(), pol.getType(), false);
             service.setCreatorVat(pol.getCustomer().getVat());
         }
 
-        if(!service.getType().equals(pol.getType()))
+        if (!service.getType().equals(pol.getType()))
             throw new IllegalArgumentException("This repair service is not compatible with this policy type");
 
         occurrence.setService(service);
-        occurrence.setStatus(Status.REPAIRING);
+        occurrence.setStatus(REPAIRING);
     }
 
     public void solve(Long id, String repairerVal) {
         var occurrence = findOrFail(id);
         em.lock(occurrence, OPTIMISTIC);
 
-        //if(occurrence.getStatus()!=Status.REPAIRING)
-            //throw new IllegalArgumentException("This occurrence is not repairing");
-        //A verificação acima já é realizada no occurrence.solve()
+        // if (occurrence.getStatus() != Status.REPAIRING)
+        //   throw new IllegalArgumentException("This occurrence is not repairing");
+        // A verificação acima já é realizada no occurrence.solve()
 
         var repairer = repairerBean.findOrFail(repairerVal);
         occurrence.solve(repairer);

@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public class ServiceDTO implements Serializable {
     private long id;
     private String name;
+    private String email;
     private String type;
     private String creatorVat;
     private boolean isOfficial;
@@ -17,9 +18,10 @@ public class ServiceDTO implements Serializable {
     public ServiceDTO() {
     }
 
-    public ServiceDTO(long id, String name, String type, String creatorVat, boolean isOfficial) {
+    public ServiceDTO(long id, String name, String email, String type, String creatorVat, boolean isOfficial) {
         this.id = id;
         this.name = name;
+        this.email = email;
         this.type = type;
         this.creatorVat = creatorVat;
         this.isOfficial = isOfficial;
@@ -57,6 +59,14 @@ public class ServiceDTO implements Serializable {
         this.name = name;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getType() {
         return type;
     }
@@ -69,6 +79,7 @@ public class ServiceDTO implements Serializable {
         return new ServiceDTO(
                 repairService.getId(),
                 repairService.getName(),
+                repairService.getEmail(),
                 repairService.getType(),
                 repairService.getCreatorVat(),
                 repairService.isOfficialService()

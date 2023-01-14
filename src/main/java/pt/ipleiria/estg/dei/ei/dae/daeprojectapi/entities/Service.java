@@ -24,6 +24,9 @@ public class Service {
     private String name;
 
     @NotNull
+    private String email;
+
+    @NotNull
     private String type;
 
     private String creatorVat;
@@ -34,8 +37,9 @@ public class Service {
     public Service() {
     }
 
-    public Service(String name, String type, boolean officialService) {
+    public Service(String name, String email, String type, boolean officialService) {
         this.name = name;
+        this.email = email;
         this.type = type;
         this.officialService = officialService;
     }
@@ -62,6 +66,14 @@ public class Service {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getType() {

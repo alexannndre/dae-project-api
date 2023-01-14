@@ -58,13 +58,13 @@ public class ConfigBean {
             adminBean.create("421189655", "Marco", "marco@email.com", "123456");
 
             // Services
-            serviceBean.create("Mech & Mech", "vehicle");
-            serviceBean.create("Oil Trooper", "vehicle");
-            serviceBean.create("Tire Smash", "vehicle");
-            serviceBean.create("Peter & Karl Home Repairs", "home");
-            serviceBean.create("Innov Renovations", "home");
-            serviceBean.create("Taj Repairs", "electronics");
-            serviceBean.create("Phony Johnny", "electronics");
+            serviceBean.create("Mech & Mech", "mechnmech@email.com", "vehicle");
+            serviceBean.create("Oil Trooper", "oiltrooper@email.com", "vehicle");
+            serviceBean.create("Tire Smash", "tiresmash@email.com", "vehicle");
+            serviceBean.create("Peter & Karl Home Repairs", "peternkarlhomerepairs@email.com", "home");
+            serviceBean.create("Innov Renovations", "innovrenovations@email.com", "home");
+            serviceBean.create("Taj Repairs", "tajrepairs@email.com", "electronics");
+            serviceBean.create("Phony Johnny", "phonyjohnny@email.com", "electronics");
 
             // Occurrences
             occurrenceBean.create("Occurrence 1", "65510", PENDING, "289910323");
