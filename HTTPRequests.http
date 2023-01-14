@@ -162,6 +162,6 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiI0MjExODk2NTUiLCJpYXQiOjE2N
 --boundary
 Content-Disposition: form-data; name="file"; filename="cenas.csv"
 
-< C:\csvtest\test1.csv
+< C:\csvtest\test.csv
 
 --boundary

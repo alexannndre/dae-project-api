@@ -15,6 +15,7 @@ import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.helpers.CsvHelper;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.security.Authenticated;
 
 import javax.ejb.EJB;
+import javax.ejb.EJBTransactionRolledbackException;
 import javax.enterprise.inject.spi.Bean;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -275,17 +276,29 @@ public class OccurrenceService {
             return Response.status(BAD_REQUEST).entity(new ErrorDTO(e.getMessage())).build();
         }
 
-        int count=list.size();
+        int count=list.size(),success=0,fail=0;
 
         if(count==0)
             return Response.status(BAD_REQUEST).entity(new ErrorDTO("No processable occurrences were found in that file")).build();
 
         for (OccurrenceDTO occ : list){
             System.out.println(occ.getRepairerVat() + " " + occ.getCustomerVat());
-            occurrenceBean.create(occ);
+            try{
+                occurrenceBean.create(occ);
+                success++;
+            }catch(EJBTransactionRolledbackException etre){
+                fail++;
+            }
         }
 
-        return Response.ok(String.format("Success! Created %d new occurrences", count)).build();
+        var msg = "";
+        if(fail==0)
+            msg = String.format("Success! Created %d new occurrences", count);
+        else if(success==0)
+            msg = String.format("Failed! None of the %d processed occurrences were created due to invalid id/vat(s)", count);
+        else
+            msg = String.format("%d occurrences have been processed. %d were successfully created. Failed to import %d occurrences due to invalid id/vat(s)",count, success,fail);
+        return Response.ok(msg).build();
     }
 
 }

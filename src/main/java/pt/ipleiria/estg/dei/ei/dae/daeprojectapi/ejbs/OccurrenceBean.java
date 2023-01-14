@@ -64,12 +64,18 @@ public class OccurrenceBean {
 
     public void create(String description, String policy, Status status, String customerVat, String expertVat, Long serviceId, String repairerVat) {
         var customer = customerBean.findOrFail(customerVat);
-        var expert = expertBean.findOrFail(expertVat);
+
         var occurrence = new Occurrence(description, policy, status, customer);
-        occurrence.setExpert(expert);
-        occurrence.setService(serviceBean.findOrFail(serviceId));
-        var repairer = repairerBean.findOrFail(repairerVat);
-        occurrence.setRepairer(repairer);
+        if(expertVat!=null){
+            var expert = expertBean.findOrFail(expertVat);
+            occurrence.setExpert(expert);
+        }
+        if(serviceId!=null)
+            occurrence.setService(serviceBean.findOrFail(serviceId));
+        if(repairerVat!=null){
+            var repairer = repairerBean.findOrFail(repairerVat);
+            occurrence.setRepairer(repairer);
+        }
         em.persist(occurrence);
         customer.addOccurrence(occurrence);
     }
