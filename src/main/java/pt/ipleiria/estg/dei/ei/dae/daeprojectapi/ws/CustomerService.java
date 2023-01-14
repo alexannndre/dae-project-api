@@ -1,15 +1,14 @@
 package pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ws;
 
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.CustomerDTO;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.OccurrenceDTO;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.PaginatedDTOs;
-import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.PolicyDTO;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.dtos.*;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.CustomerBean;
+import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.EmailBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.ejbs.OccurrenceBean;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.managers.PolicyManager;
 import pt.ipleiria.estg.dei.ei.dae.daeprojectapi.requests.PageRequest;
 
 import javax.ejb.EJB;
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Response;
@@ -28,6 +27,9 @@ public class CustomerService {
 
     @EJB
     private OccurrenceBean occurrenceBean;
+
+    @EJB
+    private EmailBean emailBean;
 
     @GET
     @Path("/")
@@ -83,4 +85,14 @@ public class CustomerService {
         var dto = OccurrenceDTO.from(occurrenceBean.findOrFail(occurrenceId));
         return Response.status(CREATED).entity(dto).build();
     }
+
+    // Emails
+    @POST
+    @Path("/{vat}/email/send")
+    public Response sendEmail(@PathParam("vat") String vat, EmailDTO emailDTO) throws MessagingException {
+        var customer = customerBean.findOrFail(vat);
+        emailBean.send(customer.getEmail(), emailDTO.getSubject(), emailDTO.getBody());
+        return Response.ok().build();
+    }
+
 }
