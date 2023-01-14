@@ -21,9 +21,6 @@ public class ServiceBean {
     @PersistenceContext
     private EntityManager em;
 
-    @EJB
-    RepairerBean repairerBean;
-
     public Service create(String name, String type) {
         return create(name, type, true);
     }

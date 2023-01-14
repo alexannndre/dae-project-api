@@ -53,7 +53,7 @@ public class CustomerService {
 
     @GET
     @Path("{vat}/policies")
-    public Response getByVat(@PathParam("vat") String vat) {
+    public Response getPolicies(@PathParam("vat") String vat) {
         return Response.ok(PolicyDTO.from(PolicyManager.getPoliciesByVat(vat))).build();
     }
 
