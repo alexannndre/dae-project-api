@@ -41,6 +41,7 @@ public class PolicyService {
     }
 
     @GET
+    @RolesAllowed({"Customer", "Repairer", "Expert"})
     @Path("{code}/occurrences")
     public Response getOccurrences(@PathParam("code") String code) {
         return Response.ok(OccurrenceDTO.from(occurrenceBean.getOccurrencesByPolicy(code))).build();
